@@ -1,12 +1,19 @@
+var fieldWidth = 400;
+var fieldHeight = 400;
+var backgroundColor = 200;
+var x = fieldWidth / 2;
+var y = 0;
+
 function setup() {
-  createCanvas(600, 400);
+    createCanvas(fieldWidth, fieldHeight);
+    background(backgroundColor);
 }
 
 function draw() {
-  rect(50, 50, 20, 20);
-  ellipse(100, 100, 20, 20);
+    drawSquare();
 }
 
 function drawSquare(){
-  
+    fill(255, 0, 0); 
+    rect(x, y, 20, 20);
 }
