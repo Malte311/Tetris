@@ -11,9 +11,10 @@ function setup() {
 
 function draw() {
     drawSquare();
+    point(Iterate);
 }
 
 function drawSquare(){
-    fill(255, 0, 0); 
+    fill(255, 0, 0);
     rect(x, y, 20, 20);
 }
