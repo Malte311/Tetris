@@ -1,20 +1,26 @@
-var fieldWidth = 400;
-var fieldHeight = 400;
-var backgroundColor = 200;
-var x = fieldWidth / 2;
-var y = 0;
+var breite = 300;
+var hoehe = 300;
 
 function setup() {
-    createCanvas(fieldWidth, fieldHeight);
-    background(backgroundColor);
+  createCanvas(breite, hoehe);
+  background(0);
 }
 
 function draw() {
-    drawSquare();
-    point(Iterate);
+  square();
 }
 
-function drawSquare(){
-    fill(255, 0, 0);
-    rect(x, y, 20, 20);
+function square(){
+  fill(255, 0, 0);
+  rect(100, 100, 20, 20);
+}
+
+function grid(){
+  var anzahlBloecke = 12;
+  var blockBreite = 20;
+  var seitenrand = (breite - (anzahlBloecke * blockBreite)) / 2;
+  fill(255);
+  for(var i = 0; i < spielfeldbreite; i++){
+    line(seitenrand, 0, seitenrand, hoehe);
+  }
 }
