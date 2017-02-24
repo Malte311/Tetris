@@ -1,0 +1,4 @@
+//Konstruktor Funktion
+function NormalesZ() {
+
+}
