@@ -11,13 +11,13 @@ function Steuerung(object) {
       //Bewegung nach links mit Pfeiltaste links oder a
       if (keyCode == LEFT_ARROW || keyCode == 65) {
         if (object.x > 0) {
-          object.x -= graphics.blockBreite;
+          object.x -= 1;
         }
       }
       //Bewegung nach rechts mit Pfeiltaste rechts oder d
       else if (keyCode == RIGHT_ARROW || keyCode == 68) {
-        if (object.x < width - 2 * graphics.blockBreite) {
-          object.x += graphics.blockBreite;
+        if (object.x <= graphics.bloeckeProZeile - object.breite - 1) {
+          object.x += 1;
         }
       }
       //Block schnell runter fallen lassen mit Pfeiltaste unten oder s
@@ -32,26 +32,26 @@ function Steuerung(object) {
   }
   //Funktion, die dafuer sorgt, dass das Objekt faellt
   this.gravity = function() {
-    if (object.y < height - object.hoehe) {
-      graphics.gridArray[object.y][object.x] = 0;
-      graphics.gridArray[object.y + 1][object.x] = 1;
+    if (object.y < graphics.bloeckeProSpalte - object.hoehe) {
+      object.y += 0.03;
     }
   }
   //Funktion zum schnellen Fallenlassen eines Objektes
   this.freierFall = function() {
-    for (var i = 0; i < graphics.bloeckeProSpalte; i++) {
-      if (graphics.gridArray[i][object.x])
-
+    for (var i = object.y; i < graphics.bloeckeProSpalte - object.hoehe; i++) {
+      //if (graphics.gridArray[i][object.x] !== 0) {
+        object.y = 18;
+      //}
     }
   }
   //Funktion zum Testen ob eine Zeile voll ist
   this.reiheVoll = function() {
     for (var i = 0; i < graphics.bloeckeProSpalte; i++) {
       for (j = 0; j < graphics.bloeckeProZeile; j++) {
-        if (graphics.gridArray[i][j] == 0) {
-          break;
+        if (graphics.gridArray[i][j] != 0) {
+          continue;
         }
-        if (graphics.gridArray[i][j] != 0){
+        if (graphics.gridArray[i][graphics.bloeckeProZeile - 1] != 0) {
           graphics.deleteVolleReihe(i);
         }
       }

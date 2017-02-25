@@ -42,7 +42,8 @@ function GUI() {
   this.deleteVolleReihe = function(index) {
     for (var i = 0; i < this.bloeckeProZeile; i++) {
 
-      this.gridArray[index][i] = 0;
+      //funktioniert vorne und hinten nicht
+      //this.gridArray[index][i] = 0;
     }
     //alle Reihen darueber fallen nun runter
 
@@ -58,6 +59,9 @@ function GUI() {
             case 1:
               fill(255, 255, 0);
               break;
+            case 2:
+            fill(255);
+            break;
           }
           stroke(0);
           rect(j * this.blockBreite, i * this.blockHoehe, this.blockBreite, this.blockHoehe);
