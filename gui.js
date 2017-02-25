@@ -1,49 +1,68 @@
 //Konstrutor Funktion
 function GUI() {
 
-  //Funkton fuer die Sidebar rechts
-  this.sideMenu = function() {
-    fill(255);
-    textSize(28);
-    //aktuelle Scoreanzeige
-    text("Score", width - seitenrand + blockBreite, 1.25 * blockHoehe);
-    text(aktuellerScore, width - seitenrand + 1.25 * blockBreite, 3 * blockHoehe);
-    //Highscoreanzeige
-    text("Best", width - seitenrand + 1.25 * blockBreite, 4.75 * blockHoehe);
-    text(highscore, width - seitenrand + 1.25 * blockBreite, 6.5 * blockHoehe);
-    //Buttons zum Veraendern der Spielgeschwindigkeit und Pausebutton
-    rect(width - seitenrand + blockBreite, 8 * blockHoehe, 75, 50);
-    rect(width - seitenrand + blockBreite, 11 * blockHoehe, 75, 50);
-    rect(width - seitenrand + blockBreite, 14 * blockHoehe, 75, 50);
-    fill(0);
-    stroke(0);
-    text(">>", width - seitenrand + blockBreite + 22, 8 * blockHoehe + 36);
-    text("<<", width - seitenrand + blockBreite + 22, 11 * blockHoehe + 36);
-    if (running) {
-      textSize(88);
-      text("\"", width - seitenrand + blockBreite + 22, 16 * blockHoehe + 36);
-    }
-    else {
-      textSize(60);
-      text(">", width - seitenrand + blockBreite + 20, 15 * blockHoehe + 25);
-    }
+  //Variablen vom Graphical User Interface
+  this.score = 0;
+  this.blockBreite = 22;
+  this.blockHoehe = this.blockBreite;
+  this.bloeckeProZeile = 12;
+  this.bloeckeProSpalte = 20;
+  this.gridArray = [this.bloeckeProSpalte];
+
+  //Funkton fuer die Scoreanzeige und Play Again Button
+  this.anzeige = function() {
+
   }
 
   //Funktion zum Zeichnen des Grids
   this.grid = function() {
-    //Zeichnet die vertikalen Linien
-    for (var i = 0; i <= anzahlBloecke; i++) {
-      //weiße Linien
-      stroke(255);
-      line(seitenrand + i * blockBreite, 0, seitenrand + i * blockBreite, height);
-    }
-
-    //Zeichnet die horizontalen Linien
-    for (var i = 0; i <= height / blockHoehe; i++) {
-      //weiße Linien
-      stroke(255);
-      line(seitenrand, i * blockHoehe, width - seitenrand, i * blockHoehe);
+    //Grid zeichnen
+    stroke(255);
+    noFill();
+    for (var i = 0; i < this.bloeckeProSpalte; i++) {
+      for (var j = 0; j < this.bloeckeProZeile; j++) {
+        rect(j * this.blockBreite, i * this.blockHoehe, this.blockBreite, this.blockHoehe);
       }
+    }
   }
 
+  //Funktion zum Fuellen des Arrays
+  this.fillArray = function() {
+    //Zweidimensionales Array erstellen
+    for (var i = 0; i < this.bloeckeProSpalte; i++) {
+      this.gridArray[i] = new Array(this.bloeckeProZeile);
+    }
+    for (var i = 0; i < this.bloeckeProSpalte; i++) {
+      for (var j = 0; j < this.bloeckeProZeile; j++) {
+        this.gridArray[i][j] = 0;
+      }
+    }
+  }
+  //Funktion zum Entfernen einer vollen Zeile
+  this.deleteVolleReihe = function(index) {
+    for (var i = 0; i < this.bloeckeProZeile; i++) {
+
+      this.gridArray[index][i] = 0;
+    }
+    //alle Reihen darueber fallen nun runter
+
+  }
+  //Funktion zum Zeichnen der Objekte
+  this.drawObjects = function() {
+    for (var i = 0; i < this.bloeckeProSpalte; i++) {
+      for (var j = 0; j < this.bloeckeProZeile; j++) {
+        if (this.gridArray[i][j] != 0) {
+          //Switch Statement fuer die Farbwahl
+          switch (this.gridArray[i][j]) {
+            //Erster Fall ist Square (gelb)
+            case 1:
+              fill(255, 255, 0);
+              break;
+          }
+          stroke(0);
+          rect(j * this.blockBreite, i * this.blockHoehe, this.blockBreite, this.blockHoehe);
+        }
+      }
+    }
+  }
 }
