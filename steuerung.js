@@ -7,7 +7,7 @@ function Steuerung(object) {
       running = !running;
     }
     //Steuerung nur moeglich, wenn Spiel laeuft
-    if (running) {
+    if (running && object.isMoving) {
       //Bewegung nach links mit Pfeiltaste links oder a
       if (keyCode == LEFT_ARROW || keyCode == 65) {
         if (object.x > 0) {

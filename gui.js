@@ -59,8 +59,9 @@ function GUI() {
             case 1:
               fill(255, 255, 0);
               break;
+            //Zweiter Fall ist normalesI (tuerkis)  
             case 2:
-            fill(255);
+            fill(0, 206, 209);
             break;
           }
           stroke(0);

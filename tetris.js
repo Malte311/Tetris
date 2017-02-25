@@ -13,11 +13,13 @@ function setup() {
   graphics = new GUI();
   graphics.fillArray();
   createCanvas(graphics.blockBreite * graphics.bloeckeProZeile, graphics.blockHoehe * graphics.bloeckeProSpalte);
-
   blockObjekt = new Square();
 }
 
 function draw() {
+  if (!blockObjekt.isMoving) {
+    blockObjekt = new Square();
+  }
   controller = new Steuerung(blockObjekt);
   blockObjekt.display();
   background(0);
