@@ -22,6 +22,7 @@ function draw() {
   if (!blockObjekt.isMoving) {
     createNewObject();
   }
+  //Die Steuerung wird jedes Mal neu erzeugt, da sich das zu steuernde Element aendern kann
   controller = new Steuerung(blockObjekt);
   background(0);
   graphics.grid();
@@ -30,8 +31,7 @@ function draw() {
   if (running) {
     controller.gravity();
   }
-  //controller.reiheVoll();
-  controller.checkIfPlayerLost();
+  controller.reiheVoll();
 }
 //Funktion fuer Tastatureingaben, wird eine Taste gedrueckt, so wird die Steuerung ausgefuehrt
 function keyPressed() {
@@ -39,31 +39,39 @@ function keyPressed() {
 }
 //Funktion zum Erzeugen von neuen Objekten (Objektart per Zufall ausgewaehlt)
 function createNewObject() {
-  //Randomzahl erzeugen (0 inklusive, 7 exklusive), die immer abgerundet wird 
-  var randomNumber = floor(random(0,7));
-  //Per Zufall bestimmen, welcher Block als naechstes kommt
-  // switch (randomNumber) {
-  //   case 0:
-  //     blockObjekt = new Square();
-  //     break;
-  //   case 1:
-  //     blockObjekt = new GedrehtesL();
-  //     break;
-  //   case 2:
-  //     blockObjekt = new GedrehtesZ();
-  //     break;
-  //   case 3:
-  //     blockObjekt = new NormalesI();
-  //     break;
-  //   case 4:
-  //     blockObjekt = new NormalesL();
-  //     break;
-  //   case 5:
-  //     blockObjekt = new NormalesT();
-  //     break;
-  //   case 6:
-  //     blockObjekt = new NormalesZ();
-  //     break;
-  // }
-  blockObjekt = new Square();
+  //Bedingung pruefen, ob Platz ist, um ein neues Objekt zu erzeugen
+  if (!(graphics.gridArray[0][graphics.bloeckeProZeile / 2 - 1] < 0) && !(graphics.gridArray[0][graphics.bloeckeProZeile / 2] < 0) &&
+  !(graphics.gridArray[1][graphics.bloeckeProZeile / 2 - 1] < 0) && !(graphics.gridArray[1][graphics.bloeckeProZeile / 2] < 0)) {
+    //Randomzahl erzeugen (0 inklusive, 7 exklusive), die immer abgerundet wird
+    var randomNumber = floor(random(0,7));
+    //Per Zufall bestimmen, welcher Block als naechstes kommt
+    // switch (randomNumber) {
+    //   case 0:
+    //     blockObjekt = new Square();
+    //     break;
+    //   case 1:
+    //     blockObjekt = new GedrehtesL();
+    //     break;
+    //   case 2:
+    //     blockObjekt = new GedrehtesZ();
+    //     break;
+    //   case 3:
+    //     blockObjekt = new NormalesI();
+    //     break;
+    //   case 4:
+    //     blockObjekt = new NormalesL();
+    //     break;
+    //   case 5:
+    //     blockObjekt = new NormalesT();
+    //     break;
+    //   case 6:
+    //     blockObjekt = new NormalesZ();
+    //     break;
+    // }
+    blockObjekt = new Square();
+  }
+  else {
+    running = false;
+    graphics.gameOver();
+  }
 }

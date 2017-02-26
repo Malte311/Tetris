@@ -40,13 +40,11 @@ function GUI() {
   }
   //Funktion zum Entfernen einer vollen Zeile
   this.deleteVolleReihe = function(index) {
-    for (var i = 0; i < this.bloeckeProZeile; i++) {
-
-      //funktioniert vorne und hinten nicht
-      //this.gridArray[index][i] = 0;
+    for (var i = 0; i < graphics.bloeckeProZeile; i++) {
+      graphics.gridArray[index][i] = 0;
+      this.updateScore();
+      this.updateRows();
     }
-    //alle Reihen darueber fallen nun runter
-
   }
   //Funktion zum Zeichnen der Objekte
   this.drawObjects = function() {
@@ -55,6 +53,10 @@ function GUI() {
         if (this.gridArray[i][j] != 0) {
           //Switch Statement fuer die Farbwahl
           switch (this.gridArray[i][j]) {
+            //Zweiter Fall ist NormalesI (tuerkis) (Stein bereits fest)
+            case -2:
+              fill(0, 255, 255);
+              break;
             //Erster Fall ist Square (gelb) (Stein bereits fest)
             case -1:
               fill(255, 255, 0);
@@ -63,9 +65,9 @@ function GUI() {
             case 1:
               fill(255, 255, 0);
               break;
-            //Zweiter Fall ist normalesI (tuerkis) (Stein bewegt sich)
+            //Zweiter Fall ist NormalesI (tuerkis) (Stein bewegt sich)
             case 2:
-            fill(0, 206, 209);
+            fill(0, 255, 255);
             break;
           }
           stroke(0);
@@ -80,6 +82,27 @@ function GUI() {
       for (var j = 0; j < this.bloeckeProZeile; j++) {
         if (this.gridArray[i][j] > 0) {
           this.gridArray[i][j] = 0;
+        }
+      }
+    }
+  }
+  //Funktion zum Play Again (Game Over Screen)
+  this.gameOver = function() {
+    //Score anzeigen, Play again fragen, wenn ja dann folgendes:
+    //setup();
+    //running = true;
+  }
+  //Funktion zum Updaten der Scoreanzeige
+  this.updateScore = function() {
+    this.score += this.bloeckeProZeile;
+  }
+  //Funktion zum Runterfallen von Steinen, die in der Luft schweben wuerden, wenn eine Reihe geloescht wird
+  this.updateRows = function() {
+    for (var i = 0; i < graphics.bloeckeProSpalte - 1; i++) {
+      for (j = 0; j < graphics.bloeckeProZeile; j++) {
+        if (graphics.gridArray[i][j] < 0 && !(graphics.gridArray[i + 1][j] < 0)) {
+          graphics.gridArray[i + 1][j] = graphics.gridArray[i][j];
+          graphics.gridArray[i][j] = 0;
         }
       }
     }

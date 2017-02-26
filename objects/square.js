@@ -1,7 +1,7 @@
 //Konstruktor Funktion
 function Square() {
   //Position bestehend aus x Wert und y Wert
-  this.x = 5;
+  this.x = graphics.bloeckeProZeile / 2 - 1;
   this.y = 0;
   this.farbCode = 1;
   this.platziert = -1;
@@ -10,6 +10,7 @@ function Square() {
   this.hoehe =  2;
   this.breite = 2;
   //Funktion zum Anzeigen
+  //bewegt sich der Block noch, wird dies ausgefuehrt
   this.display = function() {
     if (this.isMoving && this.y + this.hoehe < graphics.bloeckeProSpalte) {
       graphics.gridArray[round(this.y)][this.x] = this.farbCode;
@@ -17,11 +18,12 @@ function Square() {
       graphics.gridArray[round(this.y + 1)][this.x] = this.farbCode;
       graphics.gridArray[round(this.y + 1)][this.x + 1] = this.farbCode;
     }
+    //bewegt sich der Block nicht mehr oder kommt ganz unten an wird dies ausgefuehrt
     else {
-      graphics.gridArray[round(this.y)][this.x] = -1;
-      graphics.gridArray[round(this.y)][this.x + 1] = -1;
-      graphics.gridArray[round(this.y + 1)][this.x] = -1;
-      graphics.gridArray[round(this.y + 1)][this.x + 1] = -1;
+      graphics.gridArray[round(this.y)][this.x] = this.platziert;
+      graphics.gridArray[round(this.y)][this.x + 1] = this.platziert;
+      graphics.gridArray[round(this.y + 1)][this.x] = this.platziert;
+      graphics.gridArray[round(this.y + 1)][this.x + 1] = this.platziert;
       this.isMoving = false;
     }
   }
