@@ -52,6 +52,7 @@ function NormalesI() {
   //Funktion zum Drehen
   this.drehen = function() {
     var tauschen = this.hoehe;
+    //Wenn es senkrecht ist, wird es quer gedreht
     if (this.senkrecht) {
       if (graphics.gridArray[round(this.y)][this.x - 2] == 0 && graphics.gridArray[round(this.y)][this.x - 1] == 0 &&
       graphics.gridArray[round(this.y)][this.x + 1] == 0) {
@@ -62,8 +63,15 @@ function NormalesI() {
         this.senkrecht = !this.senkrecht;
       }
     }
+    //Wenn es quer liegt wird es senkrecht gedreht
     else {
-
+      if (graphics.gridArray[round(this.y + 1)][this.x + 2] == 0 && graphics.gridArray[round(this.y + 2)][this.x + 2] == 0) {
+        this.x = this.x + 2;
+        this.y = this.y - 1;
+        this.hoehe = this.breite;
+        this.breite = tauschen;
+        this.senkrecht = !this.senkrecht;
+      }
     }
   }
   //Funktion zum schnellen Fallenlassen eines Objektes
