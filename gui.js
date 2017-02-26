@@ -42,8 +42,8 @@ function GUI() {
   this.deleteVolleReihe = function(index) {
     for (var i = 0; i < graphics.bloeckeProZeile; i++) {
       graphics.gridArray[index][i] = 0;
-      this.updateScore();
       this.updateRows();
+      this.updateScore();
     }
   }
   //Funktion zum Zeichnen der Objekte
@@ -128,13 +128,16 @@ function GUI() {
   }
   //Funktion zum Play Again (Game Over Screen)
   this.gameOver = function() {
+    console.log("Spiel zu Ende");
     //Score anzeigen, Play again fragen, wenn ja dann folgendes:
     //setup();
     //running = true;
   }
   //Funktion zum Updaten der Scoreanzeige
   this.updateScore = function() {
-    this.score += this.bloeckeProZeile;
+    this.score += 1;
+    //Score in der Console ausgeben
+    console.log(this.score);
   }
   //Funktion zum Runterfallen von Steinen, die in der Luft schweben wuerden, wenn eine Reihe geloescht wird
 

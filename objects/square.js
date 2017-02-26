@@ -40,7 +40,7 @@ function Square() {
         break;
       }
       else {
-        this.y = 18;
+        this.y = graphics.bloeckeProSpalte - this.hoehe;
         this.isMoving = false;
       }
     }
@@ -52,7 +52,7 @@ function Square() {
         this.y += controller.speed;
       }
       else {
-        object.isMoving = false;
+        this.isMoving = false;
       }
     }
   }
@@ -70,6 +70,16 @@ function Square() {
       if (!(graphics.gridArray[round(this.y)][this.x - 1] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x - 1] < 0)) {
         this.x -= 1;
       }
+    }
+  }
+  //Funktion zum Pruefen, ob ausreichend Platz ist, um das Objekt zu erzeugen
+  this.createNewObjectIsPossible = function() {
+    if (!(graphics.gridArray[0][this.x] < 0) && !(graphics.gridArray[0][this.x + 1] < 0) &&
+    !(graphics.gridArray[1][this.x] < 0) && !(graphics.gridArray[1][this.x + 1] < 0)) {
+      return true;
+    }
+    else {
+      return false;
     }
   }
 }

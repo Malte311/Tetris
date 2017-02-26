@@ -8,6 +8,8 @@ var running = false;
 var controller;
 //Variable fuer das Blockobjekt
 var blockObjekt;
+//Variale fuer das naechste Blockobjekt
+var naechstesObjekt;
 //Setup Funktion, wird ein mal zu Beginn ausgefuehrt
 function setup() {
   graphics = new GUI();
@@ -39,39 +41,65 @@ function keyPressed() {
 }
 //Funktion zum Erzeugen von neuen Objekten (Objektart per Zufall ausgewaehlt)
 function createNewObject() {
+  nextObject();
   //Bedingung pruefen, ob Platz ist, um ein neues Objekt zu erzeugen
-  if (!(graphics.gridArray[0][graphics.bloeckeProZeile / 2 - 1] < 0) && !(graphics.gridArray[0][graphics.bloeckeProZeile / 2] < 0) &&
-  !(graphics.gridArray[1][graphics.bloeckeProZeile / 2 - 1] < 0) && !(graphics.gridArray[1][graphics.bloeckeProZeile / 2] < 0)) {
+  if (naechstesObjekt.createNewObjectIsPossible()) {
     //Randomzahl erzeugen (0 inklusive, 7 exklusive), die immer abgerundet wird
-    var randomNumber = floor(random(0,7));
-    //Per Zufall bestimmen, welcher Block als naechstes kommt
-    // switch (randomNumber) {
-    //   case 0:
-    //     blockObjekt = new Square();
-    //     break;
-    //   case 1:
-    //     blockObjekt = new GedrehtesL();
-    //     break;
-    //   case 2:
-    //     blockObjekt = new GedrehtesZ();
-    //     break;
-    //   case 3:
-    //     blockObjekt = new NormalesI();
-    //     break;
-    //   case 4:
-    //     blockObjekt = new NormalesL();
-    //     break;
-    //   case 5:
-    //     blockObjekt = new NormalesT();
-    //     break;
-    //   case 6:
-    //     blockObjekt = new NormalesZ();
-    //     break;
-    // }
-    blockObjekt = new Square();
+    var randomNumber = floor(random(0,2));
+    // Per Zufall bestimmen, welcher Block als naechstes kommt
+    switch (randomNumber) {
+      case 0:
+        blockObjekt = new Square();
+        break;
+      case 1:
+        blockObjekt = new NormalesI();
+        break;
+      case 2:
+        blockObjekt = new GedrehtesZ();
+        break;
+      case 3:
+        blockObjekt = new GedrehtesL();
+        break;
+      case 4:
+        blockObjekt = new NormalesL();
+        break;
+      case 5:
+        blockObjekt = new NormalesT();
+        break;
+      case 6:
+        blockObjekt = new NormalesZ();
+        break;
+    }
   }
   else {
     running = false;
     graphics.gameOver();
+  }
+}
+//Funktion zum bestimmen, welches Objekt als naechstes kommt
+function nextObject() {
+  var randomNumber = floor(random(0, 2));
+  switch (randomNumber) {
+    case 0:
+      naechstesObjekt = new Square();
+      break;
+    case 1:
+      naechstesObjekt = new NormalesI();
+      break;
+    case 2:
+      naechstesObjekt = new GedrehtesZ();
+      break;
+    case 3:
+      naechstesObjekt = new GedrehtesL();
+      break;
+    case 4:
+      naechstesObjekt = new NormalesL();
+      break;
+    case 5:
+      naechstesObjekt = new NormalesT();
+      break;
+    case 6:
+      naechstesObjekt = new NormalesZ();
+      break;
   }
 }
