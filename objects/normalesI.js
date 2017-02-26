@@ -2,6 +2,6 @@
 function NormalesI() {
 
   //Postionswerte dieses Objektes
-  this.x = 
+  this.x = 0;
   this.y = 0;
 }

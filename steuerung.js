@@ -33,7 +33,12 @@ function Steuerung(object) {
   //Funktion, die dafuer sorgt, dass das Objekt faellt
   this.gravity = function() {
     if (object.y < graphics.bloeckeProSpalte - object.hoehe) {
-      object.y += 0.03;
+      if (graphics.gridArray[round(object.y + object.hoehe)][object.x] == 0) {
+        object.y += 0.03;
+      }
+      else {
+        object.isMoving = false;
+      }
     }
   }
   //Funktion zum schnellen Fallenlassen eines Objektes
@@ -56,5 +61,9 @@ function Steuerung(object) {
         }
       }
     }
+  }
+  //Funktion zum Testen, ob der Spieler verloren hat
+  this.checkIfPlayerLost = function() {
+    
   }
 }
