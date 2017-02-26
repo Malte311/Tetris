@@ -31,4 +31,45 @@ function Square() {
   this.drehen = function() {
     //tut nichts, da ein Quadrat gedreht gleich bleibt
   }
+  //Funktion zum schnellen Fallenlassen eines Objektes
+  this.freierFall = function() {
+    for (var i = floor(this.y); i < graphics.bloeckeProSpalte; i++) {
+      if (graphics.gridArray[i][this.x] < 0 || graphics.gridArray[i][this.x + 1] < 0) {
+        this.y = i - this.hoehe;
+        this.isMoving = false;
+        break;
+      }
+      else {
+        this.y = 18;
+        this.isMoving = false;
+      }
+    }
+  }
+  //Funktion fuer das automatische runterfallen
+  this.gravity = function() {
+    if (this.y < graphics.bloeckeProSpalte - this.hoehe) {
+      if (graphics.gridArray[floor(this.y + this.hoehe)][this.x] == 0 && graphics.gridArray[floor(this.y + this.hoehe)][this.x + 1] == 0) {
+        this.y += controller.speed;
+      }
+      else {
+        object.isMoving = false;
+      }
+    }
+  }
+  //Funktion zum Bewegen nach rechts
+  this.bewegungRechts = function() {
+    if (this.x <= graphics.bloeckeProZeile - this.breite - 1) {
+      if (!(graphics.gridArray[round(this.y)][this.x + this.breite] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x + this.breite] < 0)) {
+        this.x += 1;
+      }
+    }
+  }
+  //Funktion zum Bewegen nach links
+  this.bewegungLinks = function() {
+    if (this.x > 0) {
+      if (!(graphics.gridArray[round(this.y)][this.x - 1] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x - 1] < 0)) {
+        this.x -= 1;
+      }
+    }
+  }
 }

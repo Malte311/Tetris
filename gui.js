@@ -53,6 +53,26 @@ function GUI() {
         if (this.gridArray[i][j] != 0) {
           //Switch Statement fuer die Farbwahl
           switch (this.gridArray[i][j]) {
+            //Siebter Fall ist NormalesL (orange) (Stein bereits fest)
+            case -7:
+              fill(255, 128, 0);
+              break;
+            //Sechster Fall ist NormalesZ (rot) (Stein bereits fest)
+            case -6:
+              fill(255, 0, 0);
+              break;
+            //Fuenfter Fall ist GedrehtesZ (gruen) (Stein bereits fest)
+            case -5:
+              fill(0, 255, 0);
+              break;
+            //Vierter Fall ist GedrehtesL (blau) (Stein bereits fest)
+            case -4:
+              fill(0, 0, 255);
+              break;
+            //Dritter Fall ist NormalesT (lila) (Stein bereits fest)
+            case -3:
+              fill(255, 0, 255);
+              break;
             //Zweiter Fall ist NormalesI (tuerkis) (Stein bereits fest)
             case -2:
               fill(0, 255, 255);
@@ -67,8 +87,28 @@ function GUI() {
               break;
             //Zweiter Fall ist NormalesI (tuerkis) (Stein bewegt sich)
             case 2:
-            fill(0, 255, 255);
-            break;
+              fill(0, 255, 255);
+              break;
+            //Dritter Fall ist NormalesT (lila) (Stein bewegt sich)
+            case 3:
+              fill(255, 0, 255);
+              break;
+            //Vierter Fall ist GedrehtesL (blau) (Stein bewegt sich)
+            case 4:
+              fill(0, 0, 255);
+              break;
+            //Fuenfter Fall ist GedrehtesZ (gruen) (Stein bewegt sich)
+            case 5:
+              fill(0, 255, 0);
+              break;
+            //Sechster Fall ist NormalesZ (rot) (Stein bewegt sich)
+            case 6:
+              fill(255, 0, 0);
+              break;
+            //Siebter Fall ist NormalesL (orange) (Stein bewegt sich)
+            case 7:
+              fill(255, 128, 0);
+              break;
           }
           stroke(0);
           rect(j * this.blockBreite, i * this.blockHoehe, this.blockBreite, this.blockHoehe);
@@ -97,6 +137,8 @@ function GUI() {
     this.score += this.bloeckeProZeile;
   }
   //Funktion zum Runterfallen von Steinen, die in der Luft schweben wuerden, wenn eine Reihe geloescht wird
+
+  //funktioniert noch nicht korrekt
   this.updateRows = function() {
     for (var i = 0; i < graphics.bloeckeProSpalte - 1; i++) {
       for (j = 0; j < graphics.bloeckeProZeile; j++) {
