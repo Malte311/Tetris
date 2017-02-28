@@ -145,7 +145,7 @@ function GUI() {
   this.updateRows = function() {
     for (var i = 0; i < graphics.bloeckeProSpalte - 1; i++) {
       for (j = 0; j < graphics.bloeckeProZeile; j++) {
-        if (graphics.gridArray[i][j] < 0 && !(graphics.gridArray[i + 1][j] < 0)) {
+        if (graphics.gridArray[i][j] < 0 && graphics.gridArray[i + 1][j] == 0) {
           graphics.gridArray[i + 1][j] = graphics.gridArray[i][j];
           graphics.gridArray[i][j] = 0;
         }

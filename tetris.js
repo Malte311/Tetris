@@ -45,7 +45,7 @@ function createNewObject() {
   //Bedingung pruefen, ob Platz ist, um ein neues Objekt zu erzeugen
   if (naechstesObjekt.createNewObjectIsPossible()) {
     //Randomzahl erzeugen (0 inklusive, 7 exklusive), die immer abgerundet wird
-    var randomNumber = floor(random(0,2));
+    var randomNumber = floor(random(0,3));
     // Per Zufall bestimmen, welcher Block als naechstes kommt
     switch (randomNumber) {
       case 0:
@@ -78,7 +78,7 @@ function createNewObject() {
 }
 //Funktion zum bestimmen, welches Objekt als naechstes kommt
 function nextObject() {
-  var randomNumber = floor(random(0, 2));
+  var randomNumber = floor(random(0, 3));
   switch (randomNumber) {
     case 0:
       naechstesObjekt = new Square();
