@@ -72,7 +72,7 @@ function GedrehtesZ() {
   }
   //Funktion zum schnellen Fallenlassen eines Objektes
   this.freierFall = function() {
-    for (var i = floor(this.y); i < graphics.bloeckeProSpalte - 1; i++) {
+    for (var i = floor(this.y); i < graphics.bloeckeProSpalte; i++) {
       //wenn der Stein senkrecht steht
       if (this.senkrecht) {
          if (graphics.gridArray[i][this.x + 1] < 0) {
@@ -144,16 +144,15 @@ function GedrehtesZ() {
     //Wenn der Stein senkrecht ist
     if (this.senkrecht) {
       if (this.x + 1 <= graphics.bloeckeProZeile - this.breite) {
-        if (!(graphics.gridArray[round(this.y)][this.x + this.breite] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x + this.breite] < 0) &&
-        !(graphics.gridArray[round(this.y + 2)][this.x + this.breite] < 0) && !(graphics.gridArray[round(this.y + 3)][this.x + this.breite] < 0)) {
+        if (!(graphics.gridArray[round(this.y + 1)][this.x + this.breite] < 0) && !(graphics.gridArray[round(this.y + 2)][this.x + this.breite] < 0) && !(graphics.gridArray[round(this.y)][this.x + 1] < 0)) {
           this.x += 1;
         }
       }
     }
     //Wenn der Stein quer liegt
     else {
-      if (this.x <= graphics.bloeckeProZeile - this.breite - 1) {
-        if (!(graphics.gridArray[round(this.y)][this.x + this.breite] < 0)) {
+      if (this.x <= graphics.bloeckeProZeile - this.breite) {
+        if (!(graphics.gridArray[floor(this.y)][this.x + 2] < 0) && !(graphics.gridArray[floor(this.y + 1)][this.x + 1] < 0)) {
           this.x += 1;
         }
       }
@@ -161,10 +160,32 @@ function GedrehtesZ() {
   }
   //Funktion zum Bewegen nach links
   this.bewegungLinks = function() {
-
+    //Wenn der Stein senkrecht ist
+    if (this.senkrecht) {
+      if (this.x > 0) {
+        if (!(graphics.gridArray[round(this.y)][this.x - 1] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x - 1] < 0) &&
+        !(graphics.gridArray[round(this.y + 2)][this.x] < 0)) {
+          this.x -= 1;
+        }
+      }
+    }
+    //Wenn der Stein quer liegt
+    else {
+      if (this.x > 1) {
+        if (!(graphics.gridArray[floor(this.y + 1)][this.x - 2] < 0) && !(graphics.gridArray[floor(this.y)][this.x - 1] < 0)) {
+          this.x -= 1;
+        }
+      }
+    }
   }
   //Funktion zum Pruefen, ob ausreichend Platz ist, um das Objekt zu erzeugen
   this.createNewObjectIsPossible = function() {
-    return true;
+    if (!(graphics.gridArray[round(this.y)][this.x] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x] < 0) &&
+    !(graphics.gridArray[round(this.y + 1)][this.x + 1] < 0) && !(graphics.gridArray[round(this.y + 2)][this.x + 1] < 0)) {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 }

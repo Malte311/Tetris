@@ -6,9 +6,10 @@ function NormalesL() {
   this.farbCode = 7;
   this.platziert = -7;
   this.isMoving = true;
+  this.senkrecht = true;
   //Groesse eines Objektes in Bloecken gemessen
-  this.hoehe =  4;
-  this.breite = 1;
+  this.hoehe =  3;
+  this.breite = 2;
   //Funktion zum Anzeigen
   this.display = function() {
 

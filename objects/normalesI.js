@@ -171,8 +171,8 @@ function NormalesI() {
   }
   //Funktion zum Pruefen, ob ausreichend Platz ist, um das Objekt zu erzeugen
   this.createNewObjectIsPossible = function() {
-    if (!(graphics.gridArray[0][this.x] < 0) && !(graphics.gridArray[1][this.x] < 0) &&
-    !(graphics.gridArray[2][this.x] < 0) && !(graphics.gridArray[4][this.x] < 0)) {
+    if (!(graphics.gridArray[round(this.y)][this.x] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x] < 0) &&
+    !(graphics.gridArray[round(this.y + 2)][this.x] < 0) && !(graphics.gridArray[round(this.y + this.hoehe)][this.x] < 0)) {
       return true;
     }
     else {
