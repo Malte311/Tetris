@@ -90,7 +90,7 @@ function GedrehtesL() {
     var tauschen = this.hoehe;
     //Wenn es senkrecht ist, wird es quer gedreht
     if (this.senkrecht) {
-      if (graphics.gridArray[this.x + 1][this.y + 1] == 0 && graphics.gridArray[this.x - 1][this.y + 1] == 0 && graphics.gridArray[this.x - 1][this.y + 2] == 0) {
+      if (!(graphics.gridArray[floor(this.y + 1)][this.x + 1] < 0) && !(graphics.gridArray[floor(this.y - 1)][this.x + 1] < 0) && !(graphics.gridArray[floor(this.y - 1)][this.x + 2] < 0)) {
         this.x = this.x - 1;
         this.y = this.y + 1;
         this.hoehe = this.breite;
@@ -101,8 +101,9 @@ function GedrehtesL() {
     }
     //Wenn es quer liegt, wird es senkrecht gedreht
     else if (this.quer) {
-      if (this.y > 0){
-        if (graphics.gridArray[this.y - 1][this.x] == 0 && graphics.gridArray[this.y - 1][this.x + 1] == 0 && graphics.gridArray[this.y + 1][this.x + 1] == 0) {
+      if (this.y > 0 && this.y < graphics.bloeckeProSpalte){
+        if (!(graphics.gridArray[floor(this.y - 1)][this.x] < 0) && !(graphics.gridArray[floor(this.y - 1)][this.x + 1] < 0) &&
+        !(graphics.gridArray[floor(this.y + 1)][this.x + 1] < 0)) {
           this.y = this.y - 1;
           this.hoehe = this.breite;
           this.breite = tauschen;
@@ -112,7 +113,8 @@ function GedrehtesL() {
       }
     }
     else if (this.senkrechtGedreht) {
-      if (graphics.gridArray[this.y + 1][this.x] == 0 && graphics.gridArray[this.y][this.x + 2] == 0 && graphics.gridArray[this.y + 1][this.x + 2] == 0) {
+      if (!(graphics.gridArray[floor(this.y + 1)][this.x] < 0) && !(graphics.gridArray[floor(this.y)][this.x + 2] < 0) &&
+      !(graphics.gridArray[floor(this.y + 1)][this.x + 2] < 0) && this.x + this.breite < graphics.bloeckeProZeile) {
         this.x = this.x + 2;
         this.hoehe = this.breite;
         this.breite = tauschen;
@@ -121,7 +123,7 @@ function GedrehtesL() {
       }
     }
     else if (this.querGedreht) {
-      if (graphics.gridArray[this.y][this.x - 1] == 0 && graphics.gridArray[this.y + 2][this.x] == 0 && graphics.gridArray[this.y + 2][this.x - 1] == 0) {
+      if (!(graphics.gridArray[floor(this.y)][this.x - 1] < 0) && !(graphics.gridArray[floor(this.y + 2)][this.x] < 0) && !(graphics.gridArray[floor(this.y + 2)][this.x - 1] < 0)) {
         this.x = this.x - 1;
         this.hoehe = this.breite;
         this.breite = tauschen;
@@ -136,15 +138,117 @@ function GedrehtesL() {
   }
   //Funktion fuer das automatische runterfallen
   this.gravity = function() {
-
+    //Wenn der Stein senkrecht ist
+    if (this.senkrecht) {
+      if (this.y < graphics.bloeckeProSpalte - this.hoehe) {
+        if (graphics.gridArray[round(this.y + this.hoehe)][this.x] == 0 && graphics.gridArray[round(this.y + this.hoehe)][this.x + 1] == 0) {
+          this.y += controller.speed;
+        }
+        else {
+          this.isMoving = false;
+        }
+      }
+    }
+    else if (this.senkrechtGedreht) {
+      if (this.y < graphics.bloeckeProSpalte - this.hoehe) {
+        if (graphics.gridArray[floor(this.y + 1)][this.x] == 0 && graphics.gridArray[floor(this.y + this.hoehe)][this.x + 1] == 0) {
+          this.y += controller.speed;
+        }
+        else {
+          this.isMoving = false;
+        }
+      }
+    }
+    //Wenn der Stein quer liegt
+    else if (this.quer) {
+      if (this.y < graphics.bloeckeProSpalte - this.hoehe) {
+        if (graphics.gridArray[floor(this.y + 2)][this.x] == 0 && graphics.gridArray[floor(this.y + 1)][this.x + 1] == 0 &&
+        graphics.gridArray[floor(this.y + 1)][this.x + 2] == 0) {
+          this.y += controller.speed;
+        }
+        else {
+          this.isMoving = false;
+        }
+      }
+    }
+    else if (this.querGedreht) {
+      if (this.y < graphics.bloeckeProSpalte - this.hoehe) {
+        if (graphics.gridArray[floor(this.y + 2)][this.x] == 0 && graphics.gridArray[floor(this.y + 1)][this.x - 1] == 0 &&
+        graphics.gridArray[floor(this.y + 1)][this.x - 2] == 0) {
+          this.y += controller.speed;
+        }
+        else {
+          this.isMoving = false;
+        }
+      }
+    }
   }
   //Funktion zum Bewegen nach rechts
   this.bewegungRechts = function() {
-
+    //Wenn der Stein senkrecht ist
+    if (this.senkrecht) {
+      if (this.x + 1 <= graphics.bloeckeProZeile - this.breite) {
+        if (!(graphics.gridArray[round(this.y)][this.x + 1] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x + 1] < 0) && !(graphics.gridArray[round(this.y + 2)][this.x + 2] < 0)) {
+          this.x += 1;
+        }
+      }
+    }
+    else if (this.senkrechtGedreht) {
+      if (this.x < graphics.bloeckeProZeile - this.breite) {
+        if (!(graphics.gridArray[round(this.y)][this.x + 2] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x + 2] < 0) && !(graphics.gridArray[round(this.y + 2)][this.x + 2] < 0)) {
+          this.x += 1;
+        }
+      }
+    }
+    //Wenn der Stein quer liegt
+    else if (this.quer) {
+      if (this.x < graphics.bloeckeProZeile - this.breite) {
+        if (!(graphics.gridArray[round(this.y + 1)][this.x + 1] < 0) && !(graphics.gridArray[round(this.y)][this.x + 3] < 0)) {
+          this.x += 1;
+        }
+      }
+    }
+    else if (this.querGedreht) {
+      if (this.x < graphics.bloeckeProZeile - this.breite) {
+        if (!(graphics.gridArray[round(this.y)][this.x + 1] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x + 1] < 0)) {
+          this.x += 1;
+        }
+      }
+    }
   }
   //Funktion zum Bewegen nach links
   this.bewegungLinks = function() {
-
+    //Wenn der Stein senkrecht ist
+    if (this.senkrecht) {
+      if (this.x > 0) {
+        if (!(graphics.gridArray[round(this.y)][this.x - 1] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x - 1] < 0) &&
+        !(graphics.gridArray[round(this.y + 2)][this.x - 1] < 0)) {
+          this.x -= 1;
+        }
+      }
+    }
+    else if (this.senkrechtGedreht) {
+      if (this.x > 1) {
+        if (!(graphics.gridArray[floor(this.y)][this.x - 1] < 0) && !(graphics.gridArray[floor(this.y + 1)][this.x] < 0) && !(graphics.gridArray[floor(this.y + 2)][this.x] < 0)) {
+          this.x -= 1;
+        }
+      }
+    }
+    //Wenn der Stein quer liegt
+    else if (this.quer) {
+      if (this.x > 1) {
+        if (!(graphics.gridArray[floor(this.y)][this.x - 1] < 0) && !(graphics.gridArray[floor(this.y + 1)][this.x - 1] < 0)) {
+          this.x -= 1;
+        }
+      }
+    }
+    else if (this.querGedreht) {
+      if (this.x > 1) {
+        if (!(graphics.gridArray[floor(this.y)][this.x - 1] < 0) && !(graphics.gridArray[floor(this.y + 1)][this.x - 3] < 0)) {
+          this.x -= 1;
+        }
+      }
+    }
   }
   //Funktion zum Pruefen, ob ausreichend Platz ist, um das Objekt zu erzeugen
   this.createNewObjectIsPossible = function() {
