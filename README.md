@@ -6,3 +6,4 @@ updateRows funktioniert noch nicht korrekt?
 nächstes Objekt anzeigen, createnewObjectIsPossible auf das richtige Objekt anwenden
 Scoreanzeige und Play Again Button implementieren
 Bugreport Funktion?, Globale Scores?
+schnell runter , aber nicht komplett frei fallen, tasten gedrückt halten für mehrere aktionen?

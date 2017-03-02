@@ -9,11 +9,6 @@ function GUI() {
   this.bloeckeProSpalte = 20;
   this.gridArray = [this.bloeckeProSpalte];
 
-  //Funkton fuer die Scoreanzeige und Play Again Button
-  this.anzeige = function() {
-
-  }
-
   //Funktion zum Zeichnen des Grids
   this.grid = function() {
     //Grid zeichnen

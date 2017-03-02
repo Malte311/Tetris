@@ -142,7 +142,7 @@ function GedrehtesL() {
     if (this.senkrecht) {
       if (this.y < graphics.bloeckeProSpalte - this.hoehe) {
         if (graphics.gridArray[round(this.y + this.hoehe)][this.x] == 0 && graphics.gridArray[round(this.y + this.hoehe)][this.x + 1] == 0) {
-          this.y += controller.speed;
+          this.y += speed;
         }
         else {
           this.isMoving = false;
@@ -152,7 +152,7 @@ function GedrehtesL() {
     else if (this.senkrechtGedreht) {
       if (this.y < graphics.bloeckeProSpalte - this.hoehe) {
         if (graphics.gridArray[floor(this.y + 1)][this.x] == 0 && graphics.gridArray[floor(this.y + this.hoehe)][this.x + 1] == 0) {
-          this.y += controller.speed;
+          this.y += speed;
         }
         else {
           this.isMoving = false;
@@ -164,7 +164,7 @@ function GedrehtesL() {
       if (this.y < graphics.bloeckeProSpalte - this.hoehe) {
         if (graphics.gridArray[floor(this.y + 2)][this.x] == 0 && graphics.gridArray[floor(this.y + 1)][this.x + 1] == 0 &&
         graphics.gridArray[floor(this.y + 1)][this.x + 2] == 0) {
-          this.y += controller.speed;
+          this.y += speed;
         }
         else {
           this.isMoving = false;
@@ -175,7 +175,7 @@ function GedrehtesL() {
       if (this.y < graphics.bloeckeProSpalte - this.hoehe) {
         if (graphics.gridArray[floor(this.y + 2)][this.x] == 0 && graphics.gridArray[floor(this.y + 1)][this.x - 1] == 0 &&
         graphics.gridArray[floor(this.y + 1)][this.x - 2] == 0) {
-          this.y += controller.speed;
+          this.y += speed;
         }
         else {
           this.isMoving = false;

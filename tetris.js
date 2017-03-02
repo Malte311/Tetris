@@ -2,8 +2,12 @@
  * @author Malte Luttermann
  */
 
+//Variable fuer Zugriffe auf das Canvas
+var canvas;
 //Variable zum Testen ob das Spiel laeuft oder pausiert ist
 var running = false;
+//Variable, zur Bestimmung der Spielgeschwindigkeit
+var speed = 0.03;
 //Steuerungsvariable
 var controller;
 //Variable fuer das Blockobjekt
@@ -19,7 +23,9 @@ function setup() {
   //Zu Anfang wird ein mal das Array, welches das Spielfeld speichert, initialisiert
   graphics.fillArray();
   //Erzeugen eines Canvas Objektes (Spielfeld)
-  createCanvas(graphics.blockBreite * graphics.bloeckeProZeile, graphics.blockHoehe * graphics.bloeckeProSpalte);
+  canvas = createCanvas(graphics.blockBreite * graphics.bloeckeProZeile, graphics.blockHoehe * graphics.bloeckeProSpalte);
+  //Eine neue Anzeige fuer Help Button, Play Again Button, Scoreanzeige
+  new Anzeige();
   //Zu Anfang wird randomNumber ein zufaelliger Wert zwischen 0 und 6 zugewiesen, um das erste Objekt per Zufall zu bestimmen
   randomNumber = floor(random(0, 4));
   //Neues Blockobjekt erzeugen
@@ -31,6 +37,8 @@ function draw() {
   blockObjekt.display();
   //Sobald ein Block unten angekommt (anhaelt), wird ein neuer erstellt
   if (!blockObjekt.isMoving) {
+    //Es soll geprueft werden, ob eine Reihe voll ist, wenn ja wird sie entfernt
+    controller.reiheVoll();
     //Neues Blockobjekt erzeugen
     createNewObject();
   }
@@ -49,8 +57,6 @@ function draw() {
     //Automatisches Runterfallen des Blockobjektes (Gravity)
     controller.gravity();
   }
-  //Es soll permanent geprueft werden, ob eine Reihe voll ist, wenn ja wird sie entfernt
-  controller.reiheVoll();
 }
 //Funktion fuer Tastatureingaben, wird eine Taste gedrueckt, so wird die Steuerung ausgefuehrt
 function keyPressed() {

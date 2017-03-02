@@ -1,14 +1,12 @@
 //Konstruktor Funktion
 function Steuerung(object) {
-  //Variable zum steuern der Geschwindigkeit, mit der die Steine fallen
-  this.speed = 0.03;
   //Funktion zum steuern nach links und rechts
   this.steuerungLR = function() {
     //Spiel kann mit der Taste p oder Enter pausiert bzw. fortgesetzt werden
     if (keyCode == 13 || keyCode == 80) {
       running = !running;
     }
-    //Steuerung nur moeglich, wenn Spiel laeuft
+    //Steuerung nur moeglich, wenn Spiel laeuft und der Block nicht bereits fest ist
     if (running && object.isMoving) {
       //Bewegung nach links mit Pfeiltaste links oder a
       if (keyCode == LEFT_ARROW || keyCode == 65) {
@@ -34,14 +32,24 @@ function Steuerung(object) {
   }
   //Funktion zum Testen ob eine Zeile voll ist
   this.reiheVoll = function() {
+    //Durchlaufe alle Reihen
     for (var i = 0; i < graphics.bloeckeProSpalte; i++) {
+      //Angenommen, eine Reihe ist voll
+      var reiheVoll = true;
+      //Durchlaufe jedes Feld der Reihe
       for (j = 0; j < graphics.bloeckeProZeile; j++) {
+        //Wenn ein Feld keinen Stein beinhaltet, ist sie nicht voll
         if (!(graphics.gridArray[i][j] < 0)) {
+          reiheVoll = false;
+          //Dann muss die Schleife auch nicht weiter durchlaufen werden
           break;
         }
-        if (j == graphics.bloeckeProZeile - 1 && graphics.gridArray[i][j] < 0) {
-          graphics.deleteVolleReihe(i);
-        }
+      }
+      //Wird die Schleife komplett durchlaufen und am Ende ist kein leeres Feld gefunden
+      //Dann wird die Reihe wohl voll sein
+      if (reiheVoll) {
+        //Und es soll die volle Reihe geloescht werden 
+        graphics.deleteVolleReihe(i);
       }
     }
   }
