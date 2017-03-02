@@ -7,3 +7,4 @@ und es wird nur ein Mal durchlaufen von oben nach unten, also wenn etwas runter 
 3.Speed erhöhen sobald bestimmer Score erreicht wird (Levelsystem) neues Level Schriftzug (am besten im Spielfeld kurz Einblenden)
 4.Tasten gedrückt halten für Bewegungen, schnell runter fallen lassen können ohne direkt komplett frei fallen zu lassen
 5.Bugreport Funktion?, Globale Scores?
+6.Schnelles Hintereinanderausführen vom Drehen kann Steine Entfernen
