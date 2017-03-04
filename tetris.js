@@ -7,7 +7,7 @@ var canvas;
 //Variable zum Testen ob das Spiel laeuft oder pausiert ist
 var running = false;
 //Variable, zur Bestimmung der Spielgeschwindigkeit
-var speed = 0.05;
+var speed = 0.03;
 //Steuerungsvariable
 var controller;
 //Variable fuer das Blockobjekt

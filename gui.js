@@ -51,11 +51,11 @@ function GUI() {
     for (var i = 0; i < graphics.bloeckeProZeile; i++) {
       //Setze die Werte alle auf 0 zurueck
       graphics.gridArray[index][i] = 0;
-      //Die Reihen muessen geupdated werden, damit keine Steine in der Luft haengen
-      this.updateRows();
-      //Der Score wird erhoeht, da eine volle Reihe zustande gekommen ist
-      this.updateScore();
     }
+    //Die Reihen muessen geupdated werden, damit keine Steine in der Luft haengen
+    this.updateRows();
+    //Der Score wird erhoeht, da eine volle Reihe zustande gekommen ist
+    this.updateScore();
   }
   //Funktion zum Zeichnen der Objekte
   this.drawObjects = function() {
@@ -158,7 +158,7 @@ function GUI() {
   //Funktion zum Updaten der Scoreanzeige
   this.updateScore = function() {
     //Fuer jeden Stein, der entfernt wird, gibt es einen Punkt
-    this.score += 1;
+    this.score += graphics.bloeckeProZeile;
     //Score in der Console ausgeben
     console.log(this.score);
   }
