@@ -27,7 +27,7 @@ function setup() {
   //Eine neue Anzeige fuer Help Button, Play Again Button, Scoreanzeige
   new Anzeige();
   //Zu Anfang wird randomNumber ein zufaelliger Wert zwischen 0 und 6 zugewiesen, um das erste Objekt per Zufall zu bestimmen
-  randomNumber = floor(random(2, 4));
+  randomNumber = floor(random(3, 5));
   //Neues Blockobjekt erzeugen
   createNewObject();
 }
@@ -114,6 +114,6 @@ function nextObject() {
       break;
   }
   //Eine Zufallszahl zwischen 0 und 6 generieren, fuer die Anzeige, welches Objekt als naechstes kommt
-  randomNumber = floor(random(2, 4));
+  randomNumber = floor(random(3, 5));
   console.log("Naechstes Objekt ist " + randomNumber);
 }
