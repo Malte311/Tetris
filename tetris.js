@@ -25,7 +25,7 @@ function setup() {
   //Erzeugen eines Canvas Objektes (Spielfeld)
   canvas = createCanvas(graphics.blockBreite * graphics.bloeckeProZeile, graphics.blockHoehe * graphics.bloeckeProSpalte);
   //Eine neue Anzeige fuer Help Button, Play Again Button, Scoreanzeige
-  new Anzeige();
+  anzeige = new Anzeige();
   //Zu Anfang wird randomNumber ein zufaelliger Wert zwischen 0 und 6 zugewiesen, um das erste Objekt per Zufall zu bestimmen
   randomNumber = floor(random(0, 7));
   //Neues Blockobjekt erzeugen

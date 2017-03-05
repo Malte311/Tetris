@@ -121,6 +121,7 @@ function GUI() {
   //Funktion zum Play Again (Game Over Screen)
   this.gameOver = function() {
     console.log("Spiel zu Ende");
+    running = false;
     //Score anzeigen, Play again fragen, wenn ja dann folgendes:
     //setup();
     //running = true;

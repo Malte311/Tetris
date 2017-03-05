@@ -48,7 +48,7 @@ function Steuerung(object) {
       //Wird die Schleife komplett durchlaufen und am Ende ist kein leeres Feld gefunden
       //Dann wird die Reihe wohl voll sein
       if (reiheVoll) {
-        //Und es soll die volle Reihe geloescht werden 
+        //Und es soll die volle Reihe geloescht werden
         graphics.deleteVolleReihe(i);
       }
     }
