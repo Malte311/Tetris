@@ -8,7 +8,7 @@ function NormalesZ() {
   //farbCode dieses Blockobjektes wenn es sich bewegt
   this.farbCode = 6;
   //farbCode dieses Blockobjektes wenn es sich nicht bewegt
-  this.platziert = -6;
+  this.platziert = graphics.countArray[1];
   //zu Anfang soll es sich bewegen
   this.isMoving = true;
   //und es soll senkrecht starten
@@ -35,6 +35,17 @@ function NormalesZ() {
         graphics.gridArray[round(this.y) + 1][this.x] = this.platziert;
         graphics.gridArray[round(this.y) + 1][this.x - 1] = this.platziert;
         graphics.gridArray[round(this.y) + 2][this.x - 1] = this.platziert;
+        //Jedes Objekt bekommt eine eindeutige Zahl zugewiesen, dafür ist ein Intervall von 600 Zahlen pro Objekt vorgesehen
+        if (graphics.countArray[1] > -1280) {
+          //Das naechste Objekt hat dann eine andere Zahl zur eindeutigen Identifikation
+          graphics.countArray[1]--;
+        }
+        //Sollte der Fall eintreten (quasi unmoeglich), dass alle Zahlen verbraucht sind, fange wieder von vorne an
+        //Die ersten Zahlen sollten sich dann auch nicht mehr auf dem Spielfeld befinden
+        else {
+          //Reset
+          graphics.countArray[1] = -680;
+        }
         //Und das Objekt bewegt sich dann nicht weiter
         this.isMoving = false;
       }
@@ -56,6 +67,17 @@ function NormalesZ() {
         graphics.gridArray[round(this.y)][this.x + 1] = this.platziert;
         graphics.gridArray[round(this.y + 1)][this.x + 1] = this.platziert;
         graphics.gridArray[round(this.y + 1)][this.x + 2] = this.platziert;
+        //Jedes Objekt bekommt eine eindeutige Zahl zugewiesen, dafür ist ein Intervall von 600 Zahlen pro Objekt vorgesehen
+        if (graphics.countArray[1] > -1280) {
+          //Das naechste Objekt hat dann eine andere Zahl zur eindeutigen Identifikation
+          graphics.countArray[1]--;
+        }
+        //Sollte der Fall eintreten (quasi unmoeglich), dass alle Zahlen verbraucht sind, fange wieder von vorne an
+        //Die ersten Zahlen sollten sich dann auch nicht mehr auf dem Spielfeld befinden
+        else {
+          //Reset
+          graphics.countArray[1] = -680;
+        }
         //Und das Objekt soll sich nicht weiter bewegen
         this.isMoving = false;
       }

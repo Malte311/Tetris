@@ -8,7 +8,7 @@ function NormalesI() {
   //farbCode fuer diesen Stein waehrend er sich bewegt
   this.farbCode = 2;
   //farbCode sobald der Stein sich nicht weiter bewegt
-  this.platziert = -2;
+  this.platziert = graphics.countArray[5];
   //zu Anfang bewegt er sich
   this.isMoving = true;
   //und ist zu Anfang senkrecht
@@ -36,6 +36,17 @@ function NormalesI() {
         graphics.gridArray[round(this.y) + 1][this.x] = this.platziert;
         graphics.gridArray[round(this.y) + 2][this.x] = this.platziert;
         graphics.gridArray[round(this.y) + 3][this.x] = this.platziert;
+        //Jedes Objekt bekommt eine eindeutige Zahl zugewiesen, dafür ist ein Intervall von 600 Zahlen pro Objekt vorgesehen
+        if (graphics.countArray[5] > -3680) {
+          //Das naechste Objekt hat dann eine andere Zahl zur eindeutigen Identifikation
+          graphics.countArray[5]--;
+        }
+        //Sollte der Fall eintreten (quasi unmoeglich), dass alle Zahlen verbraucht sind, fange wieder von vorne an
+        //Die ersten Zahlen sollten sich dann auch nicht mehr auf dem Spielfeld befinden
+        else {
+          //Reset
+          graphics.countArray[5] = -3080;
+        }
         //Und nun bewegt sich das Objekt nicht weiter
         this.isMoving = false;
       }
@@ -57,6 +68,17 @@ function NormalesI() {
         graphics.gridArray[round(this.y)][this.x + 1] = this.platziert;
         graphics.gridArray[round(this.y)][this.x + 2] = this.platziert;
         graphics.gridArray[round(this.y)][this.x + 3] = this.platziert;
+        //Jedes Objekt bekommt eine eindeutige Zahl zugewiesen, dafür ist ein Intervall von 600 Zahlen pro Objekt vorgesehen
+        if (graphics.countArray[5] > -3680) {
+          //Das naechste Objekt hat dann eine andere Zahl zur eindeutigen Identifikation
+          graphics.countArray[5]--;
+        }
+        //Sollte der Fall eintreten (quasi unmoeglich), dass alle Zahlen verbraucht sind, fange wieder von vorne an
+        //Die ersten Zahlen sollten sich dann auch nicht mehr auf dem Spielfeld befinden
+        else {
+          //Reset
+          graphics.countArray[5] = -3080;
+        }
         //Und das Objekt bewegt sich nicht weiter
         this.isMoving = false;
       }

@@ -7,7 +7,7 @@ function Square() {
   this.y = 0;
   //farbCode dieses Steines (entspricht dann gelb beim zeichnen)
   this.farbCode = 1;
-  this.platziert = -1;
+  this.platziert = graphics.countArray[6]
   //Variable, die angibt, ob sich der Stein noch bewegt oder bereits fest ist
   this.isMoving = true;
   //Groesse eines Objektes in Bloecken gemessen
@@ -31,6 +31,17 @@ function Square() {
       graphics.gridArray[round(this.y)][this.x + 1] = this.platziert;
       graphics.gridArray[round(this.y + 1)][this.x] = this.platziert;
       graphics.gridArray[round(this.y + 1)][this.x + 1] = this.platziert;
+      //Jedes Objekt bekommt eine eindeutige Zahl zugewiesen, dafür ist ein Intervall von 600 Zahlen pro Objekt vorgesehen
+      if (graphics.countArray[6] > -4280) {
+        //Das naechste Objekt hat dann eine andere Zahl zur eindeutigen Identifikation
+        graphics.countArray[6]--;
+      }
+      //Sollte der Fall eintreten (quasi unmoeglich), dass alle Zahlen verbraucht sind, fange wieder von vorne an
+      //Die ersten Zahlen sollten sich dann auch nicht mehr auf dem Spielfeld befinden
+      else {
+        //Reset
+        graphics.countArray[6] = -3680;
+      }
       //Nun bewegt sich der Stein nicht mehr weiter
       this.isMoving = false;
     }
