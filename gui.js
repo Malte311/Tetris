@@ -136,8 +136,8 @@ function GUI() {
   }
   //Funktion zum Runterfallen von Steinen, die in der Luft schweben wuerden, wenn eine Reihe geloescht wird
   this.updateRows = function() {
-    //Durchlaufe alle Reihen, bis auf die unterste (daher -1), da die unterste immer Boden unter sich hat
-    for (var i = 0; i < this.bloeckeProSpalte - 1; i++) {
+    //Durchlaufe alle Reihen, bis auf die unterste (daher -2), da die unterste immer Boden unter sich hat
+    for (var i = this.bloeckeProSpalte - 2; i > 0; i--) {
       //Durchlaufe alle Felder der Reihe
       for (j = 0; j < this.bloeckeProZeile; j++) {
         //Wenn ein Feld einen Stein enthaelt, das darunter liegende Feld aber nicht, dann tue folgendes
@@ -154,277 +154,76 @@ function GUI() {
     //Zunaechst wird ermittelt, um was fuer ein Objekt es sich handelt
     //NormalesL (orange)
     if (this.gridArray[i][j] < -7 && this.gridArray[i][j] > -680) {
-      //Wenn wir am Rand sind, pruefen wir nur in eine Richtung
-      //linker Rand
-      if (j == 0) {
-
-      }
-      //rechter Rand
-      else if (j == this.bloeckeProZeile - 1) {
-
-      }
-      //alles dazwischen
-      else {
-
-      }
+      
     }
     //NormalesZ (rot)
     else if (this.gridArray[i][j] <= -680 && this.gridArray[i][j] > -1280) {
-      //Wenn wir am Rand sind, pruefen wir nur in eine Richtung
-      //linker Rand
-      if (j == 0) {
 
-      }
-      //rechter Rand
-      else if (j == this.bloeckeProZeile - 1) {
-
-      }
-      //alles dazwischen
-      else {
-
-      }
     }
     //GedrehtesZ (gruen)
     else if (this.gridArray[i][j] <= -1280 && this.gridArray[i][j] > -1880) {
-      //Wenn wir am Rand sind, pruefen wir nur in eine Richtung
-      //linker Rand
-      if (j == 0) {
 
-      }
-      //rechter Rand
-      else if (j == this.bloeckeProZeile - 1) {
-
-      }
-      //alles dazwischen
-      else {
-
-      }
     }
     //GedrehtesL (blau)
     else if (this.gridArray[i][j] <= -1880 && this.gridArray[i][j] > -2480) {
-      //Wenn wir am Rand sind, pruefen wir nur in eine Richtung
-      //linker Rand
-      if (j == 0) {
 
-      }
-      //rechter Rand
-      else if (j == this.bloeckeProZeile - 1) {
-
-      }
-      //alles dazwischen
-      else {
-
-      }
     }
     //NormalesT (lila)
     else if (this.gridArray[i][j] <= -2480 && this.gridArray[i][j] > -3080) {
-      //Wenn wir am Rand sind, pruefen wir nur in eine Richtung
-      //linker Rand
-      if (j == 0) {
-        if (this.gridArray[i][j] === this.gridArray[i][j + 1] && this.gridArray[i][j] === this.gridArray[i][j + 2]) {
-          if (this.gridArray[i + 1][j] == 0 && this.gridArray[i + 1][j + 1] == 0 && this.gridArray[i + 1][j + 2] == 0) {
-            //Dann fallen alle vier Quadrate
-            this.gridArray[i + 1][j] = this.gridArray[i][j];
-            this.gridArray[i + 1][j + 1] = this.gridArray[i][j + 1];
-            this.gridArray[i + 1][j + 2] = this.gridArray[i][j + 2];
-            //Zuruecksetzen der urspruenglichen Position
-            this.gridArray[i][j] = 0;
-            this.gridArray[i][j + 1] = 0;
-            this.gridArray[i][j + 2] = 0;
-          }
-        }
-        else if (this.gridArray[i][j] === this.gridArray[i][j + 1] && this.gridArray[i][j] !== this.gridArray[i][j + 2]) {
-          if (this.gridArray[i + 1][j] == 0 && this.gridArray[i + 1][j + 1] == 0) {
-            //Dann fallen alle vier Quadrate
-            this.gridArray[i + 1][j] = this.gridArray[i][j];
-            this.gridArray[i + 1][j + 1] = this.gridArray[i][j + 1];
-            //Zuruecksetzen der urspruenglichen Position
-            this.gridArray[i][j] = 0;
-            this.gridArray[i][j + 1] = 0;
-          }
-        }
-        else if (this.gridArray[i][j] !== this.gridArray[i][j + 1]) {
 
-        }
-      }
-      //rechter Rand
-      else if (j == this.bloeckeProZeile - 1) {
-
-      }
-      //alles dazwischen
-      else {
-
-      }
     }
     //NormalesI (tuerkis)
     else if (this.gridArray[i][j] <= -3080 && this.gridArray[i][j] > -3680) {
-      //Wenn wir am Rand sind, pruefen wir nur in eine Richtung
-      //linker Rand
-      if (j == 0) {
-        //Wenn dieses Objekt daneben nicht weitergeht, faellt das einzelne Quadrat
-        if (this.gridArray[i][j] !== this.gridArray[i][j + 1]) {
-          //Das Feld darunter enthaelt nun den Stein
-          this.gridArray[i + 1][j] = this.gridArray[i][j];
-          //Das Feld darueber wird auf Null zurueckgesetzt
-          this.gridArray[i][j] = 0;
-        }
-        else {
+      //Sicherstellen, dass das Array nicht verlassen wird
+      if (j < this.bloeckeProZeile - 3) {
+        //Wenn das Objekt quer liegt
+        if (this.gridArray[i][j] === this.gridArray[i][j + 1] && this.gridArray[i][j] === this.gridArray[i][j + 2] && this.gridArray[i][j] === this.gridArray[i][j + 3]) {
+          //Bedingung fuer das Fallen ist, dass unter allen Quadraten freier Platz ist
           if (this.gridArray[i + 1][j] == 0 && this.gridArray[i + 1][j + 1] == 0 && this.gridArray[i + 1][j + 2] == 0 && this.gridArray[i + 1][j + 3] == 0) {
-            //Dann fallen alle vier Quadrate
+            //dann fallen alle Quadrate
             this.gridArray[i + 1][j] = this.gridArray[i][j];
             this.gridArray[i + 1][j + 1] = this.gridArray[i][j + 1];
             this.gridArray[i + 1][j + 2] = this.gridArray[i][j + 2];
             this.gridArray[i + 1][j + 3] = this.gridArray[i][j + 3];
-            //Zuruecksetzen der urspruenglichen Position
             this.gridArray[i][j] = 0;
             this.gridArray[i][j + 1] = 0;
             this.gridArray[i][j + 2] = 0;
             this.gridArray[i][j + 3] = 0;
           }
         }
+        //Steht das Objekt senkrecht, kann es sofort fallen, wenn darunter nichts ist
+        else if (this.gridArray[i][j] !== this.gridArray[i][j + 1]) {
+          //pruefen, ob darunter Platz ist (eigentlich ueberfluessig, da bereits in updateRows, aber zur besseren Anschaulichkeit noch mal hier)
+          if (this.gridArray[i + 1][j] == 0) {
+            //dann fallen
+            this.gridArray[i + 1][j] = this.gridArray[i][j];
+            this.gridArray[i][j] = 0;
+          }
+        }
       }
-      //rechter Rand
+      //allerletzte Moeglichkeit, in dem letzten Feld senkrecht
       else if (j == this.bloeckeProZeile - 1) {
-        //Wenn dieses Objekt daneben nicht weitergeht, faellt das einzelne Quadrat
-        if (this.gridArray[i][j] !== this.gridArray[i][j - 1]) {
-          //Das Feld darunter enthaelt nun den Stein
+        //pruefen, ob darunter Platz ist (eigentlich ueberfluessig, da bereits in updateRows, aber zur besseren Anschaulichkeit noch mal hier)
+        if (this.gridArray[i + 1][j] == 0) {
+          //dann fallen
           this.gridArray[i + 1][j] = this.gridArray[i][j];
-          //Das Feld darueber wird auf Null zurueckgesetzt
           this.gridArray[i][j] = 0;
-        }
-        else {
-          //wenn das Objekt quer liegt
-          if (this.gridArray[i + 1][j] == 0 && this.gridArray[i + 1][j - 1] == 0 && this.gridArray[i + 1][j - 2] == 0 && this.gridArray[i + 1][j - 3] == 0) {
-            //Dann fallen alle vier Quadrate
-            this.gridArray[i + 1][j] = this.gridArray[i][j];
-            this.gridArray[i + 1][j - 1] = this.gridArray[i][j - 1];
-            this.gridArray[i + 1][j - 2] = this.gridArray[i][j - 2];
-            this.gridArray[i + 1][j - 3] = this.gridArray[i][j - 3];
-            //Zuruecksetzen der urspruenglichen Position
-            this.gridArray[i][j] = 0;
-            this.gridArray[i][j - 1] = 0;
-            this.gridArray[i][j - 2] = 0;
-            this.gridArray[i][j - 3] = 0;
-          }
-        }
-      }
-      //alles dazwischen
-      else {
-        //Wenn dieses Objekt daneben nicht weitergeht, faellt das einzelne Quadrat
-        if (this.gridArray[i][j] !== this.gridArray[i][j + 1] && this.gridArray[i][j] !== this.gridArray[i][j - 1]) {
-          //Das Feld darunter enthaelt nun den Stein
-          this.gridArray[i + 1][j] = this.gridArray[i][j];
-          //Das Feld darueber wird auf Null zurueckgesetzt
-          this.gridArray[i][j] = 0;
-        }
-        //wenn das Objekt daneben weitergeht
-        else {
-          //wenn alle weiteren Quadrate auch in der Luft haengen, faellt das Objekt
-          if (this.gridArray[i][j] === this.gridArray[i][j + 1]) {
-            //Dann fallen alle vier Quadrate
-            this.gridArray[i + 1][j] = this.gridArray[i][j];
-            this.gridArray[i + 1][j + 1] = this.gridArray[i][j + 1];
-            this.gridArray[i + 1][j + 2] = this.gridArray[i][j + 2];
-            this.gridArray[i + 1][j + 3] = this.gridArray[i][j + 3];
-            //Zuruecksetzen der urspruenglichen Position
-            this.gridArray[i][j] = 0;
-            this.gridArray[i][j + 1] = 0;
-            this.gridArray[i][j + 2] = 0;
-            this.gridArray[i][j + 3] = 0;
-          }
-          else if (this.gridArray[i][j] === this.gridArray[i][j - 1]) {
-            //Dann fallen alle vier Quadrate
-            this.gridArray[i + 1][j] = this.gridArray[i][j];
-            this.gridArray[i + 1][j - 1] = this.gridArray[i][j - 1];
-            this.gridArray[i + 1][j - 2] = this.gridArray[i][j - 2];
-            this.gridArray[i + 1][j - 3] = this.gridArray[i][j - 3];
-            //Zuruecksetzen der urspruenglichen Position
-            this.gridArray[i][j] = 0;
-            this.gridArray[i][j - 1] = 0;
-            this.gridArray[i][j - 2] = 0;
-            this.gridArray[i][j - 3] = 0;
-          }
         }
       }
     }
     //Square (gelb)
     else if (this.gridArray[i][j] <= -3680 && this.gridArray[i][j] > -4280) {
-      //Wenn wir am Rand sind, pruefen wir nur ein nebenanliegendes Feld
-      //linker Rand
-      if (j == 0) {
-        //Wenn dieses Objekt daneben nicht weitergeht, faellt das einzelne Quadrat
-        if (this.gridArray[i][j] !== this.gridArray[i][j + 1]) {
-          //Das Feld darunter enthaelt nun den Stein
-          this.gridArray[i + 1][j] = this.gridArray[i][j];
-          //Das Feld darueber wird auf Null zurueckgesetzt
-          this.gridArray[i][j] = 0;
-        }
-        //Wenn es weitergeht
-        else {
-          //Das Quadrat faellt, wenn das danebenliegende Quadrat auch in der Luft haengt
-          if (this.gridArray[i + 1][j + 1] === 0) {
-            //Dann fallen beide Quadrate
+      //Wir gehen von links nach rechts, daher pruefen wir immer, ob rechts daneben ein gleiches Quadrat ist
+      if (j < this.bloeckeProZeile - 1) {
+        //Dafuer wird erst noch sichergestellt, dass das Array nicht verlassen werden kann, dann wird geprueft
+        if (this.gridArray[i][j] === this.gridArray[i][j + 1]) {
+          //nun kann geschaut werden, ob darunter alles frei ist und der Stein somit in der Luft haengt
+          if (this.gridArray[i + 1][j] == 0 && this.gridArray[i + 1][j + 1] == 0) {
+            //Nur wenn dem so ist, faellt der Stein ein Feld runter
             this.gridArray[i + 1][j] = this.gridArray[i][j];
             this.gridArray[i + 1][j + 1] = this.gridArray[i][j + 1];
-            //Zuruecksetzen der urspruenglichen Position
             this.gridArray[i][j] = 0;
             this.gridArray[i][j + 1] = 0;
-          }
-        }
-      }
-      //rechter Rand
-      else if (j == this.bloeckeProZeile - 1) {
-        //Wenn daneben kein Quadrat ist, faellt das einzelne Quadrat
-        if (this.gridArray[i][j] !== this.gridArray[i][j - 1]) {
-          //Das Feld darunter enthaelt nun den Stein
-          this.gridArray[i + 1][j] = this.gridArray[i][j];
-          //Das Feld darueber wird auf Null zurueckgesetzt
-          this.gridArray[i][j] = 0;
-        }
-        //Gibt es daneben noch eins
-        else {
-          //wird erst mal geprueft, ob es in der Luft haengt, wenn ja, fallen beide
-          if (this.gridArray[i + 1][j - 1] === 0) {
-            //Dann fallen beide Quadrate
-            this.gridArray[i + 1][j] = this.gridArray[i][j];
-            this.gridArray[i + 1][j - 1] = this.gridArray[i][j - 1];
-            //Zuruecksetzen der urspruenglichen Position
-            this.gridArray[i][j] = 0;
-            this.gridArray[i][j - 1] = 0;
-          }
-        }
-      }
-      //alles dazwischen
-      else {
-        //Einmal rechts daneben pruefen
-        //Wenn dieses Objekt daneben nicht weitergeht, faellt das einzelne Quadrat
-        if (this.gridArray[i][j] !== this.gridArray[i][j + 1] && this.gridArray[i][j] !== this.gridArray[i][j - 1]) {
-          //Das Feld darunter enthaelt nun den Stein
-          this.gridArray[i + 1][j] = this.gridArray[i][j];
-          //Das Feld darueber wird auf Null zurueckgesetzt
-          this.gridArray[i][j] = 0;
-        }
-        //Wenn es weitergeht
-        else if (this.gridArray[i][j] === this.gridArray[i][j + 1] && this.gridArray[i][j] !== this.gridArray[i][j - 1]) {
-          //Das Quadrat faellt, wenn das danebenliegende Quadrat auch in der Luft haengt
-          if (this.gridArray[i + 1][j + 1] === 0) {
-            //Dann fallen beide Quadrate
-            this.gridArray[i + 1][j] = this.gridArray[i][j];
-            this.gridArray[i + 1][j + 1] = this.gridArray[i][j + 1];
-            //Zuruecksetzen der urspruenglichen Position
-            this.gridArray[i][j] = 0;
-            this.gridArray[i][j + 1] = 0;
-          }
-        }
-        else if (this.gridArray[i][j] !== this.gridArray[i][j + 1] && this.gridArray[i][j] === this.gridArray[i][j - 1]) {
-          //Das Quadrat faellt, wenn das danebenliegende Quadrat auch in der Luft haengt
-          if (this.gridArray[i + 1][j - 1] === 0) {
-            //Dann fallen beide Quadrate
-            this.gridArray[i + 1][j] = this.gridArray[i][j];
-            this.gridArray[i + 1][j - 1] = this.gridArray[i][j - 1];
-            //Zuruecksetzen der urspruenglichen Position
-            this.gridArray[i][j] = 0;
-            this.gridArray[i][j - 1] = 0;
           }
         }
       }
