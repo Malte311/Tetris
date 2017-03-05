@@ -8,7 +8,7 @@ function NormalesL() {
   //farbCode dieses Objektes, wenn es sich bewegt
   this.farbCode = 7;
   //farbCode dieses Objektes, wenn es sich nicht mehr bewegt
-  this.platziert = graphics.countArray[0];
+  this.platziert = -7;
   //anfangs bewegt sich das Objekt
   this.isMoving = true;
   //und es startet in der normalen senkrechten Position
@@ -41,17 +41,6 @@ function NormalesL() {
         graphics.gridArray[round(this.y) + 1][this.x] = this.platziert;
         graphics.gridArray[round(this.y) + 2][this.x] = this.platziert;
         graphics.gridArray[round(this.y) + 2][this.x + 1] = this.platziert;
-        //Jedes Objekt bekommt eine eindeutige Zahl zugewiesen, dafür ist ein Intervall von 600 Zahlen pro Objekt vorgesehen
-        if (graphics.countArray[0] > -679) {
-          //Das naechste Objekt hat dann eine andere Zahl zur eindeutigen Identifikation
-          graphics.countArray[0]--;
-        }
-        //Sollte der Fall eintreten (quasi unmoeglich), dass alle Zahlen verbraucht sind, fange wieder von vorne an
-        //Die ersten Zahlen sollten sich dann auch nicht mehr auf dem Spielfeld befinden
-        else {
-          //Reset
-          graphics.countArray[0] = -7;
-        }
         //das Objekt soll sich also nicht mehr weiter bewegen
         this.isMoving = false;
       }
@@ -73,17 +62,6 @@ function NormalesL() {
         graphics.gridArray[round(this.y)][this.x + 1] = this.platziert;
         graphics.gridArray[round(this.y + 1)][this.x + 1] = this.platziert;
         graphics.gridArray[round(this.y + 2)][this.x + 1] = this.platziert;
-        //Jedes Objekt bekommt eine eindeutige Zahl zugewiesen, dafür ist ein Intervall von 600 Zahlen pro Objekt vorgesehen
-        if (graphics.countArray[0] > -679) {
-          //Das naechste Objekt hat dann eine andere Zahl zur eindeutigen Identifikation
-          graphics.countArray[0]--;
-        }
-        //Sollte der Fall eintreten (quasi unmoeglich), dass alle Zahlen verbraucht sind, fange wieder von vorne an
-        //Die ersten Zahlen sollten sich dann auch nicht mehr auf dem Spielfeld befinden
-        else {
-          //Reset
-          graphics.countArray[0] = -7;
-        }
         //Das Objekt wird nicht weiter bewegt
         this.isMoving = false;
       }
@@ -105,17 +83,6 @@ function NormalesL() {
         graphics.gridArray[round(this.y) + 1][this.x] = this.platziert;
         graphics.gridArray[round(this.y)][this.x + 1] = this.platziert;
         graphics.gridArray[round(this.y)][this.x + 2] = this.platziert;
-        //Jedes Objekt bekommt eine eindeutige Zahl zugewiesen, dafür ist ein Intervall von 600 Zahlen pro Objekt vorgesehen
-        if (graphics.countArray[0] > -679) {
-          //Das naechste Objekt hat dann eine andere Zahl zur eindeutigen Identifikation
-          graphics.countArray[0]--;
-        }
-        //Sollte der Fall eintreten (quasi unmoeglich), dass alle Zahlen verbraucht sind, fange wieder von vorne an
-        //Die ersten Zahlen sollten sich dann auch nicht mehr auf dem Spielfeld befinden
-        else {
-          //Reset
-          graphics.countArray[0] = -7;
-        }
         //Das Objekt wird nicht weiter bewegt
         this.isMoving = false;
       }
@@ -137,17 +104,6 @@ function NormalesL() {
         graphics.gridArray[round(this.y + 1)][this.x] = this.platziert;
         graphics.gridArray[round(this.y + 1)][this.x - 1] = this.platziert;
         graphics.gridArray[round(this.y + 1)][this.x - 2] = this.platziert;
-        //Jedes Objekt bekommt eine eindeutige Zahl zugewiesen, dafür ist ein Intervall von 600 Zahlen pro Objekt vorgesehen
-        if (graphics.countArray[0] > -679) {
-          //Das naechste Objekt hat dann eine andere Zahl zur eindeutigen Identifikation
-          graphics.countArray[0]--;
-        }
-        //Sollte der Fall eintreten (quasi unmoeglich), dass alle Zahlen verbraucht sind, fange wieder von vorne an
-        //Die ersten Zahlen sollten sich dann auch nicht mehr auf dem Spielfeld befinden
-        else {
-          //Reset
-          graphics.countArray[0] = -7;
-        }
         //Das Objekt wird nicht weiter bewegt
         this.isMoving = false;
       }

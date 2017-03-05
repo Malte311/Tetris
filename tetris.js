@@ -46,8 +46,6 @@ function draw() {
   controller = new Steuerung(blockObjekt);
   //Hintergrund soll schwarz sein
   background(0);
-  //Reihen konstant updaten
-  graphics.updateRows();
   //Zeichnen des Grids
   graphics.grid();
   //Zeichnen der Objekte bzw. Bloecke auf dem Spielfeld
