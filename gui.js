@@ -154,7 +154,7 @@ function GUI() {
     //Zunaechst wird ermittelt, um was fuer ein Objekt es sich handelt
     //NormalesL (orange)
     if (this.gridArray[i][j] < -7 && this.gridArray[i][j] > -680) {
-      
+
     }
     //NormalesZ (rot)
     else if (this.gridArray[i][j] <= -680 && this.gridArray[i][j] > -1280) {
@@ -166,7 +166,115 @@ function GUI() {
     }
     //GedrehtesL (blau)
     else if (this.gridArray[i][j] <= -1880 && this.gridArray[i][j] > -2480) {
-
+      //Sicherstellen, dass das Array nicht verlassen wird
+      if (j < this.bloeckeProZeile - 2) {
+        //Pruefen, ob es quer liegt
+        if (this.gridArray[i][j] === this.gridArray[i][j + 1] && this.gridArray[i][j] === this.gridArray[i][j + 2]) {
+          //pruefen, ob es in der Luft haengt
+          if (this.gridArray[i + 1][j] == 0 && this.gridArray[i + 1][j + 1] == 0 && this.gridArray[i + 1][j + 2] == 0) {
+            //Wenn es in der Luft haengt, soll es runterfallen
+            this.gridArray[i + 1][j] = this.gridArray[i][j];
+            this.gridArray[i + 1][j + 1] = this.gridArray[i][j + 1];
+            this.gridArray[i + 1][j + 2] = this.gridArray[i][j + 2];
+            this.gridArray[i][j] = 0;
+            this.gridArray[i][j + 1] = 0;
+            this.gridArray[i][j + 2] = 0;
+          }
+        }
+      }
+      //quer gedreht pruefen
+      if (i > 0 && j > 1) {
+        if (this.gridArray[i][j] === this.gridArray[i - 1][j] && this.gridArray[i - 1][j - 1] === this.gridArray[i][j] && this.gridArray[i - 1][j - 2] === this.gridArray[i][j]) {
+          //pruefen, ob in der Luft
+          if (this.gridArray[i + 1][j] == 0 && this.gridArray[i][j - 1] == 0 && this.gridArray[i][j - 2] == 0) {
+            //wenn ja dann fallen
+            this.gridArray[i][j - 1] = this.gridArray[i - 1][j - 1];
+            this.gridArray[i][j - 2] = this.gridArray[i - 1][j - 2];
+            this.gridArray[i + 1][j] = this.gridArray[i][j];
+            this.gridArray[i - 1][j] = 0;
+            this.gridArray[i - 1][j - 2] = 0;
+            this.gridArray[i - 1][j - 1] = 0;
+          }
+        }
+      }
+      if (j < this.bloeckeProZeile - 1) {
+        //wenn es senkrecht ist
+        if (this.gridArray[i][j] === this.gridArray[i][j + 1] && this.gridArray[i][j] !== this.gridArray[i][j + 2]) {
+          //pruefen, ob es in der Luft haengt
+          if (this.gridArray[i + 1][j] == 0 && this.gridArray[i + 1][j + 1] == 0) {
+            //Wenn es in der Luft haengt, soll es runterfallen
+            this.gridArray[i + 1][j] = this.gridArray[i][j];
+            this.gridArray[i + 1][j + 1] = this.gridArray[i][j + 1];
+            this.gridArray[i][j] = 0;
+            this.gridArray[i][j + 1] = 0;
+          }
+        }
+        //pruefen, ob es senkrecht gedreht ist
+        if (i > 1) {
+          if (this.gridArray[i][j] === this.gridArray[i - 1][j] && this.gridArray[i - 2][j] === this.gridArray[i][j]
+          && this.gridArray[i - 2][j + 1] === this.gridArray[i][j]) {
+            //pruefen, ob der Stein in der Luft haengt
+            if (this.gridArray[i + 1][j] == 0 && this.gridArray[i - 1][j + 1] == 0) {
+              //Wenn es in der Luft haengt, soll es runterfallen
+              this.gridArray[i + 1][j] = this.gridArray[i][j];
+              this.gridArray[i - 1][j + 1] = this.gridArray[i - 2][j + 1];
+              this.gridArray[i - 2][j + 1] = 0;
+              this.gridArray[i - 2][j] = 0;
+            }
+          }
+        }
+        //pruefen, ob es senkrecht gedreht ist aber bereits den unteren Stein verloren hat durch eine volle Reihe
+        if (i > 0) {
+          if (this.gridArray[i][j] === this.gridArray[i - 1][j] && this.gridArray[i - 1][j + 1] === this.gridArray[i][j] && this.gridArray[i][j] !== this.gridArray[i + 1][j]) {
+            //pruefen, ob der Stein in der Luft haengt
+            if (this.gridArray[i + 1][j] == 0 && this.gridArray[i][j + 1] == 0) {
+              //dann soll der Stein fallen
+              this.gridArray[i][j + 1] = this.gridArray[i - 1][j + 1];
+              this.gridArray[i + 1][j] = this.gridArray[i][j];
+              this.gridArray[i - 1][j + 1] = 0;
+              this.gridArray[i - 1][j] = 0;
+            }
+          }
+        }
+        //alleine ? dann fallen wenn Platz ist
+        if (this.gridArray[i][j] !== this.gridArray[i][j + 1] && this.gridArray[i][j] !== this.gridArray[i - 1][j + 1]) {
+          //fallen
+          this.gridArray[i + 1][j] = this.gridArray[i][j];
+          this.gridArray[i][j] = 0;
+        }
+      }
+      if (j > 1) {
+        //alleine ? dann fallen wenn Platz ist
+        if (this.gridArray[i][j] !== this.gridArray[i][j + 1] && this.gridArray[i][j] !== this.gridArray[i - 1][j - 1]) {
+          //fallen
+          this.gridArray[i + 1][j] = this.gridArray[i][j];
+          this.gridArray[i][j] = 0;
+        }
+      }
+      //letztes Feld der Reihe pruefen
+      if (j == this.bloeckeProZeile - 1) {
+        if (i > 0) {
+          //fuer quer gedreht
+          if (this.gridArray[i][j] === this.gridArray[i - 1][j] && this.gridArray[i - 1][j - 1] === this.gridArray[i][j] && this.gridArray[i - 1][j - 2] === this.gridArray[i][j]) {
+            //pruefen, ob in der Luft
+            if (this.gridArray[i + 1][j] == 0 && this.gridArray[i][j - 1] == 0 && this.gridArray[i][j - 2] == 0) {
+              //wenn ja dann fallen
+              this.gridArray[i][j - 1] = this.gridArray[i - 1][j - 1];
+              this.gridArray[i][j - 2] = this.gridArray[i - 1][j - 2];
+              this.gridArray[i + 1][j] = this.gridArray[i][j];
+              this.gridArray[i - 1][j] = 0;
+              this.gridArray[i - 1][j - 2] = 0;
+              this.gridArray[i - 1][j - 1] = 0;
+            }
+          }
+        }
+        //alleine ? dann fallen wenn Platz ist
+        if (this.gridArray[i + 1][j] == 0) {
+          //fallen
+          this.gridArray[i + 1][j] = this.gridArray[i][j];
+          this.gridArray[i][j] = 0;
+        }
+      }
     }
     //NormalesT (lila)
     else if (this.gridArray[i][j] <= -2480 && this.gridArray[i][j] > -3080) {
