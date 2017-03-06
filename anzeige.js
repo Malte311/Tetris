@@ -1,9 +1,8 @@
+var anzeige;
+
 function Anzeige() {
 
-
-  //Button fuer eine Hilfsanzeige (zum Anzeigen der Steuerung
-   //this.helpButton = createButton("Help");
-  // //Positionieren des Buttons
-  // this.helpButton.position(innerWidth / 2 - graphics.bloeckeProZeile * graphics.blockBreite / 2, graphics.bloeckeProSpalte * graphics.blockHoehe + 5);
-  //
+  anzeige = createGraphics(400, 100);
+  anzeige.background(0);
+  anzeige.ellipse(100, 100, 100, 100);
 }

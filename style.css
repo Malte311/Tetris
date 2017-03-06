@@ -1,8 +1,9 @@
-body{
+body {
 	background-color: #333;
 	color: black;
 }
-div#main{
+
+div#main {
 	margin:auto;
 	width: 300px;
 	background-color:#aaa;
@@ -17,22 +18,37 @@ div#canvasDiv {
   justify-content: center;
 }
 
-div#steuerung{
+div#steuerung {
 	background-color:#fff;
 	padding:10px;
 	border-radius:15px;
 	border:1px solid #666;
 }
 
+div#anzeige {
+
+}
 
 button {
     background-color: #000000; /* Black */
     border: none;
     color: white;
-    padding: 5px 10px;
+    padding: 10px 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
     border-radius: 12px;
+}
+
+.control {
+	background-color: #000000; /* Black */
+	border: none;
+	color: white;
+	padding: 10px 13px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	border-radius: 12px;
 }

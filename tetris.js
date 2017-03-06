@@ -40,16 +40,18 @@ function setup() {
 }
 //Draw Funktion, wird immer wieder wiederholt
 function draw() {
+  //erweitere Steuerung ausfuehren
+  controller.erweiterteSteuerung();
   //Anzeigen (Zeichnen) des Blockobjektes
   blockObjekt.display();
-  //Die Steuerung wird jedes Mal neu erzeugt, da sich das zu steuernde Element aendert
-  controller = new Steuerung(blockObjekt);
   //Sobald ein Block unten angekommt (anhaelt), wird ein neuer erstellt
   if (!blockObjekt.isMoving) {
     //Es soll geprueft werden, ob eine Reihe voll ist, wenn ja wird sie entfernt
     controller.reiheVoll();
     //Neues Blockobjekt erzeugen
     createNewObject();
+    //Die Steuerung wird jedes Mal neu erzeugt, da sich das zu steuernde Element aendert
+    controller = new Steuerung(blockObjekt);
   }
   //Hintergrund soll schwarz sein
   background(0);

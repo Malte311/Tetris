@@ -327,7 +327,7 @@ function NormalesT() {
     //Wenn der Stein senkrecht gedreht ist
     else if (this.senkrechtGedreht) {
       //Pruefen, ob das Objekt bereits unten angekommen ist
-      if (this.y < graphics.bloeckeProSpalte - this.hoehe) {
+      if (round(this.y) < graphics.bloeckeProSpalte - this.hoehe) {
         //Pruefen, ob es ein Hindernis gibt
         if (graphics.gridArray[round(this.y + this.hoehe)][this.x] == 0 && graphics.gridArray[round(this.y + 2)][this.x + 1] == 0) {
           //Gibt es keines, dann faellt das Objekt weiter
@@ -360,7 +360,7 @@ function NormalesT() {
     //Wenn das Objekt quer gedreht ist
     else if (this.querGedreht) {
       //Pruefen, ob das Objekt bereits unten angekommen ist
-      if (this.y < graphics.bloeckeProSpalte - this.hoehe) {
+      if (round(this.y) < graphics.bloeckeProSpalte - this.hoehe) {
         //Pruefen, ob es ein Hindernis gibt
         if (graphics.gridArray[round(this.y + 1)][this.x] == 0 && graphics.gridArray[round(this.y + 2)][this.x + 1] == 0 &&
         graphics.gridArray[round(this.y + 1)][this.x + 2] == 0) {

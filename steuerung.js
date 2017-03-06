@@ -24,14 +24,6 @@ function Steuerung(object) {
       else if (keyCode == 32) {
         object.freierFall();
       }
-
-      //Block schnell runter fallen lassen mit Pfeiltaste unten oder s
-      // if (keyIsDown(DOWN_ARROW) || keyIsDown(83)) {
-      //   speed = 0.05;
-      // }
-      // else {
-      //   speed = defaultSpeed;
-      // }
     }
   }
   //Funktion, die dafuer sorgt, dass das Objekt faellt
@@ -59,6 +51,17 @@ function Steuerung(object) {
         //Und es soll die volle Reihe geloescht werden
         graphics.deleteVolleReihe(i);
       }
+    }
+  }
+  //Funktion fuer die erweiterte Steuerung
+  this.erweiterteSteuerung = function() {
+    //verbesserte Steuerung (Tasten halten)
+    //Block schnell runter fallen lassen mit Pfeiltaste unten oder s
+    if (keyIsDown(DOWN_ARROW) || keyIsDown(83)) {
+      speed = 0.35;
+    }
+    else {
+      speed = defaultSpeed;
     }
   }
 }

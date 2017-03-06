@@ -45,7 +45,7 @@
   <script>
     //erst wenn Seite geladen
     $(function(){
-	//auf den Klick des Buttons hören
+	//auf den Klick des Buttons hoeren
         $('#button').click( function(event) {
         //Spiel pausieren
         running = false;
@@ -64,11 +64,16 @@
   <div id="main">
 
 	<div id="canvasDiv">
-		  <!-- Hier liegt später der Canavas mit dem Spielfeld drinnen. -->
+		  <!-- Hier liegt spaeter der Canvas mit dem Spielfeld drinnen. -->
 	</div>
 
   	<div id="steuerung">
     		<button type="button" id="button">Help</button>
+        <button type="button" id="playbutton" class="control">&#9658;</button>
+        <button type="button" id="leftarrow" class="control">&#8678;</button>
+        <button type="button" id="downarrow" class="control">&#8681;</button>
+        <button type="button" id="rightarrow" class="control">&#8680;</button>
+        <button type="button" id="drehen" class="control">&#8635;</button>
   	</div>
    </div>
   <!-- <div id="behold">
