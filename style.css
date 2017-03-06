@@ -1,17 +1,29 @@
-html, body {
-  height: 100%;
+body{
+	background-color: #333;
+	color: black;
+}
+div#main{
+	margin:auto;
+	width: 300px;
+	background-color:#aaa;
+	padding:10px;
+	border-radius:15px;
+	border:1px solid #000;
 }
 
-body {
-  margin: 0;
-  display: flex;
-
-  /* This centers our sketch horizontally. */
+div#canvasDiv {
+  padding:10px;
+  display: flex;  
   justify-content: center;
-
-  /* This centers our sketch vertically. */
-  /* align-items: center; */
 }
+
+div#steuerung{
+	background-color:#fff;
+	padding:10px;
+	border-radius:15px;
+	border:1px solid #666;
+}
+
 
 button {
     background-color: #000000; /* Green */
@@ -23,28 +35,4 @@ button {
     display: inline-block;
     font-size: 16px;
     border-radius: 12px;
-}
-
-#behold {
-width: 1024px;
-height: 768px;
-background-color: #FF1493;
-text-align: center;
-}
-#main {
-width: 250px;
-float: left;
-background-color: #FF8C00;
-}
-#middle {
-width: 400px;
-background-color: #DAA520;
-}
-#side {
-width: 250px;
-float: right;
-background-color: #DCDCDC;
-}
-* {
-margin: 0px auto;
 }

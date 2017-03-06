@@ -25,6 +25,8 @@ function setup() {
   graphics.fillArray();
   //Erzeugen eines Canvas Objektes (Spielfeld)
   canvas = createCanvas(graphics.blockBreite * graphics.bloeckeProZeile, graphics.blockHoehe * graphics.bloeckeProSpalte);
+  //Den Canvas in einen Div packen 
+  canvas.parent('canvasDiv');
   //Eine neue Anzeige fuer Help Button, Play Again Button, Scoreanzeige
   anzeige = new Anzeige();
   //Zu Anfang wird randomNumber ein zufaelliger Wert zwischen 0 und 6 zugewiesen, um das erste Objekt per Zufall zu bestimmen
