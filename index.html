@@ -35,7 +35,6 @@
   <script language="javascript" type="text/javascript" src="objects/normalesT.js"></script>
   <script language="javascript" type="text/javascript" src="gui.js"></script>
   <script language="javascript" type="text/javascript" src="steuerung.js"></script>
-  <script language="javascript" type="text/javascript" src="anzeige.js"></script>
 
   <!-- this line removes any default padding and style. you might only need one of these values set. -->
   <!-- <style> body {padding: 0; margin: 0;} </style> -->
@@ -62,35 +61,26 @@
   </script>
 
   <div id="main">
-
-	<div id="canvasDiv">
-		  <!-- Hier liegt spaeter der Canvas mit dem Spielfeld drinnen. -->
-	</div>
-
+  	<div id="canvasDiv">
+  		  <!-- Hier liegt spaeter der Canvas mit dem Spielfeld drinnen. -->
+  	</div>
   	<div id="steuerung">
     		<button type="button" id="button">Help</button>
-        <button type="button" id="playbutton" class="control">&#9658;</button>
+        <!-- <button type="button" id="playbutton" class="control">&#9658;</button>
         <button type="button" id="leftarrow" class="control">&#8678;</button>
         <button type="button" id="downarrow" class="control">&#8681;</button>
         <button type="button" id="rightarrow" class="control">&#8680;</button>
-        <button type="button" id="drehen" class="control">&#8635;</button>
+        <button type="button" id="drehen" class="control">&#8635;</button> -->
   	</div>
-   </div>
-  <!-- <div id="behold">
-        <div id="main">Main Container</div>
-       <div id="side">Side Container</div>
-       <div id="middle">Mitten Container</div>
-  </div> -->
+    <br>
 
-  <!-- Icons fuer Buttons fuer Mobilgeraete:
-  &#9658;  Play
-  &#10074;&#10074; Pause
-  &#8635; Rotate
-	&#8678; left arrow
-  &#8679; upwards arrow
-	&#8680; right arrow
-  &#8681; downwards arrow
-  -->
+    <!-- Canvas fuer die Anzeige -->
+    <div>
+
+    <canvas id="anzeige" width="300" height="100"></canvas>
+
+    </div>
+  </div>
 
  <!-- Inhalt des Hilfebuttons-->
   <div id="dialog" title="How to play" style="display:none;">
@@ -101,6 +91,20 @@
     <p>D or &rarr;: move right</p>
     <p>spacebar: place instantly</p>
   </div>
-
 </body>
 </html>
+
+<!-- Icons fuer Buttons fuer Mobilgeraete:
+&#9658;  Play
+&#10074;&#10074; Pause
+&#8635; Rotate
+&#8678; left arrow
+&#8679; upwards arrow
+&#8680; right arrow
+&#8681; downwards arrow
+-->
+<!-- Direkt in HTML zeichnen
+<svg width="400" height="100">
+  <rect width="400" height="100" style="fill:rgb(0,0,255);stroke-width:10;stroke:rgb(0,0,0)" />
+</svg>
+-->

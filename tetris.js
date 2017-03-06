@@ -2,6 +2,9 @@
  * @author Malte Luttermann
  */
 
+//Variablen fuer die Anzeige, benoetigt fuer Zugriff auf HTML Canvas
+var c;
+var ctx;
 //Variable fuer Zugriffe auf das Canvas
 var canvas;
 //Variable zum Testen ob das Spiel laeuft oder pausiert ist
@@ -21,6 +24,20 @@ var randomNumber = 0;
 
 //Setup Funktion, wird ein mal zu Beginn ausgefuehrt
 function setup() {
+  //Anzeige von Text im HTML Canvas
+  c = document.getElementById("anzeige");
+  ctx = c.getContext("2d");
+  // Create gradient
+  var gradient = ctx.createLinearGradient(0, 0, c.width, 0);
+  gradient.addColorStop("0", "magenta");
+  gradient.addColorStop("0.5", "blue");
+  gradient.addColorStop("1.0", "red");
+  // Fill with gradient
+  ctx.strokeStyle = gradient;
+  ctx.font = "20px Arial";
+  ctx.strokeText("Next", 30, 15);
+  ctx.strokeText("Score", 220, 15);
+  ctx.moveTo(0,0);
   //Erzeugen eines Objektes GUI, welches fuer visuelle Dinge zustaendig ist (Grafik)
   graphics = new GUI();
   //Zu Anfang wird ein mal das Array, welches das Spielfeld speichert, initialisiert
@@ -29,8 +46,6 @@ function setup() {
   canvas = createCanvas(graphics.blockBreite * graphics.bloeckeProZeile, graphics.blockHoehe * graphics.bloeckeProSpalte);
   //Den Canvas in einen Div packen
   canvas.parent('canvasDiv');
-  //Eine neue Anzeige fuer Help Button, Play Again Button, Scoreanzeige
-  anzeige = new Anzeige();
   //Zu Anfang wird randomNumber ein zufaelliger Wert zwischen 0 und 6 zugewiesen, um das erste Objekt per Zufall zu bestimmen
   randomNumber = floor(random(0, 7));
   //Neues Blockobjekt erzeugen
@@ -124,7 +139,69 @@ function nextObject() {
   }
   //Eine Zufallszahl zwischen 0 und 6 generieren, fuer die Anzeige, welches Objekt als naechstes kommt
   randomNumber = floor(random(0, 7));
+  //wenn ein neues Objekt erzeugt werden kann, gibt es eine Anzeige dafuer
   if (naechstesObjekt.createNewObjectIsPossible()) {
+    //Konsolenausgabe
     console.log("Naechstes Objekt ist " + randomNumber);
+    //Fuer jedes Objekt seine eigene Anzeige
+    ctx.lineWidth = 2;
+    switch (randomNumber) {
+      //Zahl 0 ist Square in gelb
+      case 0:
+        ctx.fillStyle = "#FFFF00";
+        ctx.strokeStyle = "black";
+        ctx.strokeRect(30, 30, 19, 19);
+        ctx.fillRect(30, 30, 18, 18);
+        ctx.strokeRect(50, 30, 19, 19);
+        ctx.fillRect(50, 30, 18, 18);
+        ctx.strokeRect(30, 50, 19, 19);
+        ctx.fillRect(30, 50, 18, 18);
+        ctx.strokeRect(50, 50, 19, 19);
+        ctx.fillRect(50, 50, 18, 18);
+        ctx.stroke();
+        break;
+        //Zahl 1 ist NormalesI in tuerkis
+      case 1:
+        ctx.fillStyle = "#00FFFF";
+        ctx.strokeStyle = "black";
+
+        ctx.stroke();
+        break;
+      //Ist die Zahl 2, wird ein GedrehtesZ in gruen angezeigt
+      case 2:
+        ctx.fillStyle = "#00FF00";
+        ctx.strokeStyle = "black";
+
+        ctx.stroke();
+        break;
+      //Ist die Zahl 3, wird ein GedrehtesL in blau angezeigt
+      case 3:
+        ctx.fillStyle = "#0000FF";
+        ctx.strokeStyle = "black";
+
+        ctx.stroke();
+        break;
+      //Ist die Zahl 4, wird ein NormalesL in orange angezeigt
+      case 4:
+        ctx.fillStyle = "#FF8000";
+        ctx.strokeStyle = "black";
+
+        ctx.stroke();
+        break;
+      //Ist die Zahl 5, wird ein NormalesT in lila angezeigt
+      case 5:
+        ctx.fillStyle = "#FF00FF";
+        ctx.strokeStyle = "black";
+
+        ctx.stroke();
+        break;
+      //Ist die Zahl 6, wird ein NormalesZ in rot angezeigt
+      case 6:
+        ctx.fillStyle = "#FF0000";
+        ctx.strokeStyle = "black";
+        
+        ctx.stroke();
+        break;
+    }
   }
 }
