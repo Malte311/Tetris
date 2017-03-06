@@ -7,7 +7,7 @@
   <link rel="shortcut icon" href="images/Tetris.png" type="image/x-icon; charset=binary">
 	<link rel="icon" href="images/Tetris.png" type="image/x-icon; charset=binary">
 	<link rel="apple-touch-icon" href="images/Tetris.png">
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
   <meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="mobile-web-app-capable" content="yes">
@@ -42,30 +42,24 @@
 </head>
 <!-- body -->
 <body>
-
   <script>
-
-    $('#dialog').dialog({
-      autoOpen: false,
-      modal: true,
-      draggable: true,
-      title: "How to play",
-    });
-
-    $('#button').click(function(e){
-      e.preventDefault(); //to prevent standard click event
-      $('#dialog').toggle();
-    });
-
-    jQuery(document).ready(function(){
-        jQuery('#button').on('click', function(event) {
-             jQuery('#dialog').toggle('show');
+    //erst wenn Seite geladen
+    $(function(){
+	//auf den Klick des Buttons hören
+        $('#button').click( function(event) {
+	     //div mit Inhalt des Dialoges sichtbar machen
+	     $( "#dialog" ).show();
+	     //dialog anzeigen
+             $('#dialog').dialog({
+			modal: true,
+			draggable: true,
+			title: "How to play",
+	     });
         });
     });
-
   </script>
   <div>
-    <button href="javascript:showhide('dialog')" type="button" id="button" value='hide/show'>Help</button>
+    <button type="button" id="button">Help</button>
   </div>
   <!-- <div id="behold">
         <div id="main">Main Container</div>
