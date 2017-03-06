@@ -6,6 +6,8 @@
 var canvas;
 //Variable zum Testen ob das Spiel laeuft oder pausiert ist
 var running = false;
+//Default Speed, zum zuruecksetzen der Spielgeschwindigkeit
+var defaultSpeed = 0.03;
 //Variable, zur Bestimmung der Spielgeschwindigkeit
 var speed = 0.03;
 //Steuerungsvariable
@@ -25,7 +27,7 @@ function setup() {
   graphics.fillArray();
   //Erzeugen eines Canvas Objektes (Spielfeld)
   canvas = createCanvas(graphics.blockBreite * graphics.bloeckeProZeile, graphics.blockHoehe * graphics.bloeckeProSpalte);
-  //Den Canvas in einen Div packen 
+  //Den Canvas in einen Div packen
   canvas.parent('canvasDiv');
   //Eine neue Anzeige fuer Help Button, Play Again Button, Scoreanzeige
   anzeige = new Anzeige();
@@ -33,11 +35,15 @@ function setup() {
   randomNumber = floor(random(0, 7));
   //Neues Blockobjekt erzeugen
   createNewObject();
+  //Steuerung hinzufuegen
+  controller = new Steuerung(blockObjekt);
 }
 //Draw Funktion, wird immer wieder wiederholt
 function draw() {
   //Anzeigen (Zeichnen) des Blockobjektes
   blockObjekt.display();
+  //Die Steuerung wird jedes Mal neu erzeugt, da sich das zu steuernde Element aendert
+  controller = new Steuerung(blockObjekt);
   //Sobald ein Block unten angekommt (anhaelt), wird ein neuer erstellt
   if (!blockObjekt.isMoving) {
     //Es soll geprueft werden, ob eine Reihe voll ist, wenn ja wird sie entfernt
@@ -45,8 +51,6 @@ function draw() {
     //Neues Blockobjekt erzeugen
     createNewObject();
   }
-  //Die Steuerung wird jedes Mal neu erzeugt, da sich das zu steuernde Element aendern kann
-  controller = new Steuerung(blockObjekt);
   //Hintergrund soll schwarz sein
   background(0);
   //Zeichnen des Grids

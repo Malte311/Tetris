@@ -175,7 +175,7 @@ function NormalesZ() {
     //Wenn der Stein senkrecht ist
     if (this.senkrecht) {
       //Ist der Stein noch nicht unten angekommen, tue dies
-      if (this.y < graphics.bloeckeProSpalte - this.hoehe) {
+      if (round(this.y) < graphics.bloeckeProSpalte - this.hoehe) {
         //Pruefe ob unter dem Objekt alle Felder frei sind, damit es weiter fallen kann
         if (graphics.gridArray[round(this.y + 2)][this.x] == 0 && graphics.gridArray[round(this.y + this.hoehe)][this.x - 1] == 0) {
           //Wenn dem so ist, dann lasse das Objekt weiter fallen
@@ -191,7 +191,7 @@ function NormalesZ() {
     //Wenn der Stein quer liegt
     else {
       //Ist der Stein noch nicht unten angekommen, tue dies
-      if (this.y < graphics.bloeckeProSpalte - this.hoehe) {
+      if (round(this.y) < graphics.bloeckeProSpalte - this.hoehe) {
         //Ueberpruefe, ob unten dem Objekt alle Felder frei sind, damit es fallen kann
         if (graphics.gridArray[round(this.y + this.hoehe)][this.x + 1] == 0 && graphics.gridArray[round(this.y + this.hoehe)][this.x + 2] == 0 &&
         graphics.gridArray[round(this.y + 1)][this.x] == 0) {

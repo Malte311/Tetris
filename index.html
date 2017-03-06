@@ -47,6 +47,8 @@
     $(function(){
 	//auf den Klick des Buttons hören
         $('#button').click( function(event) {
+        //Spiel pausieren
+        running = false;
 	     //div mit Inhalt des Dialoges sichtbar machen
 	     $( "#dialog" ).show();
 	     //dialog anzeigen
@@ -90,8 +92,9 @@
     <p>P or Enter: &#9658; / &#10074;&#10074;</p>
     <p>W or &uarr;: rotate</p>
     <p>A or &larr;: move left</p>
-    <p>S or &darr;: place instantly (holding: falling faster)</p>
+    <p>S or &darr;:falling faster</p>
     <p>D or &rarr;: move right</p>
+    <p>spacebar: place instantly</p>
   </div>
 
 </body>

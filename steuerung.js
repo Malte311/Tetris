@@ -16,14 +16,22 @@ function Steuerung(object) {
       else if (keyCode == RIGHT_ARROW || keyCode == 68) {
         object.bewegungRechts();
       }
-      //Block schnell runter fallen lassen mit Pfeiltaste unten oder s
-      else if (keyCode == DOWN_ARROW || keyCode == 83) {
-        object.freierFall();
-      }
       //Drehen eines Objektes mittels Pfeiltaste hoch oder w
       else if (keyCode == UP_ARROW || keyCode == 87) {
         object.drehen();
       }
+      //Leertaste fuer den freien Fall
+      else if (keyCode == 32) {
+        object.freierFall();
+      }
+
+      //Block schnell runter fallen lassen mit Pfeiltaste unten oder s
+      // if (keyIsDown(DOWN_ARROW) || keyIsDown(83)) {
+      //   speed = 0.05;
+      // }
+      // else {
+      //   speed = defaultSpeed;
+      // }
     }
   }
   //Funktion, die dafuer sorgt, dass das Objekt faellt

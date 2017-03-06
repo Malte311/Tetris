@@ -13,7 +13,7 @@ div#main{
 
 div#canvasDiv {
   padding:10px;
-  display: flex;  
+  display: flex;
   justify-content: center;
 }
 
@@ -26,7 +26,7 @@ div#steuerung{
 
 
 button {
-    background-color: #000000; /* Green */
+    background-color: #000000; /* Black */
     border: none;
     color: white;
     padding: 5px 10px;

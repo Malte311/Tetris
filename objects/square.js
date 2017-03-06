@@ -66,9 +66,9 @@ function Square() {
   //Funktion fuer das automatische runterfallen
   this.gravity = function() {
     //Wird nur ausgefuehrt, solange das Objekt nicht bereits ganz unten angekommen ist
-    if (this.y < graphics.bloeckeProSpalte - this.hoehe) {
+    if (round(this.y) < graphics.bloeckeProSpalte - this.hoehe) {
       //Ist unter dem Objekt kein Hinternis, soll es weiter fallen
-      if (graphics.gridArray[floor(this.y + this.hoehe)][this.x] == 0 && graphics.gridArray[floor(this.y + this.hoehe)][this.x + 1] == 0) {
+      if (graphics.gridArray[round(this.y + this.hoehe)][this.x] == 0 && graphics.gridArray[round(this.y + this.hoehe)][this.x + 1] == 0) {
         //Dazu wird der y-Wert einfach weiter erhoeht
         this.y += speed;
       }

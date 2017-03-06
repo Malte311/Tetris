@@ -302,7 +302,7 @@ function NormalesL() {
     //Wenn der Stein senkrecht ist
     if (this.senkrecht) {
       //Pruefen, ob das Objekt bereits unten angekommen ist
-      if (this.y < graphics.bloeckeProSpalte - this.hoehe) {
+      if (round(this.y) < graphics.bloeckeProSpalte - this.hoehe) {
         //Wenn nein, dann wird geprueft, ob es ein Hindernis gibt
         if (graphics.gridArray[round(this.y + this.hoehe)][this.x] == 0 && graphics.gridArray[round(this.y + this.hoehe)][this.x + 1] == 0) {
           //Ist kein Hindernis im Weg, faellt das Objekt
@@ -318,7 +318,7 @@ function NormalesL() {
     //Wenn der Stein senkrecht gedreht ist
     else if (this.senkrechtGedreht) {
       //Pruefen, ob das Objekt bereits unten angekommen ist
-      if (this.y < graphics.bloeckeProSpalte - this.hoehe) {
+      if (round(this.y) < graphics.bloeckeProSpalte - this.hoehe) {
         //Pruefen, ob es ein Hindernis gibt
         if (graphics.gridArray[round(this.y + 1)][this.x] == 0 && graphics.gridArray[round(this.y + this.hoehe)][this.x + 1] == 0) {
           //Gibt es keines, dann faellt das Objekt weiter
@@ -334,7 +334,7 @@ function NormalesL() {
     //Wenn der Stein quer liegt
     else if (this.quer) {
       //Pruefen, ob das Objekt bereits unten angekommen ist
-      if (this.y < graphics.bloeckeProSpalte - this.hoehe) {
+      if (round(this.y) < graphics.bloeckeProSpalte - this.hoehe) {
         //Pruefen, ob es ein Hindernis gibt
         if (graphics.gridArray[round(this.y + 2)][this.x] == 0 && graphics.gridArray[round(this.y + 1)][this.x + 1] == 0 &&
         graphics.gridArray[round(this.y + 1)][this.x + 2] == 0) {
@@ -351,7 +351,7 @@ function NormalesL() {
     //Wenn das Objekt quer gedreht ist
     else if (this.querGedreht) {
       //Pruefen, ob das Objekt bereits unten angekommen ist
-      if (this.y < graphics.bloeckeProSpalte - this.hoehe) {
+      if (round(this.y) < graphics.bloeckeProSpalte - this.hoehe) {
         //Pruefen, ob es ein Hindernis gibt
         if (graphics.gridArray[round(this.y + 2)][this.x] == 0 && graphics.gridArray[round(this.y + 2)][this.x - 1] == 0 &&
         graphics.gridArray[round(this.y + 2)][this.x - 2] == 0) {
