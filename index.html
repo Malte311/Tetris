@@ -7,6 +7,7 @@
   <link rel="shortcut icon" href="images/Tetris.png" type="image/x-icon; charset=binary">
 	<link rel="icon" href="images/Tetris.png" type="image/x-icon; charset=binary">
 	<link rel="apple-touch-icon" href="images/Tetris.png">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
   <meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="mobile-web-app-capable" content="yes">
@@ -16,7 +17,8 @@
   <meta charset="UTF-8">
   <!-- p5 library -->
   <script language="javascript" type="text/javascript" src="libraries/p5.js"></script>
-  <script language="javascript" type="text/javascript" src="libraries/jquery-ui.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <!-- css -->
   <link rel="stylesheet" href="style.css">
   <!-- extra p5 libraries -->
@@ -35,11 +37,72 @@
   <script language="javascript" type="text/javascript" src="steuerung.js"></script>
   <script language="javascript" type="text/javascript" src="anzeige.js"></script>
 
-
   <!-- this line removes any default padding and style. you might only need one of these values set. -->
   <!-- <style> body {padding: 0; margin: 0;} </style> -->
 </head>
 <!-- body -->
 <body>
+
+  <script>
+
+    $('#dialog').dialog({
+      autoOpen: false,
+      modal: true,
+      draggable: true,
+      title: "How to play",
+    });
+
+    $('#button').click(function(e){
+      e.preventDefault(); //to prevent standard click event
+      $('#dialog').toggle();
+    });
+
+    jQuery(document).ready(function(){
+        jQuery('#button').on('click', function(event) {
+             jQuery('#content').toggle('show');
+        });
+    });
+    //
+    // var button = document.getElementById('button'); // Assumes element with id='button'
+    //
+    // button.onclick = function() {
+    //     var div = document.getElementById('dialog');
+    //     if (div.style.display !== 'none') {
+    //         div.style.display = 'none';
+    //     }
+    //     else {
+    //         div.style.display = 'block';
+    //     }
+    // };
+
+  </script>
+  <div>
+    <button href="javascript:showhide('dialog')" type="button" id="button" value='hide/show'>Help</button>
+  </div>
+  <!-- <div id="behold">
+        <div id="main">Main Container</div>
+       <div id="side">Side Container</div>
+       <div id="middle">Mitten Container</div>
+  </div> -->
+
+  <!-- Icons fuer Buttons fuer Mobilgeraete:
+  &#9658;  Play
+  &#10074;&#10074; Pause
+  &#8635; Rotate
+	&#8678; left arrow
+  &#8679; upwards arrow
+	&#8680; right arrow
+  &#8681; downwards arrow
+  -->
+
+ <!-- Inhalt des Hilfebuttons-->
+  <div id="dialog" title="How to play" style="display:none;">
+    <p>P or Enter: &#9658; / &#10074;&#10074;</p>
+    <p>W or &uarr;: rotate</p>
+    <p>A or &larr;: move left</p>
+    <p>S or &darr;: place instantly (holding: falling faster)</p>
+    <p>D or &rarr;: move right</p>
+  </div>
+
 </body>
 </html>

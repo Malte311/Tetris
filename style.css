@@ -12,3 +12,39 @@ body {
   /* This centers our sketch vertically. */
   /* align-items: center; */
 }
+
+button {
+    background-color: #000000; /* Green */
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 12px;
+}
+
+#behold {
+width: 1024px;
+height: 768px;
+background-color: #FF1493;
+text-align: center;
+}
+#main {
+width: 250px;
+float: left;
+background-color: #FF8C00;
+}
+#middle {
+width: 400px;
+background-color: #DAA520;
+}
+#side {
+width: 250px;
+float: right;
+background-color: #DCDCDC;
+}
+* {
+margin: 0px auto;
+}

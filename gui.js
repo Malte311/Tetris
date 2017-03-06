@@ -17,6 +17,7 @@ function GUI() {
   this.grid = function() {
     //Grid zeichnen, Linien in weiß
     stroke(255);
+    strokeWeight(1.5);
     //Es werden Rechtecke gezeichnet, die vorerst nicht ausgefuellt werden sollen
     noFill();
     //Durchlaufe alle Reihen
@@ -121,8 +122,7 @@ function GUI() {
   //Funktion zum Play Again (Game Over Screen)
   this.gameOver = function() {
     console.log("Spiel zu Ende");
-    running = false;
-    //Score anzeigen, Play again fragen, wenn ja dann folgendes:
+    //Neues Spiel
     //setup();
     //running = true;
   }

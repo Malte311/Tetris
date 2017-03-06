@@ -16,6 +16,7 @@ var blockObjekt;
 var naechstesObjekt;
 //Variable, die zufaellig Zahlen zwischen 0 und 6 generieren soll, damit Objekte zufaellig erzeugt werden koennen
 var randomNumber = 0;
+
 //Setup Funktion, wird ein mal zu Beginn ausgefuehrt
 function setup() {
   //Erzeugen eines Objektes GUI, welches fuer visuelle Dinge zustaendig ist (Grafik)
@@ -115,5 +116,7 @@ function nextObject() {
   }
   //Eine Zufallszahl zwischen 0 und 6 generieren, fuer die Anzeige, welches Objekt als naechstes kommt
   randomNumber = floor(random(0, 7));
-  console.log("Naechstes Objekt ist " + randomNumber);
+  if (naechstesObjekt.createNewObjectIsPossible()) {
+    console.log("Naechstes Objekt ist " + randomNumber);
+  }
 }
