@@ -27,19 +27,10 @@ function setup() {
   //Anzeige von Text im HTML Canvas
   c = document.getElementById("anzeige");
   ctx = c.getContext("2d");
-  // Create gradient
-  var gradient = ctx.createLinearGradient(0, 0, c.width, 0);
-  gradient.addColorStop("0", "magenta");
-  gradient.addColorStop("0.5", "blue");
-  gradient.addColorStop("1.0", "red");
-  // Fill with gradient
-  ctx.strokeStyle = gradient;
-  ctx.font = "20px Arial";
-  ctx.strokeText("Next", 30, 15);
-  ctx.strokeText("Score", 220, 15);
-  ctx.moveTo(0,0);
   //Erzeugen eines Objektes GUI, welches fuer visuelle Dinge zustaendig ist (Grafik)
   graphics = new GUI();
+  //Die Anzeige hinzufuegen
+  graphics.drawAnzeigeNurBeiSetup();
   //Zu Anfang wird ein mal das Array, welches das Spielfeld speichert, initialisiert
   graphics.fillArray();
   //Erzeugen eines Canvas Objektes (Spielfeld)
@@ -142,7 +133,7 @@ function nextObject() {
   //wenn ein neues Objekt erzeugt werden kann, gibt es eine Anzeige dafuer
   if (naechstesObjekt.createNewObjectIsPossible()) {
     //Konsolenausgabe
-    console.log("Naechstes Objekt ist " + randomNumber);
+    //console.log("Naechstes Objekt ist " + randomNumber);
     //Fuer jedes Objekt seine eigene Anzeige
     ctx.lineWidth = 2;
     switch (randomNumber) {

@@ -3,6 +3,8 @@ function GUI() {
   //Variablen vom Graphical User Interface
   //Variable fuer den Scorewert
   this.score = 0;
+  //Variable zur dynamischen Anpassung der Position des Scorewertes
+  this.scoreX = 235;
   //Die Breite eines Blockes
   this.blockBreite = 22;
   //Die Hoehe eines Blockes (gleich der Breite, da Bloecke quadratisch sein sollen)
@@ -130,8 +132,27 @@ function GUI() {
   this.updateScore = function() {
     //Fuer jeden Stein, der entfernt wird, gibt es einen Punkt
     this.score += this.bloeckeProZeile;
+    //Anpassen des x-Wertes, falls der Scorewert mehrstellig wird
+    //Bis zu 999999 wird es korrekt angezeigt. Ab einer Million wird nicht weiter angepasst
+    if (this.score > 9) {
+      this.scoreX = 225;
+    }
+    if (this.score > 99) {
+      this.scoreX = 215;
+    }
+    if (this.score > 999) {
+      this.scoreX = 205;
+    }
+    if (this.score > 9999) {
+      this.scoreX = 195;
+    }
+    if (this.score > 99999) {
+      this.scoreX = 185;
+    }
+    //Anzeige updaten
+    this.drawAnzeige();
     //Score in der Console ausgeben
-    console.log(this.score);
+    //console.log(this.score);
   }
   //Funktion zum Runterfallen von Steinen, die in der Luft schweben wuerden, wenn eine Reihe geloescht wird
   //Bekommt als Parameter uebergeben, welche Reihe geloescht worden ist
@@ -146,5 +167,45 @@ function GUI() {
         this.gridArray[i][j] = 0;
       }
     }
+    //Pruefe danach, ob noch eine Reihe voll ist
+    controller.reiheVoll();
+  }
+  //Funktion um die Anzeige fuer den Score anzuzeigen
+  this.drawAnzeige = function() {
+    // Create gradient
+    var gradient = ctx.createLinearGradient(0, 0, c.width, 0);
+    gradient.addColorStop("0", "magenta");
+    gradient.addColorStop("0.5", "blue");
+    gradient.addColorStop("1.0", "red");
+    //Score Anzeigen
+    ctx.fillStyle = "#aaa";
+    ctx.fillRect(100, 25, 200, 45);
+    ctx.font = "30px Verdana";
+    // Fill with gradient
+    ctx.fillStyle = gradient;
+    ctx.fillText(graphics.score, this.scoreX, 50);
+  }
+  //Nur fuer Setup
+  this.drawAnzeigeNurBeiSetup = function() {
+    ctx.fillStyle = "#aaa";
+    ctx.fillRect(25, 5, 250, 15);
+    // Create gradient
+    var gradient = ctx.createLinearGradient(0, 0, c.width, 0);
+    gradient.addColorStop("0", "magenta");
+    gradient.addColorStop("0.5", "blue");
+    gradient.addColorStop("1.0", "red");
+    // Fill with gradient
+    ctx.strokeStyle = gradient;
+    ctx.font = "20px Arial";
+    ctx.strokeText("Next", 30, 15);
+    ctx.strokeText("Score", 220, 15);
+    //ctx.moveTo(0,0);
+    //Score Anzeigen
+    ctx.fillStyle = "#aaa";
+    ctx.fillRect(100, 35, 200, 45);
+    ctx.font = "30px Verdana";
+    // Fill with gradient
+    ctx.fillStyle = gradient;
+    ctx.fillText(graphics.score, this.scoreX, 50);
   }
 }
