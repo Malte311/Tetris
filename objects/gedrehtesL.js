@@ -36,6 +36,7 @@ function GedrehtesL() {
         graphics.gridArray[round(this.y) + 1][this.x] = this.farbCode;
         graphics.gridArray[round(this.y) + 2][this.x] = this.farbCode;
         graphics.gridArray[round(this.y) + 2][this.x - 1] = this.farbCode;
+        this.lastMove = true;
       }
       else if (this.lastMove) {
         //Objekt besteht aus vier kleinen Quadraten, die zusammengefuegt werden
@@ -66,6 +67,7 @@ function GedrehtesL() {
         graphics.gridArray[round(this.y)][this.x + 1] = this.farbCode;
         graphics.gridArray[round(this.y + 1)][this.x] = this.farbCode;
         graphics.gridArray[round(this.y + 2)][this.x] = this.farbCode;
+        this.lastMove = true;
       }
       else if (this.lastMove) {
         //Objekt besteht aus vier kleinen Quadraten, die zusammengefuegt werden
@@ -96,6 +98,7 @@ function GedrehtesL() {
         graphics.gridArray[round(this.y + 1)][this.x] = this.farbCode;
         graphics.gridArray[round(this.y + 1)][this.x + 1] = this.farbCode;
         graphics.gridArray[round(this.y + 1)][this.x + 2] = this.farbCode;
+        this.lastMove = true;
       }
       else if (this.lastMove) {
         //Objekt besteht aus vier kleinen Quadraten, die zusammengefuegt werden
@@ -126,6 +129,7 @@ function GedrehtesL() {
         graphics.gridArray[round(this.y)][this.x + 1] = this.farbCode;
         graphics.gridArray[round(this.y)][this.x + 2] = this.farbCode;
         graphics.gridArray[round(this.y + 1)][this.x + 2] = this.farbCode;
+        this.lastMove = true;
       }
       else if (this.lastMove) {
         //Objekt besteht aus vier kleinen Quadraten, die zusammengefuegt werden

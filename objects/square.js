@@ -16,6 +16,9 @@ function Square() {
   //Variablen fuer eine letzte Bewegung
   this.lastMove = true;
   this.yCounter = 0;
+  //Variablen fuer erweiterte Steuerung
+  this.moveRightPossible = true;
+  this.moveLeftPossible = true;
   //Funktion zum Anzeigen
   this.display = function() {
     //bewegt sich der Block noch, wird dies ausgefuehrt (spaetestens ganz unten bewegt sich der Stein nicht mehr)
@@ -26,6 +29,7 @@ function Square() {
       graphics.gridArray[round(this.y)][this.x + 1] = this.farbCode;
       graphics.gridArray[round(this.y + 1)][this.x] = this.farbCode;
       graphics.gridArray[round(this.y + 1)][this.x + 1] = this.farbCode;
+      this.lastMove = true;
     }
     //bewegt sich der Block nicht mehr oder kommt ganz unten an wird dies ausgefuehrt
     else if (this.lastMove) {
@@ -105,7 +109,11 @@ function Square() {
       if (!(graphics.gridArray[round(this.y)][this.x + this.breite] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x + this.breite] < 0)) {
         //Dann kann dieses Objekt ein Block nach rechts bewegt werden
         this.x += 1;
+        this.moveRightPossible = true;
       }
+    }
+    else {
+      this.moveRightPossible = false;
     }
   }
   //Funktion zum Bewegen nach links
@@ -116,7 +124,14 @@ function Square() {
       if (!(graphics.gridArray[round(this.y)][this.x - 1] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x - 1] < 0)) {
         //Dann kann dieses Objekt einen Block nach links bewegt werden
         this.x -= 1;
+        this.moveLeftPossible = true;
       }
+      else {
+        this.moveLeftPossible = false;
+      }
+    }
+    else {
+      this.moveLeftPossible = false;
     }
   }
   //Funktion zum Pruefen, ob ausreichend Platz ist, um das Objekt zu erzeugen

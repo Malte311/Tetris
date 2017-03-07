@@ -31,6 +31,7 @@ function NormalesI() {
         graphics.gridArray[round(this.y) + 1][this.x] = this.farbCode;
         graphics.gridArray[round(this.y) + 2][this.x] = this.farbCode;
         graphics.gridArray[round(this.y) + 3][this.x] = this.farbCode;
+        this.lastMove = true;
       }
       else if (this.lastMove) {
         //Das Objekt besteht aus vier kleinen untereinander gereihten Rechtecken
@@ -61,6 +62,7 @@ function NormalesI() {
         graphics.gridArray[round(this.y)][this.x + 1] = this.farbCode;
         graphics.gridArray[round(this.y)][this.x + 2] = this.farbCode;
         graphics.gridArray[round(this.y)][this.x + 3] = this.farbCode;
+        this.lastMove = true;
       }
       else if (this.lastMove) {
         //Das Objekt besteht aus vier kleinen untereinander gereihten Rechtecken

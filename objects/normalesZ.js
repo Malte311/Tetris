@@ -30,6 +30,7 @@ function NormalesZ() {
         graphics.gridArray[round(this.y) + 1][this.x] = this.farbCode;
         graphics.gridArray[round(this.y) + 1][this.x - 1] = this.farbCode;
         graphics.gridArray[round(this.y) + 2][this.x - 1] = this.farbCode;
+        this.lastMove = true;
       }
       else if (this.lastMove) {
         //Darstellung durch 4 zusammengefuegte kleine Rechtecke
@@ -60,6 +61,7 @@ function NormalesZ() {
         graphics.gridArray[round(this.y)][this.x + 1] = this.farbCode;
         graphics.gridArray[round(this.y + 1)][this.x + 1] = this.farbCode;
         graphics.gridArray[round(this.y + 1)][this.x + 2] = this.farbCode;
+        this.lastMove = true;
       }
       else if (this.lastMove) {
         //Darstellung durch 4 zusammengefuegte kleine Rechtecke
