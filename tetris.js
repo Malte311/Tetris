@@ -54,8 +54,8 @@ function setup() {
 function draw() {
   if (!gameOver) {
     //erweitere Steuerung ausfuehren
-    controller.erweiterteSteuerung();
     blockObjekt.movementPossible();
+    controller.erweiterteSteuerung();
     //Anzeigen (Zeichnen) des Blockobjektes
     blockObjekt.display();
     //Hintergrund soll schwarz sein

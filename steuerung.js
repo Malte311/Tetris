@@ -69,33 +69,36 @@ function Steuerung(object) {
   //Funktion fuer die erweiterte Steuerung
   this.erweiterteSteuerung = function() {
     //verbesserte Steuerung (Tasten halten)
-    //Block schnell runter fallen lassen mit Pfeiltaste unten oder s
-    if (keyIsDown(DOWN_ARROW) || keyIsDown(83)) {
-      speed = 0.35;
-    }
-    else {
-      speed = defaultSpeed;
-    }
-    //Steuerung mit gedrueckt halten
-    //Fuer links
-    if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) {
-      if (object.moveLeftPossible) {
-        this.xLeft -= 0.06;
-        object.x = round(this.xLeft);
+    //Steuerung nur moeglich, wenn Spiel laeuft und der Block nicht bereits fest ist
+    if ((running && object.isMoving) || (running && object.lastMove)) {
+      //Block schnell runter fallen lassen mit Pfeiltaste unten oder s
+      if (keyIsDown(DOWN_ARROW) || keyIsDown(83)) {
+        speed = 0.35;
       }
-    }
-    else {
-      this.xLeft = object.x - 1;
-    }
-    //Fuer rechts
-    if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) {
-      if (object.moveRightPossible) {
-        this.xRight += 0.06;
-        object.x = round(this.xRight);
+      else {
+        speed = defaultSpeed;
       }
-    }
-    else {
-      this.xRight = object.x + 1;
+      //Steuerung mit gedrueckt halten
+      //Fuer links
+      if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) {
+        if (object.moveLeftPossible) {
+          this.xLeft -= 0.06;
+          object.x = round(this.xLeft);
+        }
+      }
+      else {
+        this.xLeft = object.x - 1;
+      }
+      //Fuer rechts
+      if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) {
+        if (object.moveRightPossible) {
+          this.xRight += 0.06;
+          object.x = round(this.xRight);
+        }
+      }
+      else {
+        this.xRight = object.x + 1;
+      }
     }
   }
 }
