@@ -15,6 +15,8 @@ function GUI() {
   this.bloeckeProSpalte = 20;
   //Das Array welches das Spielfeld in Bloecken unterteilt speichert
   this.gridArray = [this.bloeckeProSpalte];
+  //Variable die angibt, ob man startet oder nur pausiert
+  this.start = true;
   //Funktion zum Zeichnen des Grids
   this.grid = function() {
     //Grid zeichnen, Linien in weiß
@@ -123,10 +125,14 @@ function GUI() {
   }
   //Funktion zum Play Again (Game Over Screen)
   this.gameOver = function() {
-    console.log("Spiel zu Ende");
-    //Neues Spiel
-    //setup();
-    //running = true;
+    //Spiel ist vorbei
+    gameOver = true;
+    this.textStyle();
+    vtx.fillText("Press Enter to Play again!", 5, canvas.height / 2 + this.blockHoehe);
+    vtx.font = "40px impact";
+    vtx.fillText("Score: " + this.score, 5, canvas.height / 2 + 4 * this.blockHoehe);
+    vtx.font = "55px impact";
+    vtx.fillText("Game Over!", 5, canvas.height / 2 - this.blockHoehe);
   }
   //Funktion zum Updaten der Scoreanzeige
   this.updateScore = function() {
@@ -184,6 +190,14 @@ function GUI() {
     // Fill with gradient
     ctx.fillStyle = gradient;
     ctx.fillText(graphics.score, this.scoreX, 50);
+    vtx.fillStyle = linearGradient;
+    if (this.start) {
+      vtx.fillText("Press Enter to Start!", 1.5 * this.blockBreite - 1, canvas.height / 2 - this.blockHoehe);
+    }
+    else {
+      vtx.fillText("PAUSED", canvas.width / 3, this.blockHoehe);
+      vtx.fillText("Press Enter to Continue!", this.blockBreite / 2, 2 * this.blockHoehe);
+    }
   }
   //Nur fuer Setup
   this.drawAnzeigeNurBeiSetup = function() {
@@ -207,5 +221,22 @@ function GUI() {
     // Fill with gradient
     ctx.fillStyle = gradient;
     ctx.fillText(graphics.score, this.scoreX, 50);
+  }
+  //Einstellen der Schrift
+  this.textStyle = function() {
+    v = document.getElementById("canvasID");
+    vtx = v.getContext("2d");
+    //Anzeige fuer den Spieler
+    // create the rainbow linear-gradient
+    linearGradient = vtx.createLinearGradient(0, 0, v.width, 0);
+    linearGradient.addColorStop(0, "rgba(255, 0, 0, 1)");
+    linearGradient.addColorStop(0.15, "rgba(255, 255, 0, 1)");
+    linearGradient.addColorStop(0.3, "rgba(0, 255, 0, 1)");
+    linearGradient.addColorStop(0.5, "rgba(0, 255, 255, 1)");
+    linearGradient.addColorStop(0.65, "rgba(0, 0, 255, 1)");
+    linearGradient.addColorStop(0.8, "rgba(255, 0, 255, 1)");
+    linearGradient.addColorStop(1, "rgba(255, 0, 0, 1)");
+    vtx.fillStyle = linearGradient;
+    vtx.font = "25px impact";
   }
 }

@@ -5,6 +5,7 @@ function Steuerung(object) {
     //Spiel kann mit der Taste p oder Enter pausiert bzw. fortgesetzt werden
     if (keyCode == 13 || keyCode == 80) {
       running = !running;
+      graphics.start = false;
     }
     //Steuerung nur moeglich, wenn Spiel laeuft und der Block nicht bereits fest ist
     if (running && object.isMoving) {
@@ -24,6 +25,15 @@ function Steuerung(object) {
       else if (keyCode == 32) {
         object.freierFall();
       }
+    }
+    //Wenn es nicht laeuft, und das Spiel vorbei ist, soll man neu starten koennen
+    else if (gameOver && keyCode == 13) {
+      //Spielfeld resetten
+      setup();
+      //nicht mehr gameOver
+      gameOver = false;
+      //Spiel laeuft wieder
+      running = true;
     }
   }
   //Funktion, die dafuer sorgt, dass das Objekt faellt

@@ -21,6 +21,10 @@ var blockObjekt;
 var naechstesObjekt;
 //Variable, die zufaellig Zahlen zwischen 0 und 6 generieren soll, damit Objekte zufaellig erzeugt werden koennen
 var randomNumber = 0;
+//Variable, die angibt, ob das Spiel vorbei ist
+var gameOver = false;
+//Variable fuer das Zeichnen
+var linearGradient;
 
 //Setup Funktion, wird ein mal zu Beginn ausgefuehrt
 function setup() {
@@ -29,14 +33,16 @@ function setup() {
   ctx = c.getContext("2d");
   //Erzeugen eines Objektes GUI, welches fuer visuelle Dinge zustaendig ist (Grafik)
   graphics = new GUI();
-  //Die Anzeige hinzufuegen
-  graphics.drawAnzeigeNurBeiSetup();
   //Zu Anfang wird ein mal das Array, welches das Spielfeld speichert, initialisiert
   graphics.fillArray();
   //Erzeugen eines Canvas Objektes (Spielfeld)
   canvas = createCanvas(graphics.blockBreite * graphics.bloeckeProZeile, graphics.blockHoehe * graphics.bloeckeProSpalte);
   //Den Canvas in einen Div packen
   canvas.parent('canvasDiv');
+  canvas.id("canvasID");
+  //Die Anzeige hinzufuegen
+  graphics.textStyle();
+  graphics.drawAnzeigeNurBeiSetup();
   //Zu Anfang wird randomNumber ein zufaelliger Wert zwischen 0 und 6 zugewiesen, um das erste Objekt per Zufall zu bestimmen
   randomNumber = floor(random(0, 7));
   //Neues Blockobjekt erzeugen
@@ -46,31 +52,39 @@ function setup() {
 }
 //Draw Funktion, wird immer wieder wiederholt
 function draw() {
-  //erweitere Steuerung ausfuehren
-  controller.erweiterteSteuerung();
-  //Anzeigen (Zeichnen) des Blockobjektes
-  blockObjekt.display();
-  //Sobald ein Block unten angekommt (anhaelt), wird ein neuer erstellt
-  if (!blockObjekt.isMoving) {
-    //Es soll geprueft werden, ob eine Reihe voll ist, wenn ja wird sie entfernt
-    controller.reiheVoll();
-    //Neues Blockobjekt erzeugen
-    createNewObject();
-    //Die Steuerung wird jedes Mal neu erzeugt, da sich das zu steuernde Element aendert
-    controller = new Steuerung(blockObjekt);
-  }
-  //Hintergrund soll schwarz sein
-  background(0);
-  //Zeichnen des Grids
-  graphics.grid();
-  //Zeichnen der Objekte bzw. Bloecke auf dem Spielfeld
-  graphics.drawObjects();
-  //Neuzeichnen des Spielfeldes bewirkt, dass der Stein nur dort gezeichnet wird, wo er aktuell ist
-  graphics.repaintField();
-  //Wenn das Spiel nicht angehalten ist, soll das Blockobjekt automatisch runter fallen (langsam)
-  if (running) {
-    //Automatisches Runterfallen des Blockobjektes (Gravity)
-    controller.gravity();
+  if (!gameOver) {
+    //erweitere Steuerung ausfuehren
+    controller.erweiterteSteuerung();
+    //Anzeigen (Zeichnen) des Blockobjektes
+    blockObjekt.display();
+    //Hintergrund soll schwarz sein
+    background(0);
+    //Sobald ein Block unten angekommt (anhaelt), wird ein neuer erstellt
+    if (!blockObjekt.isMoving) {
+      //Es soll geprueft werden, ob eine Reihe voll ist, wenn ja wird sie entfernt
+      controller.reiheVoll();
+      //Neues Blockobjekt erzeugen
+      createNewObject();
+      //Die Steuerung wird jedes Mal neu erzeugt, da sich das zu steuernde Element aendert
+      controller = new Steuerung(blockObjekt);
+    }
+    //Zeichnen des Grids
+    graphics.grid();
+    //Wenn eben festgestellt wurde, dass Game Over ist, dann nicht mehr die Objekte zeichnen, da die Schrift sonst nicht lesbar ist
+    if (!gameOver) {
+      //Zeichnen der Objekte bzw. Bloecke auf dem Spielfeld
+      graphics.drawObjects();
+    }
+    //Neuzeichnen des Spielfeldes bewirkt, dass der Stein nur dort gezeichnet wird, wo er aktuell ist
+    graphics.repaintField();
+    //Wenn das Spiel nicht angehalten ist, soll das Blockobjekt automatisch runter fallen (langsam)
+    if (running) {
+      //Automatisches Runterfallen des Blockobjektes (Gravity)
+      controller.gravity();
+    }
+    else {
+      graphics.drawAnzeige();
+    }
   }
 }
 //Funktion fuer Tastatureingaben, wird eine Taste gedrueckt, so wird die Steuerung ausgefuehrt
