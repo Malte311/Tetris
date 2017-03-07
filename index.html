@@ -44,7 +44,11 @@
   <script>
     //erst wenn Seite geladen
     $(function(){
-	//auf den Klick des Buttons hoeren
+        $('#playbutton').click( function(event) {
+          running = !running;
+          graphics.start = false;
+        });
+	      //auf den Klick des Buttons hoeren
         $('#button').click( function(event) {
         //Spiel pausieren
         running = false;
@@ -58,6 +62,7 @@
 	     });
         });
     });
+
   </script>
 
   <div id="main">
@@ -71,6 +76,37 @@
         <button type="button" id="downarrow" class="control">&#8681;</button>
         <button type="button" id="rightarrow" class="control">&#8680;</button>
         <button type="button" id="drehen" class="control">&#8635;</button>
+
+        <script>
+        //Event ausloesen
+        //	art => Art des Events ( 0 => Rechtsklick, 1 => Doppenclick, 2 => Taste)
+        //	elem => DOM Element auf das das Event ausgeführt werden soll
+        //	[ code => Code für Taste (bei Tastenvent)]
+        function trigger_touchbedienung ( art, elem, code ) {
+    		if ( art == 0 ) {
+    			//Rechtsklick auf Element
+    			//	elem z.B. 'ul.files li[name=KIMB]'
+    			$( elem ).trigger("keyPressed");
+    		}
+    		else if ( art == 1 ) {
+    			//Doppelklick
+    			//	elem z.B: 'td.edit[sk=1]'
+    			$( elem ).trigger("dblclick");
+    		}
+    		else if ( art == 2 ) {
+    			//Tasten
+    			var touche = $.Event('keyup');
+    			touche.keyCode = code;
+    			//	elem z.B.: 'input#new_name'
+    			$( elem ).trigger(touche);
+    		}
+    		else {
+    			return false;
+    		}
+      }
+      trigger_touchbedienung(1, '#leftarrow', 13);
+        </script>
+
   	</div>
     <br>
 
@@ -92,6 +128,7 @@
     <p>D or &rarr;: move right</p>
     <p>spacebar: place instantly</p>
   </div>
+
 </body>
 </html>
 

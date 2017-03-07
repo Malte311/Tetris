@@ -25,11 +25,14 @@ var randomNumber = 0;
 var gameOver = false;
 //Variable fuer das Zeichnen
 var linearGradient;
+//Variable fuer dynamischen Button
+var playPauseButton;
 
 //Setup Funktion, wird ein mal zu Beginn ausgefuehrt
 function setup() {
   //Anzeige von Text im HTML Canvas
   c = document.getElementById("anzeige");
+  playPauseButton = document.getElementById('playbutton');
   ctx = c.getContext("2d");
   //Erzeugen eines Objektes GUI, welches fuer visuelle Dinge zustaendig ist (Grafik)
   graphics = new GUI();
@@ -82,9 +85,11 @@ function draw() {
     if (running) {
       //Automatisches Runterfallen des Blockobjektes (Gravity)
       controller.gravity();
+      playPauseButton.innerHTML = '&#10074;&#10074;';
     }
     else {
       graphics.drawAnzeige();
+      playPauseButton.innerHTML = '&#9658;';
     }
   }
 }
