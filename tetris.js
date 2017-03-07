@@ -60,7 +60,7 @@ function draw() {
     //Hintergrund soll schwarz sein
     background(0);
     //Sobald ein Block unten angekommt (anhaelt), wird ein neuer erstellt
-    if (!blockObjekt.isMoving) {
+    if (!blockObjekt.isMoving && !blockObjekt.lastMove) {
       //Es soll geprueft werden, ob eine Reihe voll ist, wenn ja wird sie entfernt
       controller.reiheVoll();
       //Neues Blockobjekt erzeugen

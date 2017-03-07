@@ -22,6 +22,9 @@ function GedrehtesL() {
   //Groesse eines Objektes in Bloecken gemessen
   this.hoehe = 3;
   this.breite = 2;
+  //Variablen fuer eine letzte Bewegung
+  this.lastMove = true;
+  this.yCounter = 0;
   //Funktion zum Anzeigen
   this.display = function() {
     //Wenn das Objekt senkrecht ist
@@ -33,6 +36,15 @@ function GedrehtesL() {
         graphics.gridArray[round(this.y) + 1][this.x] = this.farbCode;
         graphics.gridArray[round(this.y) + 2][this.x] = this.farbCode;
         graphics.gridArray[round(this.y) + 2][this.x - 1] = this.farbCode;
+      }
+      else if (this.lastMove) {
+        //Objekt besteht aus vier kleinen Quadraten, die zusammengefuegt werden
+        graphics.gridArray[round(this.y)][this.x] = this.farbCode;
+        graphics.gridArray[round(this.y) + 1][this.x] = this.farbCode;
+        graphics.gridArray[round(this.y) + 2][this.x] = this.farbCode;
+        graphics.gridArray[round(this.y) + 2][this.x - 1] = this.farbCode;
+        //das Objekt soll sich also nicht mehr weiter bewegen
+        this.isMoving = true;
       }
       //bewegt sich der Block nicht mehr oder kommt ganz unten an wird dies ausgefuehrt
       else {
@@ -55,6 +67,15 @@ function GedrehtesL() {
         graphics.gridArray[round(this.y + 1)][this.x] = this.farbCode;
         graphics.gridArray[round(this.y + 2)][this.x] = this.farbCode;
       }
+      else if (this.lastMove) {
+        //Objekt besteht aus vier kleinen Quadraten, die zusammengefuegt werden
+        graphics.gridArray[round(this.y)][this.x] = this.farbCode;
+        graphics.gridArray[round(this.y)][this.x + 1] = this.farbCode;
+        graphics.gridArray[round(this.y + 1)][this.x] = this.farbCode;
+        graphics.gridArray[round(this.y + 2)][this.x] = this.farbCode;
+        //das Objekt soll sich also nicht mehr weiter bewegen
+        this.isMoving = true;
+      }
       //bewegt sich der Block nicht mehr oder kommt ganz unten an wird dies ausgefuehrt
       else {
         //Objekt besteht aus vier kleinen Quadraten, die zusammengefuegt werden
@@ -76,6 +97,15 @@ function GedrehtesL() {
         graphics.gridArray[round(this.y + 1)][this.x + 1] = this.farbCode;
         graphics.gridArray[round(this.y + 1)][this.x + 2] = this.farbCode;
       }
+      else if (this.lastMove) {
+        //Objekt besteht aus vier kleinen Quadraten, die zusammengefuegt werden
+        graphics.gridArray[round(this.y)][this.x] = this.farbCode;
+        graphics.gridArray[round(this.y + 1)][this.x] = this.farbCode;
+        graphics.gridArray[round(this.y + 1)][this.x + 1] = this.farbCode;
+        graphics.gridArray[round(this.y + 1)][this.x + 2] = this.farbCode;
+        //das Objekt soll sich also nicht mehr weiter bewegen
+        this.isMoving = true;
+      }
       //bewegt sich der Block nicht mehr oder kommt ganz unten an wird dies ausgefuehrt
       else {
         //Objekt besteht aus vier kleinen Quadraten, die zusammengefuegt werden
@@ -96,6 +126,15 @@ function GedrehtesL() {
         graphics.gridArray[round(this.y)][this.x + 1] = this.farbCode;
         graphics.gridArray[round(this.y)][this.x + 2] = this.farbCode;
         graphics.gridArray[round(this.y + 1)][this.x + 2] = this.farbCode;
+      }
+      else if (this.lastMove) {
+        //Objekt besteht aus vier kleinen Quadraten, die zusammengefuegt werden
+        graphics.gridArray[round(this.y)][this.x] = this.farbCode;
+        graphics.gridArray[round(this.y)][this.x + 1] = this.farbCode;
+        graphics.gridArray[round(this.y)][this.x + 2] = this.farbCode;
+        graphics.gridArray[round(this.y + 1)][this.x + 2] = this.farbCode;
+        //das Objekt soll sich also nicht mehr weiter bewegen
+        this.isMoving = true;
       }
       //bewegt sich der Block nicht mehr oder kommt ganz unten an wird dies ausgefuehrt
       else {
@@ -297,9 +336,11 @@ function GedrehtesL() {
           }
         }
       }
+      this.lastMove = false;
     }
   //Funktion fuer das automatische runterfallen
   this.gravity = function() {
+    this.yCounter += speed;
     //Wenn der Stein senkrecht ist
     if (this.senkrecht) {
       //Pruefen, ob das Objekt bereits unten angekommen ist
@@ -365,6 +406,9 @@ function GedrehtesL() {
           this.isMoving = false;
         }
       }
+    }
+    if (round(this.yCounter) >= round(this.y + 1)) {
+      this.lastMove = false;
     }
   }
   //Funktion zum Bewegen nach rechts

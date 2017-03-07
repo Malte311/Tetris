@@ -8,7 +8,7 @@ function Steuerung(object) {
       graphics.start = false;
     }
     //Steuerung nur moeglich, wenn Spiel laeuft und der Block nicht bereits fest ist
-    if (running && object.isMoving) {
+    if ((running && object.isMoving) || (running && object.lastMove)) {
       //Bewegung nach links mit Pfeiltaste links oder a
       if (keyCode == LEFT_ARROW || keyCode == 65) {
         object.bewegungLinks();

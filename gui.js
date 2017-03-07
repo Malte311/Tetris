@@ -194,7 +194,7 @@ function GUI() {
     if (this.start) {
       vtx.fillText("Press Enter to Start!", 1.5 * this.blockBreite - 1, canvas.height / 2 - this.blockHoehe);
     }
-    else {
+    else if (!gameOver) {
       vtx.fillText("PAUSED", canvas.width / 3, this.blockHoehe);
       vtx.fillText("Press Enter to Continue!", this.blockBreite / 2, 2 * this.blockHoehe);
     }

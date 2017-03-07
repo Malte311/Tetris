@@ -16,6 +16,9 @@ function NormalesI() {
   //Groesse eines Objektes in Bloecken gemessen
   this.hoehe =  4;
   this.breite = 1;
+  //Variablen fuer eine letzte Bewegung
+  this.lastMove = true;
+  this.yCounter = 0;
   //Funktion zum Anzeigen
   this.display = function() {
     //Wenn der Stein senkrecht ist
@@ -28,6 +31,15 @@ function NormalesI() {
         graphics.gridArray[round(this.y) + 1][this.x] = this.farbCode;
         graphics.gridArray[round(this.y) + 2][this.x] = this.farbCode;
         graphics.gridArray[round(this.y) + 3][this.x] = this.farbCode;
+      }
+      else if (this.lastMove) {
+        //Das Objekt besteht aus vier kleinen untereinander gereihten Rechtecken
+        graphics.gridArray[round(this.y)][this.x] = this.farbCode;
+        graphics.gridArray[round(this.y) + 1][this.x] = this.farbCode;
+        graphics.gridArray[round(this.y) + 2][this.x] = this.farbCode;
+        graphics.gridArray[round(this.y) + 3][this.x] = this.farbCode;
+        //Und nun bewegt sich das Objekt nicht weiter
+        this.isMoving = true;
       }
       //bewegt sich der Block nicht mehr oder kommt ganz unten an wird dies ausgefuehrt
       else {
@@ -49,6 +61,15 @@ function NormalesI() {
         graphics.gridArray[round(this.y)][this.x + 1] = this.farbCode;
         graphics.gridArray[round(this.y)][this.x + 2] = this.farbCode;
         graphics.gridArray[round(this.y)][this.x + 3] = this.farbCode;
+      }
+      else if (this.lastMove) {
+        //Das Objekt besteht aus vier kleinen untereinander gereihten Rechtecken
+        graphics.gridArray[round(this.y)][this.x] = this.farbCode;
+        graphics.gridArray[round(this.y)][this.x + 1] = this.farbCode;
+        graphics.gridArray[round(this.y)][this.x + 2] = this.farbCode;
+        graphics.gridArray[round(this.y)][this.x + 3] = this.farbCode;
+        //Und nun bewegt sich das Objekt nicht weiter
+        this.isMoving = true;
       }
       //bewegt sich der Block nicht mehr oder kommt ganz unten an wird dies ausgefuehrt
       else {
@@ -146,9 +167,11 @@ function NormalesI() {
         }
       }
     }
+    this.lastMove = false;
   }
   //Funktion fuer das automatische runterfallen
   this.gravity = function() {
+    this.yCounter += speed;
     //Wenn der Stein senkrecht ist
     if (this.senkrecht) {
       //Das Objekt soll sinken, wenn es noch nicht ganz unten ist
@@ -181,6 +204,9 @@ function NormalesI() {
           this.isMoving = false;
         }
       }
+    }
+    if (round(this.yCounter) >= round(this.y + 1)) {
+      this.lastMove = false;
     }
   }
   //Funktion zum Bewegen nach rechts

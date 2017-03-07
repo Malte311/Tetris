@@ -13,6 +13,9 @@ function Square() {
   //Groesse eines Objektes in Bloecken gemessen
   this.hoehe =  2;
   this.breite = 2;
+  //Variablen fuer eine letzte Bewegung
+  this.lastMove = true;
+  this.yCounter = 0;
   //Funktion zum Anzeigen
   this.display = function() {
     //bewegt sich der Block noch, wird dies ausgefuehrt (spaetestens ganz unten bewegt sich der Stein nicht mehr)
@@ -25,6 +28,15 @@ function Square() {
       graphics.gridArray[round(this.y + 1)][this.x + 1] = this.farbCode;
     }
     //bewegt sich der Block nicht mehr oder kommt ganz unten an wird dies ausgefuehrt
+    else if (this.lastMove) {
+      //Zeichnen des Quadrates, besteht aus vier kleinen Rechtecken (Quadraten)
+      graphics.gridArray[round(this.y)][this.x] = this.farbCode;
+      graphics.gridArray[round(this.y)][this.x + 1] = this.farbCode;
+      graphics.gridArray[round(this.y + 1)][this.x] = this.farbCode;
+      graphics.gridArray[round(this.y + 1)][this.x + 1] = this.farbCode;
+      //Nun bewegt sich der Stein nicht mehr weiter
+      this.isMoving = true;
+    }
     else {
       //Zeichnen des Quadrates, besteht aus vier kleinen Rechtecken (Quadraten)
       graphics.gridArray[round(this.y)][this.x] = this.platziert;
@@ -62,14 +74,17 @@ function Square() {
         this.isMoving = false;
       }
     }
+    this.lastMove = false;
   }
   //Funktion fuer das automatische runterfallen
   this.gravity = function() {
+    this.yCounter += speed;
     //Wird nur ausgefuehrt, solange das Objekt nicht bereits ganz unten angekommen ist
     if (round(this.y) < graphics.bloeckeProSpalte - this.hoehe) {
       //Ist unter dem Objekt kein Hinternis, soll es weiter fallen
       if (graphics.gridArray[round(this.y + this.hoehe)][this.x] == 0 && graphics.gridArray[round(this.y + this.hoehe)][this.x + 1] == 0) {
         //Dazu wird der y-Wert einfach weiter erhoeht
+        this.lastMove = true;
         this.y += speed;
       }
       //Gibt es ein bereits belegtes Feld unter diesem Objekt, dann
@@ -77,6 +92,9 @@ function Square() {
         //stoppt dieses Objekt
         this.isMoving = false;
       }
+    }
+    if (round(this.yCounter) >= round(this.y + 1)) {
+      this.lastMove = false;
     }
   }
   //Funktion zum Bewegen nach rechts
