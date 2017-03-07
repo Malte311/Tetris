@@ -78,24 +78,24 @@ function Steuerung(object) {
     }
     //Steuerung mit gedrueckt halten
     //Fuer links
-    // if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) {
-    //   if (object.moveLeftPossible) {
-    //     this.xLeft -= 0.06;
-    //     object.x = round(this.xLeft);
-    //   }
-    // }
-    // else {
-    //   this.xLeft = object.x - 1;
-    // }
-    // //Fuer rechts
-    // if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) {
-    //   if (object.moveRightPossible) {
-    //     this.xRight += 0.06;
-    //     object.x = round(this.xRight);
-    //   }
-    // }
-    // else {
-    //   this.xRight = object.x + 1;
-    // }
+    if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) {
+      if (object.moveLeftPossible) {
+        this.xLeft -= 0.06;
+        object.x = round(this.xLeft);
+      }
+    }
+    else {
+      this.xLeft = object.x - 1;
+    }
+    //Fuer rechts
+    if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) {
+      if (object.moveRightPossible) {
+        this.xRight += 0.06;
+        object.x = round(this.xRight);
+      }
+    }
+    else {
+      this.xRight = object.x + 1;
+    }
   }
 }

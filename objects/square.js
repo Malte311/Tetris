@@ -103,35 +103,15 @@ function Square() {
   }
   //Funktion zum Bewegen nach rechts
   this.bewegungRechts = function() {
-    //Eine Bewegung nach rechts soll nur moeglich sein, wenn dadurch nicht das Spielfeld verlassen wird
-    if (this.x < graphics.bloeckeProZeile - this.breite) {
-      //Zudem darf kein Objekt ein Feld rechts von diesem Objekt blockieren
-      if (!(graphics.gridArray[round(this.y)][this.x + this.breite] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x + this.breite] < 0)) {
-        //Dann kann dieses Objekt ein Block nach rechts bewegt werden
-        this.x += 1;
-        this.moveRightPossible = true;
-      }
-    }
-    else {
-      this.moveRightPossible = false;
+    if (this.moveRightPossible) {
+      this.x += 1;
     }
   }
   //Funktion zum Bewegen nach links
   this.bewegungLinks = function() {
     //Eine Bewegung nach links soll nur moeglich sein, wenn dadurch nicht das Spielfeld verlassen wird
-    if (this.x > 0) {
-      //Ausserdem darf links von diesem Objekt kein Hindernis sein
-      if (!(graphics.gridArray[round(this.y)][this.x - 1] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x - 1] < 0)) {
-        //Dann kann dieses Objekt einen Block nach links bewegt werden
-        this.x -= 1;
-        this.moveLeftPossible = true;
-      }
-      else {
-        this.moveLeftPossible = false;
-      }
-    }
-    else {
-      this.moveLeftPossible = false;
+    if (this.moveLeftPossible) {
+      this.x -= 1;
     }
   }
   //Funktion zum Pruefen, ob ausreichend Platz ist, um das Objekt zu erzeugen
@@ -147,6 +127,37 @@ function Square() {
     else {
       //dann gib false zurueck
       return false;
+    }
+  }
+  //Funktion, die prueft, ob man sich bewegen darf
+  this.movementPossible = function() {
+    //Eine Bewegung nach links soll nur moeglich sein, wenn dadurch nicht das Spielfeld verlassen wird
+    if (this.x > 0) {
+      //Ausserdem darf links von diesem Objekt kein Hindernis sein
+      if (!(graphics.gridArray[round(this.y)][this.x - 1] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x - 1] < 0)) {
+        //Dann kann dieses Objekt einen Block nach links bewegt werden
+        this.moveLeftPossible = true;
+      }
+      else {
+        this.moveLeftPossible = false;
+      }
+    }
+    else {
+      this.moveLeftPossible = false;
+    }
+    //Eine Bewegung nach rechts soll nur moeglich sein, wenn dadurch nicht das Spielfeld verlassen wird
+    if (this.x < graphics.bloeckeProZeile - this.breite) {
+      //Zudem darf kein Objekt ein Feld rechts von diesem Objekt blockieren
+      if (!(graphics.gridArray[round(this.y)][this.x + this.breite] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x + this.breite] < 0)) {
+        //Dann kann dieses Objekt ein Block nach rechts bewegt werden
+        this.moveRightPossible = true;
+      }
+      else {
+        this.moveRightPossible = false;
+      }
+    }
+    else {
+      this.moveRightPossible = false;
     }
   }
 }

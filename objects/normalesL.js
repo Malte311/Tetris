@@ -25,6 +25,9 @@ function NormalesL() {
   //Variablen fuer eine letzte Bewegung
   this.lastMove = true;
   this.yCounter = 0;
+  //Variablen fuer erweiterte Steuerung
+  this.moveRightPossible = true;
+  this.moveLeftPossible = true;
   //Funktion zum Anzeigen
   this.display = function() {
     //Wenn das Objekt senkrecht ist
@@ -416,97 +419,14 @@ function NormalesL() {
   }
   //Funktion zum Bewegen nach rechts
   this.bewegungRechts = function() {
-    //Wenn der Stein senkrecht ist
-    if (this.senkrecht) {
-      //Sicherstellen, dass das Objekt das Feld nicht verlaesst
-      if (this.x < graphics.bloeckeProZeile - this.breite) {
-        //Pruefen, ob rechts ausreichend Platz zum bewegen ist
-        if (!(graphics.gridArray[round(this.y)][this.x + 1] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x + 1] < 0) && !(graphics.gridArray[round(this.y + 2)][this.x + 2] < 0)) {
-          //Sollte ausreichend Platz sein, wird das Objekt ein Block nach rechts bewegt
-          this.x += 1;
-        }
-      }
-    }
-    //Wenn der Stein senkrecht gedreht ist
-    else if (this.senkrechtGedreht) {
-      //Sicherstellen, dass das Objekt das Feld nicht verlaesst
-      if (this.x < graphics.bloeckeProZeile - this.breite) {
-        //Pruefen, ob rechts ausreichend Platz zum bewegen ist
-        if (!(graphics.gridArray[round(this.y)][this.x + 2] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x + 2] < 0) && !(graphics.gridArray[round(this.y + 2)][this.x + 2] < 0)) {
-          //Sollte ausreichend Platz sein, wird das Objekt ein Block nach rechts bewegt
-          this.x += 1;
-        }
-      }
-    }
-    //Wenn der Stein quer liegt
-    else if (this.quer) {
-      //Sicherstellen, dass das Objekt das Feld nicht verlaesst
-      if (this.x < graphics.bloeckeProZeile - this.breite) {
-        //Pruefen, ob rechts ausreichend Platz zum bewegen ist
-        if (!(graphics.gridArray[round(this.y + 1)][this.x + 1] < 0) && !(graphics.gridArray[round(this.y)][this.x + this.breite] < 0)) {
-          //Sollte ausreichend Platz sein, wird das Objekt ein Block nach rechts bewegt
-          this.x += 1;
-        }
-      }
-    }
-    //Wenn der Stein quer gedreht ist
-    else if (this.querGedreht) {
-      //Sicherstellen, dass das Objekt das Feld nicht verlaesst
-      if (this.x + 1 < graphics.bloeckeProZeile) {
-        //Pruefen, ob rechts ausreichend Platz zum bewegen ist
-        if (!(graphics.gridArray[round(this.y)][this.x + 1] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x + 1] < 0)) {
-          //Sollte ausreichend Platz sein, wird das Objekt ein Block nach rechts bewegt
-          this.x += 1;
-        }
-      }
+    if (this.moveRightPossible) {
+      this.x += 1;
     }
   }
   //Funktion zum Bewegen nach links
   this.bewegungLinks = function() {
-    //Wenn der Stein senkrecht ist
-    if (this.senkrecht) {
-      //Sicherstellen, dass das Objekt das Feld nicht verlaesst
-      if (this.x > 0) {
-        //Pruefen, ob rechts ausreichend Platz zum bewegen ist
-        if (!(graphics.gridArray[round(this.y)][this.x - 1] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x - 1] < 0) &&
-        !(graphics.gridArray[round(this.y + 2)][this.x - 1] < 0)) {
-          //Sollte ausreichend Platz sein, wird das Objekt ein Block nach links bewegt
-          this.x -= 1;
-        }
-      }
-    }
-    //Wenn der Stein senkrecht gedreht ist
-    else if (this.senkrechtGedreht) {
-      //Sicherstellen, dass das Objekt das Feld nicht verlaesst
-      if (this.x > 0) {
-        //Pruefen, ob rechts ausreichend Platz zum bewegen ist
-        if (!(graphics.gridArray[round(this.y)][this.x - 1] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x] < 0) && !(graphics.gridArray[round(this.y + 2)][this.x] < 0)) {
-          //Sollte ausreichend Platz sein, wird das Objekt ein Block nach links bewegt
-          this.x -= 1;
-        }
-      }
-    }
-    //Wenn der Stein quer liegt
-    else if (this.quer) {
-      //Sicherstellen, dass das Objekt das Feld nicht verlaesst
-      if (this.x > 0) {
-        //Pruefen, ob rechts ausreichend Platz zum bewegen ist
-        if (!(graphics.gridArray[round(this.y)][this.x - 1] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x - 1] < 0)) {
-          //Sollte ausreichend Platz sein, wird das Objekt ein Block nach links bewegt
-          this.x -= 1;
-        }
-      }
-    }
-    //Wenn der Stein quer gedreht ist
-    else if (this.querGedreht) {
-      //Sicherstellen, dass das Objekt das Feld nicht verlaesst
-      if (this.x - 2 > 0) {
-        //Pruefen, ob rechts ausreichend Platz zum bewegen ist
-        if (!(graphics.gridArray[round(this.y)][this.x - 1] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x - this.breite] < 0)) {
-          //Sollte ausreichend Platz sein, wird das Objekt ein Block nach links bewegt
-          this.x -= 1;
-        }
-      }
+    if (this.moveLeftPossible) {
+      this.x -= 1;
     }
   }
   //Funktion zum Pruefen, ob ausreichend Platz ist, um das Objekt zu erzeugen
@@ -521,6 +441,148 @@ function NormalesL() {
     else {
       //kann das Objekt nicht erzeugt werden und es wird false zurueckgegeben
       return false;
+    }
+  }
+  //Funktion, die prueft, ob man sich bewegen darf
+  this.movementPossible = function() {
+    //links
+    //Wenn der Stein senkrecht ist
+    if (this.senkrecht) {
+      //Sicherstellen, dass das Objekt das Feld nicht verlaesst
+      if (this.x > 0) {
+        //Pruefen, ob rechts ausreichend Platz zum bewegen ist
+        if (!(graphics.gridArray[round(this.y)][this.x - 1] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x - 1] < 0) &&
+        !(graphics.gridArray[round(this.y + 2)][this.x - 1] < 0)) {
+          //Sollte ausreichend Platz sein, wird das Objekt ein Block nach links bewegt
+          this.moveLeftPossible = true;
+        }
+        else {
+          this.moveLeftPossible = false;
+        }
+      }
+      else {
+        this.moveLeftPossible = false;
+      }
+    }
+    //Wenn der Stein senkrecht gedreht ist
+    else if (this.senkrechtGedreht) {
+      //Sicherstellen, dass das Objekt das Feld nicht verlaesst
+      if (this.x > 0) {
+        //Pruefen, ob rechts ausreichend Platz zum bewegen ist
+        if (!(graphics.gridArray[round(this.y)][this.x - 1] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x] < 0) && !(graphics.gridArray[round(this.y + 2)][this.x] < 0)) {
+          //Sollte ausreichend Platz sein, wird das Objekt ein Block nach links bewegt
+          this.moveLeftPossible = true;
+        }
+        else {
+          this.moveLeftPossible = false;
+        }
+      }
+      else {
+        this.moveLeftPossible = false;
+      }
+    }
+    //Wenn der Stein quer liegt
+    else if (this.quer) {
+      //Sicherstellen, dass das Objekt das Feld nicht verlaesst
+      if (this.x > 0) {
+        //Pruefen, ob rechts ausreichend Platz zum bewegen ist
+        if (!(graphics.gridArray[round(this.y)][this.x - 1] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x - 1] < 0)) {
+          //Sollte ausreichend Platz sein, wird das Objekt ein Block nach links bewegt
+          this.moveLeftPossible = true;
+        }
+        else {
+          this.moveLeftPossible = false;
+        }
+      }
+      else {
+        this.moveLeftPossible = false;
+      }
+    }
+    //Wenn der Stein quer gedreht ist
+    else if (this.querGedreht) {
+      //Sicherstellen, dass das Objekt das Feld nicht verlaesst
+      if (this.x - 2 > 0) {
+        //Pruefen, ob rechts ausreichend Platz zum bewegen ist
+        if (!(graphics.gridArray[round(this.y)][this.x - 1] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x - this.breite] < 0)) {
+          //Sollte ausreichend Platz sein, wird das Objekt ein Block nach links bewegt
+          this.moveLeftPossible = true;
+        }
+        else {
+          this.moveLeftPossible = false;
+        }
+      }
+      else {
+        this.moveLeftPossible = false;
+      }
+    }
+    //rechts
+    //Wenn der Stein senkrecht ist
+    if (this.senkrecht) {
+      //Sicherstellen, dass das Objekt das Feld nicht verlaesst
+      if (this.x < graphics.bloeckeProZeile - this.breite) {
+        //Pruefen, ob rechts ausreichend Platz zum bewegen ist
+        if (!(graphics.gridArray[round(this.y)][this.x + 1] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x + 1] < 0) && !(graphics.gridArray[round(this.y + 2)][this.x + 2] < 0)) {
+          //Sollte ausreichend Platz sein, wird das Objekt ein Block nach rechts bewegt
+          this.moveRightPossible = true;
+        }
+        else {
+          this.moveRightPossible = false;
+        }
+      }
+      else {
+        this.moveRightPossible = false;
+      }
+    }
+    //Wenn der Stein senkrecht gedreht ist
+    else if (this.senkrechtGedreht) {
+      //Sicherstellen, dass das Objekt das Feld nicht verlaesst
+      if (this.x < graphics.bloeckeProZeile - this.breite) {
+        //Pruefen, ob rechts ausreichend Platz zum bewegen ist
+        if (!(graphics.gridArray[round(this.y)][this.x + 2] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x + 2] < 0) && !(graphics.gridArray[round(this.y + 2)][this.x + 2] < 0)) {
+          //Sollte ausreichend Platz sein, wird das Objekt ein Block nach rechts bewegt
+          this.moveRightPossible = true;
+        }
+        else {
+          this.moveRightPossible = false;
+        }
+      }
+      else {
+        this.moveRightPossible = false;
+      }
+    }
+    //Wenn der Stein quer liegt
+    else if (this.quer) {
+      //Sicherstellen, dass das Objekt das Feld nicht verlaesst
+      if (this.x < graphics.bloeckeProZeile - this.breite) {
+        //Pruefen, ob rechts ausreichend Platz zum bewegen ist
+        if (!(graphics.gridArray[round(this.y + 1)][this.x + 1] < 0) && !(graphics.gridArray[round(this.y)][this.x + this.breite] < 0)) {
+          //Sollte ausreichend Platz sein, wird das Objekt ein Block nach rechts bewegt
+          this.moveRightPossible = true;
+        }
+        else {
+          this.moveRightPossible = false;
+        }
+      }
+      else {
+        this.moveRightPossible = false;
+      }
+    }
+    //Wenn der Stein quer gedreht ist
+    else if (this.querGedreht) {
+      //Sicherstellen, dass das Objekt das Feld nicht verlaesst
+      if (this.x + 1 < graphics.bloeckeProZeile) {
+        //Pruefen, ob rechts ausreichend Platz zum bewegen ist
+        if (!(graphics.gridArray[round(this.y)][this.x + 1] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x + 1] < 0)) {
+          //Sollte ausreichend Platz sein, wird das Objekt ein Block nach rechts bewegt
+          this.moveRightPossible = true;
+        }
+        else {
+          this.moveRightPossible = false;
+        }
+      }
+      else {
+        this.moveRightPossible = false;
+      }
     }
   }
 }

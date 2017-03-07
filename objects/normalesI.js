@@ -19,6 +19,9 @@ function NormalesI() {
   //Variablen fuer eine letzte Bewegung
   this.lastMove = true;
   this.yCounter = 0;
+  //Variablen fuer erweiterte Steuerung
+  this.moveRightPossible = true;
+  this.moveLeftPossible = true;
   //Funktion zum Anzeigen
   this.display = function() {
     //Wenn der Stein senkrecht ist
@@ -213,54 +216,14 @@ function NormalesI() {
   }
   //Funktion zum Bewegen nach rechts
   this.bewegungRechts = function() {
-    //Wenn der Stein senkrecht ist
-    if (this.senkrecht) {
-      //Erst wird geschaut, ob das Feld verlassen werden wuerde, wenn man sich nach rechts bewegt
-      if (this.x < graphics.bloeckeProZeile - this.breite) {
-        //Wenn man im Feld bleibt, wird geprueft, ob rechts neben diesem Objekt alle Felder frei sind, damit man sich bewegen kann
-        if (!(graphics.gridArray[round(this.y)][this.x + this.breite] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x + this.breite] < 0) &&
-        !(graphics.gridArray[round(this.y + 2)][this.x + this.breite] < 0) && !(graphics.gridArray[round(this.y + 3)][this.x + this.breite] < 0)) {
-          //Sollte auch dort frei sein, kann das Objekt nach rechts bewegt werden
-          this.x += 1;
-        }
-      }
-    }
-    //Wenn der Stein quer liegt
-    else {
-      //Wieder erst testen, ob das Objekt im Feld bleibt
-      if (this.x < graphics.bloeckeProZeile - this.breite) {
-        //Und schauen, ob freie Bahn herrscht
-        if (!(graphics.gridArray[round(this.y)][this.x + this.breite] < 0)) {
-          //Wenn ja, dann nach rechts bewegen
-          this.x += 1;
-        }
-      }
+    if (this.moveRightPossible) {
+      this.x += 1;
     }
   }
   //Funktion zum Bewegen nach links
   this.bewegungLinks = function() {
-    //Wenn der Stein senkrecht ist
-    if (this.senkrecht) {
-      //Erst ueberpruefen, ob das Objekt im Feld bleibt
-      if (this.x > 0) {
-        //Wenn ja, dann schauen, ob Platz zum Bewegen ist
-        if (!(graphics.gridArray[round(this.y)][this.x - 1] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x - 1] < 0) &&
-        !(graphics.gridArray[round(this.y + 2)][this.x - 1] < 0) && !(graphics.gridArray[round(this.y + 3)][this.x - 1] < 0)) {
-          //Wenn ja, dann einen Block nach links bewegen
-          this.x -= 1;
-        }
-      }
-    }
-    //Wenn der Stein quer liegt
-    else {
-      //Wieder erst sicherstellen, dass das Objekt das Spielfeld nicht verlaesst
-      if (this.x > 0) {
-        //Dann pruefen, ob Platz ist
-        if (!(graphics.gridArray[round(this.y)][this.x - 1] < 0)) {
-          //Wenn ja, dann kann nach links bewegt werden
-          this.x -= 1;
-        }
-      }
+    if (this.moveLeftPossible) {
+      this.x -= 1;
     }
   }
   //Funktion zum Pruefen, ob ausreichend Platz ist, um das Objekt zu erzeugen
@@ -275,6 +238,81 @@ function NormalesI() {
     else {
       //kann das Objekt nicht erzeugt werden und es wird false zurueckgegeben
       return false;
+    }
+  }
+  //Funktion, die prueft, ob man sich bewegen darf
+  this.movementPossible = function() {
+    //links
+    //Wenn der Stein senkrecht ist
+    if (this.senkrecht) {
+      //Erst ueberpruefen, ob das Objekt im Feld bleibt
+      if (this.x > 0) {
+        //Wenn ja, dann schauen, ob Platz zum Bewegen ist
+        if (!(graphics.gridArray[round(this.y)][this.x - 1] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x - 1] < 0) &&
+        !(graphics.gridArray[round(this.y + 2)][this.x - 1] < 0) && !(graphics.gridArray[round(this.y + 3)][this.x - 1] < 0)) {
+          //Wenn ja, dann einen Block nach links bewegen
+          this.moveLeftPossible = true;
+        }
+        else {
+          this.moveLeftPossible = false;
+        }
+      }
+      else {
+        this.moveLeftPossible = false;
+      }
+    }
+    //Wenn der Stein quer liegt
+    else {
+      //Wieder erst sicherstellen, dass das Objekt das Spielfeld nicht verlaesst
+      if (this.x > 0) {
+        //Dann pruefen, ob Platz ist
+        if (!(graphics.gridArray[round(this.y)][this.x - 1] < 0)) {
+          //Wenn ja, dann kann nach links bewegt werden
+          this.moveLeftPossible = true;
+        }
+        else {
+          this.moveLeftPossible = false;
+        }
+      }
+      else {
+        this.moveLeftPossible = false;
+      }
+    }
+    //rechts
+    //Wenn der Stein senkrecht ist
+    if (this.senkrecht) {
+      //Erst wird geschaut, ob das Feld verlassen werden wuerde, wenn man sich nach rechts bewegt
+      if (this.x < graphics.bloeckeProZeile - this.breite) {
+        //Wenn man im Feld bleibt, wird geprueft, ob rechts neben diesem Objekt alle Felder frei sind, damit man sich bewegen kann
+        if (!(graphics.gridArray[round(this.y)][this.x + this.breite] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x + this.breite] < 0) &&
+        !(graphics.gridArray[round(this.y + 2)][this.x + this.breite] < 0) && !(graphics.gridArray[round(this.y + 3)][this.x + this.breite] < 0)) {
+          //Sollte auch dort frei sein, kann das Objekt nach rechts bewegt werden
+          this.moveRightPossible = true;
+        }
+        else {
+          this.moveRightPossible = false;
+        }
+      }
+      else {
+        this.moveRightPossible = false;
+      }
+    }
+    //Wenn der Stein quer liegt
+    else {
+      //Wieder erst testen, ob das Objekt im Feld bleibt
+      if (this.x < graphics.bloeckeProZeile - this.breite) {
+        //Und schauen, ob freie Bahn herrscht
+        if (!(graphics.gridArray[round(this.y)][this.x + this.breite] < 0)) {
+          //Wenn ja, dann nach rechts bewegen
+          this.moveRightPossible = true;
+        }
+        else {
+          this.moveRightPossible = false;
+        }
+      }
+      else {
+        this.moveRightPossible = false;
+      }
     }
   }
 }

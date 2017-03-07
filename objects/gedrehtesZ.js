@@ -19,6 +19,9 @@ function GedrehtesZ() {
   //Variablen fuer eine letzte Bewegung
   this.lastMove = true;
   this.yCounter = 0;
+  //Variablen fuer erweiterte Steuerung
+  this.moveRightPossible = true;
+  this.moveLeftPossible = true;
   //Funktion zum Anzeigen
   this.display = function() {
     //Wenn das Objekt senkrecht ist
@@ -234,56 +237,14 @@ function GedrehtesZ() {
   }
   //Funktion zum Bewegen nach rechts
   this.bewegungRechts = function() {
-    //Wenn der Stein senkrecht ist
-    if (this.senkrecht) {
-      //Sicherstellen, dass der Stein das Spielfeld nicht verlassen kann
-      if (this.x < graphics.bloeckeProZeile - this.breite) {
-        //Dann pruefen, ob ein Hindernis im Weg ist
-        if (!(graphics.gridArray[round(this.y + 1)][this.x + this.breite] < 0) && !(graphics.gridArray[round(this.y + 2)][this.x + this.breite] < 0) && !(graphics.gridArray[round(this.y)][this.x + 1] < 0)) {
-          //bei freier Bahn kann nach rechts bewegt werden
-          this.x += 1;
-        }
-      }
-    }
-    //Wenn der Stein quer liegt
-    else {
-      //Sicherstellen, dass der Stein das Spielfeld nicht verlassen kann
-      if (this.x <= graphics.bloeckeProZeile - this.breite) {
-        //Dann pruefen, ob ein Hindernis im Weg ist
-        if (!(graphics.gridArray[round(this.y)][this.x + 2] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x + 1] < 0)) {
-          //wenn kein Hindernis vorhanden ist, kann nach rechts bewegt werden
-          this.x += 1;
-        }
-      }
-    }
-    if (round(this.yCounter) >= round(this.y + 1)) {
-      this.lastMove = false;
+    if (this.moveRightPossible) {
+      this.x += 1;
     }
   }
   //Funktion zum Bewegen nach links
   this.bewegungLinks = function() {
-    //Wenn der Stein senkrecht ist
-    if (this.senkrecht) {
-      //Erst sicherstellen, dass das Array nicht verlassen wird
-      if (this.x > 0) {
-        //Dann pruefen, ob Platz zum bewegen ist, oder ob etwas den Weg blockiert
-        if (!(graphics.gridArray[round(this.y)][this.x - 1] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x - 1] < 0) &&
-        !(graphics.gridArray[round(this.y + 2)][this.x] < 0)) {
-          //Wenn nicht, kann bewegt werden
-          this.x -= 1;
-        }
-      }
-    }
-    //Wenn der Stein quer liegt
-    else {
-      //Erst sicherstellen, dass das Array nicht verlassen wird
-      if (this.x > 1) {
-        //Dann pruefen, ob Platz zum bewegen ist, oder ob etwas den Weg blockiert
-        if (!(graphics.gridArray[round(this.y + 1)][this.x - 2] < 0) && !(graphics.gridArray[round(this.y)][this.x - 1] < 0)) {
-          //Wenn nicht, kann bewegt werden
-          this.x -= 1;
-        }
-      }
+    if (this.moveLeftPossible) {
+      this.x -= 1;
     }
   }
   //Funktion zum Pruefen, ob ausreichend Platz ist, um das Objekt zu erzeugen
@@ -298,6 +259,80 @@ function GedrehtesZ() {
     else {
       //Es wird false zurueckgegeben, das bedeutet, es ist nicht ausreichend Platz, um ein Objekt zu erzeugen
       return false;
+    }
+  }
+  //Funktion, die prueft, ob man sich bewegen darf
+  this.movementPossible = function() {
+    //links
+    //Wenn der Stein senkrecht ist
+    if (this.senkrecht) {
+      //Erst sicherstellen, dass das Array nicht verlassen wird
+      if (this.x > 0) {
+        //Dann pruefen, ob Platz zum bewegen ist, oder ob etwas den Weg blockiert
+        if (!(graphics.gridArray[round(this.y)][this.x - 1] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x - 1] < 0) &&
+        !(graphics.gridArray[round(this.y + 2)][this.x] < 0)) {
+          //Wenn nicht, kann bewegt werden
+          this.moveLeftPossible = true;
+        }
+        else {
+          this.moveLeftPossible = false;
+        }
+      }
+      else {
+        this.moveLeftPossible = false;
+      }
+    }
+    //Wenn der Stein quer liegt
+    else {
+      //Erst sicherstellen, dass das Array nicht verlassen wird
+      if (this.x > 1) {
+        //Dann pruefen, ob Platz zum bewegen ist, oder ob etwas den Weg blockiert
+        if (!(graphics.gridArray[round(this.y + 1)][this.x - 2] < 0) && !(graphics.gridArray[round(this.y)][this.x - 1] < 0)) {
+          //Wenn nicht, kann bewegt werden
+          this.moveLeftPossible = true;
+        }
+        else {
+          this.moveLeftPossible = false;
+        }
+      }
+      else {
+        this.moveLeftPossible = false;
+      }
+    }
+    //rechts
+    //Wenn der Stein senkrecht ist
+    if (this.senkrecht) {
+      //Sicherstellen, dass der Stein das Spielfeld nicht verlassen kann
+      if (this.x < graphics.bloeckeProZeile - this.breite) {
+        //Dann pruefen, ob ein Hindernis im Weg ist
+        if (!(graphics.gridArray[round(this.y + 1)][this.x + this.breite] < 0) && !(graphics.gridArray[round(this.y + 2)][this.x + this.breite] < 0) && !(graphics.gridArray[round(this.y)][this.x + 1] < 0)) {
+          //bei freier Bahn kann nach rechts bewegt werden
+          this.moveRightPossible = true;
+        }
+        else {
+          this.moveRightPossible = false;
+        }
+      }
+      else {
+        this.moveRightPossible = false;
+      }
+    }
+    //Wenn der Stein quer liegt
+    else {
+      //Sicherstellen, dass der Stein das Spielfeld nicht verlassen kann
+      if (this.x <= graphics.bloeckeProZeile - this.breite) {
+        //Dann pruefen, ob ein Hindernis im Weg ist
+        if (!(graphics.gridArray[round(this.y)][this.x + 2] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x + 1] < 0)) {
+          //wenn kein Hindernis vorhanden ist, kann nach rechts bewegt werden
+          this.moveRightPossible = true;
+        }
+        else {
+          this.moveRightPossible = false;
+        }
+      }
+      else {
+        this.moveRightPossible = false;
+      }
     }
   }
 }
