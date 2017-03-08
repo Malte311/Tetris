@@ -27,6 +27,8 @@ var gameOver = false;
 var linearGradient;
 //Variable fuer dynamischen Button
 var playPauseButton;
+//Variable fuer das aktuelle Level
+var level = 1;
 
 //Setup Funktion, wird ein mal zu Beginn ausgefuehrt
 function setup() {

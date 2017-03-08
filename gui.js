@@ -127,6 +127,8 @@ function GUI() {
   this.gameOver = function() {
     //Spiel ist vorbei
     gameOver = true;
+    level = 1;
+    this.updateLevel();
     this.textStyle();
     vtx.fillText("Press Enter to Play again!", 5, canvas.height / 2 + this.blockHoehe);
     vtx.font = "40px impact";
@@ -145,18 +147,23 @@ function GUI() {
     }
     if (this.score > 99) {
       this.scoreX = 215;
+      level = 2;
     }
     if (this.score > 999) {
       this.scoreX = 205;
+      level = 3;
     }
     if (this.score > 9999) {
       this.scoreX = 195;
+      level = 4;
     }
     if (this.score > 99999) {
       this.scoreX = 185;
+      level = 5;
     }
     //Anzeige updaten
     this.drawAnzeige();
+    this.updateLevel();
     //Score in der Console ausgeben
     //console.log(this.score);
   }
@@ -185,7 +192,7 @@ function GUI() {
     gradient.addColorStop("1.0", "red");
     //Score Anzeigen
     ctx.fillStyle = "#aaa";
-    ctx.fillRect(100, 25, 200, 45);
+    ctx.fillRect(100, 25, 200, 55);
     ctx.font = "30px Verdana";
     // Fill with gradient
     ctx.fillStyle = gradient;
@@ -203,6 +210,7 @@ function GUI() {
   this.drawAnzeigeNurBeiSetup = function() {
     ctx.fillStyle = "#aaa";
     ctx.fillRect(25, 5, 250, 15);
+    ctx.fillRect(100, 25, 200, 55);
     // Create gradient
     var gradient = ctx.createLinearGradient(0, 0, c.width, 0);
     gradient.addColorStop("0", "magenta");
@@ -238,5 +246,30 @@ function GUI() {
     linearGradient.addColorStop(1, "rgba(255, 0, 0, 1)");
     vtx.fillStyle = linearGradient;
     vtx.font = "25px impact";
+  }
+  //Funktion zum Levelaufstieg
+  this.updateLevel = function() {
+    switch (level) {
+      case 1:
+        defaultSpeed = 0.03;
+        speed = 0.03;
+        break;
+      case 2:
+        defaultSpeed = 0.04;
+        speed = 0.04;
+        break;
+      case 3:
+        defaultSpeed = 0.055;
+        speed = 0.055;
+        break;
+      case 4:
+        defaultSpeed = 0.08;
+        speed = 0.08;
+        break;
+      case 5:
+        defaultSpeed = 0.15;
+        speed = 0.15;
+        break;
+    }
   }
 }

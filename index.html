@@ -13,7 +13,6 @@
 	<meta name="mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="apple-mobile-web-app-title" content="Tetris">
-
   <meta charset="UTF-8">
   <!-- p5 library -->
   <script language="javascript" type="text/javascript" src="libraries/p5.js"></script>
@@ -35,9 +34,6 @@
   <script language="javascript" type="text/javascript" src="objects/normalesT.js"></script>
   <script language="javascript" type="text/javascript" src="gui.js"></script>
   <script language="javascript" type="text/javascript" src="steuerung.js"></script>
-
-  <!-- this line removes any default padding and style. you might only need one of these values set. -->
-  <!-- <style> body {padding: 0; margin: 0;} </style> -->
 </head>
 <!-- body -->
 <body>
@@ -47,6 +43,19 @@
         $('#playbutton').click( function(event) {
           running = !running;
           graphics.start = false;
+        });
+        $('#leftarrow').click( function(event) {
+          keyPressed();
+          trigger_touchbedienung(2, document, 65);
+        });
+        $('#downarrow').click( function(event) {
+
+        });
+        $('#rightarrow').click( function(event) {
+
+        });
+        $('#drehen').click( function(event) {
+
         });
 	      //auf den Klick des Buttons hoeren
         $('#button').click( function(event) {
@@ -62,9 +71,33 @@
 	     });
         });
     });
-
+    //Event ausloesen
+    //	art => Art des Events ( 0 => Rechtsklick, 1 => Doppenclick, 2 => Taste)
+    //	elem => DOM Element auf das das Event ausgeführt werden soll
+    //	[ code => Code für Taste (bei Tastenvent)]
+    function trigger_touchbedienung ( art, elem, code ) {
+      if ( art == 0 ) {
+        //Rechtsklick auf Element
+        //	elem z.B. 'ul.files li[name=KIMB]'
+        $( elem ).trigger("contextmenu");
+      }
+      else if ( art == 1 ) {
+        //Doppelklick
+        //	elem z.B: 'td.edit[sk=1]'
+        $( elem ).trigger('dblclick');
+      }
+      else if ( art == 2 ) {
+        //Tasten
+        var touche = $.Event('keyPressed');
+        touche.keyCode = code;
+        //	elem z.B.: 'input#new_name'
+        $( elem ).trigger('keyPressed');
+      }
+      else {
+        return false;
+      }
+    }
   </script>
-
   <div id="main">
   	<div id="canvasDiv">
   		  <!-- Hier liegt spaeter der Canvas mit dem Spielfeld drinnen. -->
@@ -76,48 +109,13 @@
         <button type="button" id="downarrow" class="control">&#8681;</button>
         <button type="button" id="rightarrow" class="control">&#8680;</button>
         <button type="button" id="drehen" class="control">&#8635;</button>
-
-        <script>
-        //Event ausloesen
-        //	art => Art des Events ( 0 => Rechtsklick, 1 => Doppenclick, 2 => Taste)
-        //	elem => DOM Element auf das das Event ausgeführt werden soll
-        //	[ code => Code für Taste (bei Tastenvent)]
-        function trigger_touchbedienung ( art, elem, code ) {
-    		if ( art == 0 ) {
-    			//Rechtsklick auf Element
-    			//	elem z.B. 'ul.files li[name=KIMB]'
-    			$( elem ).trigger("keyPressed");
-    		}
-    		else if ( art == 1 ) {
-    			//Doppelklick
-    			//	elem z.B: 'td.edit[sk=1]'
-    			$( elem ).trigger("dblclick");
-    		}
-    		else if ( art == 2 ) {
-    			//Tasten
-    			var touche = $.Event('keyup');
-    			touche.keyCode = code;
-    			//	elem z.B.: 'input#new_name'
-    			$( elem ).trigger(touche);
-    		}
-    		else {
-    			return false;
-    		}
-      }
-      trigger_touchbedienung(1, '#leftarrow', 13);
-        </script>
-
   	</div>
     <br>
-
     <!-- Canvas fuer die Anzeige -->
     <div>
-
     <canvas id="anzeige" width="300" height="110"></canvas>
-
     </div>
   </div>
-
  <!-- Inhalt des Hilfebuttons-->
   <div id="dialog" title="How to play" style="display:none;">
     <p><b>With keyboard:</b></p>
@@ -128,21 +126,5 @@
     <p>D or &rarr;: move right</p>
     <p>spacebar: place instantly</p>
   </div>
-
 </body>
 </html>
-
-<!-- Icons fuer Buttons fuer Mobilgeraete:
-&#9658;  Play
-&#10074;&#10074; Pause
-&#8635; Rotate
-&#8678; left arrow
-&#8679; upwards arrow
-&#8680; right arrow
-&#8681; downwards arrow
--->
-<!-- Direkt in HTML zeichnen
-<svg width="400" height="100">
-  <rect width="400" height="100" style="fill:rgb(0,0,255);stroke-width:10;stroke:rgb(0,0,0)" />
-</svg>
--->
