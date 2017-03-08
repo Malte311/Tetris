@@ -14,7 +14,7 @@
   	<meta name="apple-mobile-web-app-status-bar-style" content="black">
   	<meta name="apple-mobile-web-app-title" content="Tetris">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=0.75, user-scalable=no">
     <!-- p5 library -->
     <script language="javascript" type="text/javascript" src="libraries/p5.js"></script>
     <script language="javascript" src="libraries/p5.dom.js"></script>
@@ -35,6 +35,7 @@
     <script language="javascript" type="text/javascript" src="objects/normalesT.js"></script>
     <script language="javascript" type="text/javascript" src="gui.js"></script>
     <script language="javascript" type="text/javascript" src="steuerung.js"></script>
+    <script language="javascript" type="text/javascript" src="background.js"></script>
   </head>
   <!-- body -->
   <body>
@@ -43,10 +44,22 @@
       $(function(){
           //Playbutton Click Event
           $('#playbutton').click( function(event) {
-            //Wenn pausiert ist, wird fortgesetzt, sonst wird pausiert
-            running = !running;
-            //Die Variable start ist nur ganz zu Beginn auf true, danach immer false
-            graphics.start = false;
+            //Wenn das Spiel vorbei ist
+            if (gameOver) {
+              //Spielfeld resetten
+              setup();
+              //nicht mehr gameOver
+              gameOver = false;
+              //Spiel laeuft wieder
+              running = true;
+            }
+            //Wenn das Spiel nicht vorbei ist
+            else {
+              //Wenn pausiert ist, wird fortgesetzt, sonst wird pausiert
+              running = !running;
+              //Die Variable start ist nur ganz zu Beginn auf true, danach immer false
+              graphics.start = false;
+            }
           });
           //Button, der Bewegung links ausloesen soll
           $('#leftarrow').click( function(event) {
@@ -54,7 +67,6 @@
             if (running) {
               //Event ausfuehren
               blockObjekt.bewegungLinks();
-              //trigger_touchbedienung(2, document, 65);
             }
           });
           //Button, der das schnellere Runterfallen ausloesen soll
@@ -62,7 +74,7 @@
             //Nur wenn das Spiel laeuft, funktioniert die Steuerung
             if (running) {
               //Event ausloesen
-              keyIsDown(83);
+
             }
           });
           //Button, der Bewegung rechts ausloesen soll
@@ -122,37 +134,40 @@
         }
       }
     </script>
-    <!-- Div Block der das Spiel und dessen Steuerung beinhaltet -->
-    <div id="main">
-      <!-- Div fuer den Canvas, der das Spielfeld bildet-->
-    	<div id="canvasDiv">
-    		  <!-- Hier liegt spaeter der Canvas mit dem Spielfeld drinnen. -->
-    	</div>
-      <!-- Div fuer die Buttons zur Steuerung auf mobilen Geraeten-->
-    	<div id="steuerung">
-      		<button type="button" id="button">Help</button>
-          <button type="button" id="playbutton" class="control">&#9658;</button>
-          <button type="button" id="leftarrow" class="control">&#8678;</button>
-          <button type="button" id="downarrow" class="control">&#8681;</button>
-          <button type="button" id="rightarrow" class="control">&#8680;</button>
-          <button type="button" id="drehen" class="control">&#8635;</button>
-    	</div>
-      <!-- -Zeilenumbruch -->
-      <br>
-      <!-- Canvas fuer die Anzeige -->
-      <div>
-        <canvas id="anzeige" width="300" height="110"></canvas>
+    <!-- Gradient fuer animierte Hintergrundfarbe -->
+    <div id="gradient">
+      <!-- Div Block der das Spiel und dessen Steuerung beinhaltet -->
+      <div id="main">
+        <!-- Div fuer den Canvas, der das Spielfeld bildet-->
+      	<div id="canvasDiv">
+      		  <!-- Hier liegt spaeter der Canvas mit dem Spielfeld drinnen. -->
+      	</div>
+        <!-- Div fuer die Buttons zur Steuerung auf mobilen Geraeten-->
+      	<div id="steuerung">
+        		<button type="button" id="button">Help</button>
+            <button type="button" id="playbutton" class="control">&#9658;</button>
+            <button type="button" id="leftarrow" class="control">&#8678;</button>
+            <button type="button" id="downarrow" class="control">&#8681;</button>
+            <button type="button" id="rightarrow" class="control">&#8680;</button>
+            <button type="button" id="drehen" class="control">&#8635;</button>
+      	</div>
+        <!-- -Zeilenumbruch -->
+        <br>
+        <!-- Canvas fuer die Anzeige -->
+        <div>
+          <canvas id="anzeige" width="300" height="110"></canvas>
+        </div>
       </div>
-    </div>
-   <!-- Inhalt des Hilfebuttons-->
-    <div id="dialog" title="How to play" style="display:none;">
-      <p><b>With keyboard:</b></p>
-      <p>P or Enter: &#9658; / &#10074;&#10074;</p>
-      <p>W or &uarr;: rotate</p>
-      <p>A or &larr;: move left</p>
-      <p>S or &darr;: falling faster</p>
-      <p>D or &rarr;: move right</p>
-      <p>spacebar: place instantly</p>
+     <!-- Inhalt des Hilfebuttons-->
+      <div id="dialog" title="How to play" style="display:none;">
+        <p><b>With keyboard:</b></p>
+        <p>P or Enter: &#9658; / &#10074;&#10074;</p>
+        <p>W or &uarr;: rotate</p>
+        <p>A or &larr;: move left</p>
+        <p>S or &darr;: falling faster</p>
+        <p>D or &rarr;: move right</p>
+        <p>spacebar: place instantly</p>
+      </div>
     </div>
   </body>
 </html>
