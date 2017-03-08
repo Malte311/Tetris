@@ -106,6 +106,19 @@
   			title: "How to play",
   	     });
           });
+          //Button, der die Scores anzeigt, wenn man ihn klickt
+          $('#score').click( function(event) {
+          //Spiel pausieren, sobald sich der Dialog oeffnet
+          running = false;
+  	      //div mit Inhalt des Dialoges sichtbar machen
+  	      $( "#scores" ).show();
+  	      //Dialog anzeigen
+               $('#scores').dialog({
+  			modal: true,
+  			draggable: true,
+  			title: "Highscores",
+  	     });
+          });
       });
       //Event ausloesen
       //	art => Art des Events ( 0 => Rechtsklick, 1 => Doppenclick, 2 => Taste)
@@ -156,6 +169,7 @@
         <!-- Canvas fuer die Anzeige -->
         <div>
           <canvas id="anzeige" width="300" height="110"></canvas>
+          <button type="button" id="score">Scores</button>
         </div>
       </div>
      <!-- Inhalt des Hilfebuttons-->
@@ -168,6 +182,10 @@
         <p>D or &rarr;: move right</p>
         <p>spacebar: place instantly</p>
       </div>
+      <!-- Inhalt des Scorebuttons-->
+       <div id="scores" title="Highscores" style="display:none;">
+
+       </div>
     </div>
   </body>
 </html>

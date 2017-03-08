@@ -33,6 +33,10 @@ function Steuerung(object) {
     }
     //Wenn das Spiel nicht laeuft, und das Spiel vorbei ist, soll man neu starten koennen
     else if (gameOver && keyCode == 13) {
+      localStorage.setItem(score, graphics.score);
+      newScore = localStorage.getItem('score');
+      newP = createP(newScore);
+      newP.parent('scores');
       //Spielfeld resetten
       setup();
       //nicht mehr gameOver
