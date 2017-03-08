@@ -2,51 +2,54 @@
  * @author Malte Luttermann
  */
 
-//Variablen fuer die Anzeige, benoetigt fuer Zugriff auf HTML Canvas
+//Variablen fuer die Anzeige, benoetigt fuer Zugriff auf HTML-Canvas (Canvas zur Anzeige)
 var c;
 var ctx;
-//Variable fuer Zugriffe auf das Canvas
+//Variable fuer Zugriffe auf das Canvas (Canvas, welches das Spielfeld bildet)
 var canvas;
 //Variable zum Testen ob das Spiel laeuft oder pausiert ist
 var running = false;
-//Default Speed, zum zuruecksetzen der Spielgeschwindigkeit
+//Default Speed, zum Zuruecksetzen der Spielgeschwindigkeit
 var defaultSpeed = 0.03;
-//Variable, zur Bestimmung der Spielgeschwindigkeit
+//Variable zur Bestimmung der Spielgeschwindigkeit
 var speed = 0.03;
-//Steuerungsvariable
+//Steuerungsvariable, erzeugt in setup ein neues Objekt von steuerung.js
 var controller;
 //Variable fuer das Blockobjekt
 var blockObjekt;
-//Variale fuer das naechste Blockobjekt
+//Variable fuer das naechste Blockobjekt
 var naechstesObjekt;
 //Variable, die zufaellig Zahlen zwischen 0 und 6 generieren soll, damit Objekte zufaellig erzeugt werden koennen
 var randomNumber = 0;
 //Variable, die angibt, ob das Spiel vorbei ist
 var gameOver = false;
-//Variable fuer das Zeichnen
+//Variable fuer das Zeichnen in regenbogenfarbiger Schrift
 var linearGradient;
 //Variable fuer dynamischen Button
 var playPauseButton;
-//Variable fuer das aktuelle Level
+//Variable fuer das aktuelle Level (beginnt bei 1)
 var level = 1;
 
 //Setup Funktion, wird ein mal zu Beginn ausgefuehrt
 function setup() {
-  //Anzeige von Text im HTML Canvas
-  c = document.getElementById("anzeige");
+  //Anzeige von Text im HTML-Canvas, dafuer muss man auf den Canvas zugreifen koennen
+  c = document.getElementById('anzeige');
+  ctx = c.getContext('2d');
+  //Zugriff auf den Button, der seinen Inhalt aendern soll (Zeigt Play an, wenn pausiert ist und pause, wenn das Spiel laeuft)
   playPauseButton = document.getElementById('playbutton');
-  ctx = c.getContext("2d");
   //Erzeugen eines Objektes GUI, welches fuer visuelle Dinge zustaendig ist (Grafik)
   graphics = new GUI();
-  //Zu Anfang wird ein mal das Array, welches das Spielfeld speichert, initialisiert
+  //Zu Anfang wird ein Mal das Array, welches das Spielfeld speichert, initialisiert (ueberall der Wert 0 gespeichert, damit nirgens null steht)
   graphics.fillArray();
   //Erzeugen eines Canvas Objektes (Spielfeld)
   canvas = createCanvas(graphics.blockBreite * graphics.bloeckeProZeile, graphics.blockHoehe * graphics.bloeckeProSpalte);
   //Den Canvas in einen Div packen
   canvas.parent('canvasDiv');
-  canvas.id("canvasID");
+  //Dem Canvas eine ID zuweisen
+  canvas.id('canvasID');
   //Die Anzeige hinzufuegen
   graphics.textStyle();
+  //Die Anzeige wird gezeichnet
   graphics.drawAnzeigeNurBeiSetup();
   //Zu Anfang wird randomNumber ein zufaelliger Wert zwischen 0 und 6 zugewiesen, um das erste Objekt per Zufall zu bestimmen
   randomNumber = floor(random(0, 7));
@@ -57,13 +60,15 @@ function setup() {
 }
 //Draw Funktion, wird immer wieder wiederholt
 function draw() {
+  //Nur ausfuehren, wenn das Spiel nicht vorbei ist
   if (!gameOver) {
-    //erweitere Steuerung ausfuehren
+    //erweitere Steuerung ausfuehren (Tasten gedrueckt halten zum Bewegen)
+    //Dafuer erst pruefen, ob das Objekt bewegt werden kann
     blockObjekt.movementPossible();
     controller.erweiterteSteuerung();
     //Anzeigen (Zeichnen) des Blockobjektes
     blockObjekt.display();
-    //Hintergrund soll schwarz sein
+    //Hintergrund vom Spielfeld soll schwarz sein
     background(0);
     //Sobald ein Block unten angekommt (anhaelt), wird ein neuer erstellt
     if (!blockObjekt.isMoving && !blockObjekt.lastMove) {
@@ -77,6 +82,7 @@ function draw() {
     //Zeichnen des Grids
     graphics.grid();
     //Wenn eben festgestellt wurde, dass Game Over ist, dann nicht mehr die Objekte zeichnen, da die Schrift sonst nicht lesbar ist
+    //Die Schrift hat teilweise die gleichen Farben wie die Objekte und waere dann nicht zu sehen
     if (!gameOver) {
       //Zeichnen der Objekte bzw. Bloecke auf dem Spielfeld
       graphics.drawObjects();
@@ -87,10 +93,14 @@ function draw() {
     if (running) {
       //Automatisches Runterfallen des Blockobjektes (Gravity)
       controller.gravity();
+      //Zudem wird auf dem Button das Pause Symbol angezeigt
       playPauseButton.innerHTML = '&#10074;&#10074;';
     }
+    //Ist das Spiel pausiert
     else {
+      //Die Anzeige wird aktualisiert (Schriftzug, der anzeigt, dass pausiert ist)
       graphics.drawAnzeige();
+      //Es wird das Play Symbol auf dem Button angezeigt
       playPauseButton.innerHTML = '&#9658;';
     }
   }

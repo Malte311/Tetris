@@ -1,130 +1,158 @@
 <html>
-<!-- head -->
-<head>
-  <!-- Titel des Fensters -->
-  <title>Tetris</title>
-  <!-- Shortcut Icon -->
-  <link rel="shortcut icon" href="images/Tetris.png" type="image/x-icon; charset=binary">
-	<link rel="icon" href="images/Tetris.png" type="image/x-icon; charset=binary">
-	<link rel="apple-touch-icon" href="images/Tetris.png">
-  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
-  <meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<meta name="apple-mobile-web-app-title" content="Tetris">
-  <meta charset="UTF-8">
-  <!-- p5 library -->
-  <script language="javascript" type="text/javascript" src="libraries/p5.js"></script>
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <!-- css -->
-  <link rel="stylesheet" href="style.css">
-  <!-- extra p5 libraries -->
-  <script language="javascript" src="libraries/p5.dom.js"></script>
-  <script language="javascript" src="libraries/p5.sound.js"></script>
-  <!-- Javascript Dateien einbinden -->
-  <script language="javascript" type="text/javascript" src="tetris.js"></script>
-  <script language="javascript" type="text/javascript" src="objects/square.js"></script>
-  <script language="javascript" type="text/javascript" src="objects/gedrehtesZ.js"></script>
-  <script language="javascript" type="text/javascript" src="objects/normalesZ.js"></script>
-  <script language="javascript" type="text/javascript" src="objects/normalesI.js"></script>
-  <script language="javascript" type="text/javascript" src="objects/normalesL.js"></script>
-  <script language="javascript" type="text/javascript" src="objects/gedrehtesL.js"></script>
-  <script language="javascript" type="text/javascript" src="objects/normalesT.js"></script>
-  <script language="javascript" type="text/javascript" src="gui.js"></script>
-  <script language="javascript" type="text/javascript" src="steuerung.js"></script>
-</head>
-<!-- body -->
-<body>
-  <script>
-    //erst wenn Seite geladen
-    $(function(){
-        $('#playbutton').click( function(event) {
-          running = !running;
-          graphics.start = false;
-        });
-        $('#leftarrow').click( function(event) {
-          keyPressed();
-          trigger_touchbedienung(2, document, 65);
-        });
-        $('#downarrow').click( function(event) {
-
-        });
-        $('#rightarrow').click( function(event) {
-
-        });
-        $('#drehen').click( function(event) {
-
-        });
-	      //auf den Klick des Buttons hoeren
-        $('#button').click( function(event) {
-        //Spiel pausieren
-        running = false;
-	     //div mit Inhalt des Dialoges sichtbar machen
-	     $( "#dialog" ).show();
-	     //dialog anzeigen
-             $('#dialog').dialog({
-			modal: true,
-			draggable: true,
-			title: "How to play",
-	     });
-        });
-    });
-    //Event ausloesen
-    //	art => Art des Events ( 0 => Rechtsklick, 1 => Doppenclick, 2 => Taste)
-    //	elem => DOM Element auf das das Event ausgeführt werden soll
-    //	[ code => Code für Taste (bei Tastenvent)]
-    function trigger_touchbedienung ( art, elem, code ) {
-      if ( art == 0 ) {
-        //Rechtsklick auf Element
-        //	elem z.B. 'ul.files li[name=KIMB]'
-        $( elem ).trigger("contextmenu");
+  <!-- head -->
+  <head>
+    <!-- Titel des Fensters -->
+    <title>Tetris</title>
+    <!-- Shortcut Icon -->
+    <link rel="shortcut icon" href="images/Tetris.png" type="image/x-icon; charset=binary">
+  	<link rel="icon" href="images/Tetris.png" type="image/x-icon; charset=binary">
+  	<link rel="apple-touch-icon" href="images/Tetris.png">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+  	<meta name="mobile-web-app-capable" content="yes">
+  	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+  	<meta name="apple-mobile-web-app-title" content="Tetris">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <!-- p5 library -->
+    <script language="javascript" type="text/javascript" src="libraries/p5.js"></script>
+    <script language="javascript" src="libraries/p5.dom.js"></script>
+    <script language="javascript" src="libraries/p5.sound.js"></script>
+    <!-- jQuery einbinden -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Javascript Dateien einbinden -->
+    <script language="javascript" type="text/javascript" src="tetris.js"></script>
+    <script language="javascript" type="text/javascript" src="objects/square.js"></script>
+    <script language="javascript" type="text/javascript" src="objects/gedrehtesZ.js"></script>
+    <script language="javascript" type="text/javascript" src="objects/normalesZ.js"></script>
+    <script language="javascript" type="text/javascript" src="objects/normalesI.js"></script>
+    <script language="javascript" type="text/javascript" src="objects/normalesL.js"></script>
+    <script language="javascript" type="text/javascript" src="objects/gedrehtesL.js"></script>
+    <script language="javascript" type="text/javascript" src="objects/normalesT.js"></script>
+    <script language="javascript" type="text/javascript" src="gui.js"></script>
+    <script language="javascript" type="text/javascript" src="steuerung.js"></script>
+  </head>
+  <!-- body -->
+  <body>
+    <script>
+      //erst, wenn Seite geladen
+      $(function(){
+          //Playbutton Click Event
+          $('#playbutton').click( function(event) {
+            //Wenn pausiert ist, wird fortgesetzt, sonst wird pausiert
+            running = !running;
+            //Die Variable start ist nur ganz zu Beginn auf true, danach immer false
+            graphics.start = false;
+          });
+          //Button, der Bewegung links ausloesen soll
+          $('#leftarrow').click( function(event) {
+            //Nur wenn das Spiel laeuft, darf das Objekt bewegt werden
+            if (running) {
+              //Event ausfuehren
+              blockObjekt.bewegungLinks();
+              //trigger_touchbedienung(2, document, 65);
+            }
+          });
+          //Button, der das schnellere Runterfallen ausloesen soll
+          $('#downarrow').click( function(event) {
+            //Nur wenn das Spiel laeuft, funktioniert die Steuerung
+            if (running) {
+              //Event ausloesen
+              keyIsDown(83);
+            }
+          });
+          //Button, der Bewegung rechts ausloesen soll
+          $('#rightarrow').click( function(event) {
+            //Bewegung soll nur moeglich sein, wenn das Spiel nicht pausiert ist
+            if (running) {
+              //Event ausloesen
+              blockObjekt.bewegungRechts();
+            }
+          });
+          //Button, der das Drehen des Objektes ausloesen soll
+          $('#drehen').click( function(event) {
+            //Drehen soll nur moeglich sein, wenn das Spiel nicht pausiert ist
+            if (running) {
+              //Event ausloesen
+              blockObjekt.drehen();
+            }
+          });
+  	      //Button, der das Hilfsmenue anzeigt, wenn man ihn klickt
+          $('#button').click( function(event) {
+          //Spiel pausieren, sobald sich der Dialog oeffnet
+          running = false;
+  	      //div mit Inhalt des Dialoges sichtbar machen
+  	      $( "#dialog" ).show();
+  	      //Dialog anzeigen
+               $('#dialog').dialog({
+  			modal: true,
+  			draggable: true,
+  			title: "How to play",
+  	     });
+          });
+      });
+      //Event ausloesen
+      //	art => Art des Events ( 0 => Rechtsklick, 1 => Doppenclick, 2 => Taste)
+      //	elem => DOM Element auf das das Event ausgeführt werden soll
+      //	[ code => Code für Taste (bei Tastenvent)]
+      function trigger_touchbedienung ( art, elem, code ) {
+        if ( art == 0 ) {
+          //Rechtsklick auf Element
+          //	elem z.B. 'ul.files li[name=KIMB]'
+          $( elem ).trigger("contextmenu");
+        }
+        else if ( art == 1 ) {
+          //Doppelklick
+          //	elem z.B: 'td.edit[sk=1]'
+          $( elem ).trigger('dblclick');
+        }
+        else if ( art == 2 ) {
+          //Tasten
+          var touche = $.Event('keyPressed');
+          touche.keyCode = code;
+          //	elem z.B.: 'input#new_name'
+          $( elem ).trigger('keyPressed');
+        }
+        else {
+          return false;
+        }
       }
-      else if ( art == 1 ) {
-        //Doppelklick
-        //	elem z.B: 'td.edit[sk=1]'
-        $( elem ).trigger('dblclick');
-      }
-      else if ( art == 2 ) {
-        //Tasten
-        var touche = $.Event('keyPressed');
-        touche.keyCode = code;
-        //	elem z.B.: 'input#new_name'
-        $( elem ).trigger('keyPressed');
-      }
-      else {
-        return false;
-      }
-    }
-  </script>
-  <div id="main">
-  	<div id="canvasDiv">
-  		  <!-- Hier liegt spaeter der Canvas mit dem Spielfeld drinnen. -->
-  	</div>
-  	<div id="steuerung">
-    		<button type="button" id="button">Help</button>
-        <button type="button" id="playbutton" class="control">&#9658;</button>
-        <button type="button" id="leftarrow" class="control">&#8678;</button>
-        <button type="button" id="downarrow" class="control">&#8681;</button>
-        <button type="button" id="rightarrow" class="control">&#8680;</button>
-        <button type="button" id="drehen" class="control">&#8635;</button>
-  	</div>
-    <br>
-    <!-- Canvas fuer die Anzeige -->
-    <div>
-    <canvas id="anzeige" width="300" height="110"></canvas>
+    </script>
+    <!-- Div Block der das Spiel und dessen Steuerung beinhaltet -->
+    <div id="main">
+      <!-- Div fuer den Canvas, der das Spielfeld bildet-->
+    	<div id="canvasDiv">
+    		  <!-- Hier liegt spaeter der Canvas mit dem Spielfeld drinnen. -->
+    	</div>
+      <!-- Div fuer die Buttons zur Steuerung auf mobilen Geraeten-->
+    	<div id="steuerung">
+      		<button type="button" id="button">Help</button>
+          <button type="button" id="playbutton" class="control">&#9658;</button>
+          <button type="button" id="leftarrow" class="control">&#8678;</button>
+          <button type="button" id="downarrow" class="control">&#8681;</button>
+          <button type="button" id="rightarrow" class="control">&#8680;</button>
+          <button type="button" id="drehen" class="control">&#8635;</button>
+    	</div>
+      <!-- -Zeilenumbruch -->
+      <br>
+      <!-- Canvas fuer die Anzeige -->
+      <div>
+        <canvas id="anzeige" width="300" height="110"></canvas>
+      </div>
     </div>
-  </div>
- <!-- Inhalt des Hilfebuttons-->
-  <div id="dialog" title="How to play" style="display:none;">
-    <p><b>With keyboard:</b></p>
-    <p>P or Enter: &#9658; / &#10074;&#10074;</p>
-    <p>W or &uarr;: rotate</p>
-    <p>A or &larr;: move left</p>
-    <p>S or &darr;: falling faster</p>
-    <p>D or &rarr;: move right</p>
-    <p>spacebar: place instantly</p>
-  </div>
-</body>
+   <!-- Inhalt des Hilfebuttons-->
+    <div id="dialog" title="How to play" style="display:none;">
+      <p><b>With keyboard:</b></p>
+      <p>P or Enter: &#9658; / &#10074;&#10074;</p>
+      <p>W or &uarr;: rotate</p>
+      <p>A or &larr;: move left</p>
+      <p>S or &darr;: falling faster</p>
+      <p>D or &rarr;: move right</p>
+      <p>spacebar: place instantly</p>
+    </div>
+  </body>
 </html>
