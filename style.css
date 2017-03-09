@@ -4,15 +4,21 @@ body {
 	background: -webkit-linear-gradient(top, #154d9e, #b8d8e4);
 	padding: 0px;
   margin: 0px;
+	overflow: hidden;
+	justify-content: center;
+	align-items: center;
 }
 
 div#main {
-	margin:auto;
+	margin: auto;
 	width: 330px;
 	background-color:#aaa;
 	padding:10px;
 	border-radius:15px;
 	border:1px solid #000;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
 }
 
 div#canvasDiv {

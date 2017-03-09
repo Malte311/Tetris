@@ -51,6 +51,17 @@ function setup() {
   graphics.textStyle();
   //Die Anzeige wird gezeichnet
   graphics.drawAnzeigeNurBeiSetup();
+  //Pruefen, ob der Browser local storage unterstuetzt
+  if (typeof(Storage) !== "undefined") {
+    //Wenn ja, dann speichere Scores und zeige sie an
+    storeScore();
+  }
+  //Wenn nicht, dann alert
+  else {
+    // Sorry! No Web Storage support..
+    var p = createP("Your browser doesn't support the local storage of your score.");
+    p.parent('localscores');
+  }
   //Zu Anfang wird randomNumber ein zufaelliger Wert zwischen 0 und 6 zugewiesen, um das erste Objekt per Zufall zu bestimmen
   randomNumber = floor(random(0, 7));
   //Neues Blockobjekt erzeugen

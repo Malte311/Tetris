@@ -33,17 +33,14 @@ function Steuerung(object) {
     }
     //Wenn das Spiel nicht laeuft, und das Spiel vorbei ist, soll man neu starten koennen
     else if (gameOver && keyCode == 13) {
-      localStorage.setItem(score, graphics.score);
-      var newScore = localStorage.getItem('score');
-      var newP = createP(newScore);
-      console.log(newScore);
-      newP.parent('scores');
       //Spielfeld resetten
       setup();
       //nicht mehr gameOver
       gameOver = false;
       //Spiel laeuft wieder
       running = true;
+      //Und das Fenster ist nicht das erste Mal offen
+      graphics.start = false;
     }
   }
   //Funktion, die dafuer sorgt, dass das Objekt staendig faellt
