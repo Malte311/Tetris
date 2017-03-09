@@ -99,6 +99,7 @@
           $('#button').click( function(event) {
           //Spiel pausieren, sobald sich der Dialog oeffnet
           running = false;
+          dialogOffen = true;
   	      //div mit Inhalt des Dialoges sichtbar machen
   	      $( "#dialog" ).show();
   	      //Dialog anzeigen
@@ -106,12 +107,14 @@
   			modal: true,
   			draggable: true,
   			title: "How to play",
+        close: function(event, ui) { dialogOffen = false; }
   	     });
           });
           //Button, der die Scores anzeigt, wenn man ihn klickt
           $('#score').click( function(event) {
           //Spiel pausieren, sobald sich der Dialog oeffnet
           running = false;
+          dialogOffen = true;
   	      //div mit Inhalt des Dialoges sichtbar machen
   	      $( "#scores" ).show();
   	      //Dialog anzeigen
@@ -119,6 +122,7 @@
   			modal: true,
   			draggable: true,
   			title: "Highscores",
+        close: function(event, ui) { dialogOffen = false; }
   	     });
           });
       });

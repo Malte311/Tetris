@@ -29,6 +29,8 @@ var linearGradient;
 var playPauseButton;
 //Variable fuer das aktuelle Level (beginnt bei 1)
 var level = 1;
+//Variable, die angibt, ob ein Dialog geoeffnet ist
+var dialogOffen = false;
 
 //Setup Funktion, wird ein mal zu Beginn ausgefuehrt
 function setup() {

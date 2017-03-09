@@ -6,7 +6,7 @@ function Steuerung(object) {
   //Funktion zum Steuern nach links und rechts (einfacher Tastendruck)
   this.steuerungLR = function() {
     //Spiel kann mit der Taste p oder Enter pausiert bzw. fortgesetzt werden
-    if (keyCode == 13 || keyCode == 80) {
+    if ((keyCode == 13 || keyCode == 80) && !dialogOffen) {
       running = !running;
       //Die Variable start ist nur zu Beginn true, danach ist sie immer auf false
       graphics.start = false;

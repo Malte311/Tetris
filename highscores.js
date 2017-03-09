@@ -11,7 +11,7 @@ function showScores(array) {
     platz++;
   }
   //Konsolenausgabe
-  console.log(highscores);
+  //console.log(highscores);
 }
 //Funktion zum lokalen Speichern des Scorewertes
 function storeScore() {
