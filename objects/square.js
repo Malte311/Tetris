@@ -17,10 +17,11 @@ function Square() {
   this.lastMove = true;
   this.yCounter = 0;
   //Variablen fuer erweiterte Steuerung
-  this.moveRightPossible = true;
-  this.moveLeftPossible = true;
+  this.moveRightPossible = false;
+  this.moveLeftPossible = false;
   //Funktion zum Anzeigen
   this.display = function() {
+    this.x = round(this.x);
     //bewegt sich der Block noch, wird dies ausgefuehrt (spaetestens ganz unten bewegt sich der Stein nicht mehr)
     //round Funktion, da der y-Wert durch die gravity Funktion auch Kommazahlen annehmen kann, und das keine Indizes im Array sind
     if (this.isMoving && round(this.y) + this.hoehe < graphics.bloeckeProSpalte) {
@@ -58,6 +59,7 @@ function Square() {
   }
   //Funktion zum schnellen Fallenlassen eines Objektes
   this.freierFall = function() {
+    this.x = round(this.x);
     //Die Reihen werden durchlaufen, ausgehend vom aktuellen y-Wert bzw. evtl. ein Feld darueber bereits
     //(da die floor Funktion immer abrundet, so kann definitiv nichts ausgelassen werden)
     for (var i = floor(this.y); i < graphics.bloeckeProSpalte; i++) {
@@ -82,6 +84,7 @@ function Square() {
   }
   //Funktion fuer das automatische runterfallen
   this.gravity = function() {
+    this.x = round(this.x);
     this.yCounter += speed;
     //Wird nur ausgefuehrt, solange das Objekt nicht bereits ganz unten angekommen ist
     if (round(this.y) < graphics.bloeckeProSpalte - this.hoehe) {
@@ -116,6 +119,7 @@ function Square() {
   }
   //Funktion zum Pruefen, ob ausreichend Platz ist, um das Objekt zu erzeugen
   this.createNewObjectIsPossible = function() {
+    this.x = round(this.x);
     //Es kann ein neues Objekt erzeugt werden, wenn folgende Bedingungen erfuellt sind (die Startposition dieses Objektes muss frei sein)
     //(die Felder, die frei sein muessen, sind genau die, wo das Objekt angezeigt werden soll mittels display Funktion)
     if (!(graphics.gridArray[round(this.y)][this.x] < 0) && !(graphics.gridArray[round(this.y)][this.x + 1] < 0) &&
@@ -131,6 +135,7 @@ function Square() {
   }
   //Funktion, die prueft, ob man sich bewegen darf
   this.movementPossible = function() {
+    this.x = round(this.x);
     //Eine Bewegung nach links soll nur moeglich sein, wenn dadurch nicht das Spielfeld verlassen wird
     if (this.x > 0) {
       //Ausserdem darf links von diesem Objekt kein Hindernis sein

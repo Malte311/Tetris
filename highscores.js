@@ -1,5 +1,7 @@
 //Array, worin Scores gespeichert werden
 var highscores;
+//Variable, die angibt, wie viele Scores angezeigt werden sollen
+var anzahlScores = 10;
 //Funktion, damit Scores auf der Seite angezeigt werden
 //Bekommt als Parameter das Array, das die Scores enthaelt
 function showScores(array) {
@@ -56,7 +58,7 @@ function addScore() {
 	var value = graphics.score.toString();
   //Erst pruefen, ob bereits 10 Scorewerte gespeichert wurden
   //Wenn nicht, kann der Score immer gespeichert werden
-  if (eintraegeArray.length < 10) {
+  if (eintraegeArray.length <= anzahlScores) {
     //Neuen Wert ins Array packen
     eintraegeArray.push(value);
     //Im lokalen Speicher ablegen

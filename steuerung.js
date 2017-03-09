@@ -1,8 +1,8 @@
 //Konstruktor Funktion (bekommt das zu steuernde Objekt uebergeben)
 function Steuerung(object) {
   //Fuer erweiterte Steuerung (Bewegungen nach links und rechts)
-  this.xLeft = object.x - 1;
-  this.xRight = object.x + 1;
+  this.xLeft = object.x;
+  this.xRight = object.x ;
   //Funktion zum Steuern nach links und rechts (einfacher Tastendruck)
   this.steuerungLR = function() {
     //Spiel kann mit der Taste p oder Enter pausiert bzw. fortgesetzt werden
@@ -98,7 +98,7 @@ function Steuerung(object) {
       //Sobald die Bewegung nicht weiter moeglich ist
       else {
         //Setze die Variable xLeft zurueck auf den Ausgangswert
-        this.xLeft = object.x - 1;
+        this.xLeft = object.x;
       }
       //Fuer rechts
       if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) {
@@ -107,12 +107,14 @@ function Steuerung(object) {
           //Dann bewegen
           this.xRight += 0.08;
           object.x = round(this.xRight);
+          // object.x += 1;
+          // setTimeout()
         }
       }
       //Sobald die Bewegung nicht weiter moeglich ist
       else {
         //Setze die Variable xLeft zurueck auf den Ausgangswert
-        this.xRight = object.x + 1;
+        this.xRight = object.x;
       }
     }
   }

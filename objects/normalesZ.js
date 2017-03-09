@@ -20,10 +20,11 @@ function NormalesZ() {
   this.lastMove = true;
   this.yCounter = 0;
   //Variablen fuer erweiterte Steuerung
-  this.moveRightPossible = true;
-  this.moveLeftPossible = true;
+  this.moveRightPossible = false;
+  this.moveLeftPossible = false;
   //Funktion zum Anzeigen
   this.display = function() {
+    this.x = round(this.x);
     //Wenn das Objekt senkrecht ist
     if (this.senkrecht) {
       //bewegt sich der Block noch, wird dies ausgefuehrt
@@ -89,6 +90,7 @@ function NormalesZ() {
   }
   //Funktion zum Drehen
   this.drehen = function() {
+    this.x = round(this.x);
     //Variable zur Hilfe, damit Hoehe und Breite vertauscht werden koennen
     var tauschen = this.hoehe;
     //Wenn es senkrecht ist, wird es quer gedreht
@@ -128,6 +130,7 @@ function NormalesZ() {
   }
   //Funktion zum schnellen Fallenlassen eines Objektes
   this.freierFall = function() {
+    this.x = round(this.x);
     //Ausgehend vom aktuellen y Wert (abgerundet mit floor) unter dem Stein werden alle Felder dieser Spalte durchlaufen
     for (var i = floor(this.y); i < graphics.bloeckeProSpalte; i++) {
       //wenn der Stein senkrecht steht
@@ -199,6 +202,7 @@ function NormalesZ() {
   }
   //Funktion fuer das automatische runterfallen
   this.gravity = function() {
+    this.x = round(this.x);
     this.yCounter += speed;
     //Wenn der Stein senkrecht ist
     if (this.senkrecht) {
@@ -251,6 +255,7 @@ function NormalesZ() {
   }
   //Funktion zum Pruefen, ob ausreichend Platz ist, um das Objekt zu erzeugen
   this.createNewObjectIsPossible = function() {
+    this.x = round(this.x);
     //Dafuer wird getestet, ob die Felder, auf denen ein neues Objekt erzeugt werden wuerde, alle frei sind
     if (!(graphics.gridArray[round(this.y)][this.x] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x] < 0) &&
     !(graphics.gridArray[round(this.y + 1)][this.x - 1] < 0) && !(graphics.gridArray[round(this.y + 2)][this.x - 1] < 0)) {
@@ -265,6 +270,7 @@ function NormalesZ() {
   }
   //Funktion, die prueft, ob man sich bewegen darf
   this.movementPossible = function() {
+    this.x = round(this.x);
     //links
     //Wenn der Stein senkrecht ist
     if (this.senkrecht) {
