@@ -1,13 +1,16 @@
 //Array, worin Scores gespeichert werden
 var highscores;
 //Funktion, damit Scores auf der Seite angezeigt werden
-function showScores() {
-  var platzierung = '1';
+//Bekommt als Parameter das Array, das die Scores enthaelt
+function showScores(array) {
+  var platz = 1;
   //Da Array aufsteigend sortiert ist, durchlaufen wir rueckwaerts
-  for (var i = highscores.length - 1; i > 0; i--) {
-    createP(platzierung + '.' + ' ' + highscores[i]).parent('localscores');
-    platzierung++;
+  for (var i = array.length - 1; i > 0; i--) {
+    var platzierung = platz.toString();
+    createP(platzierung + '.' + ' ' + array[i]).parent('localscores');
+    platz++;
   }
+  //Konsolenausgabe
   console.log(highscores);
 }
 //Funktion zum lokalen Speichern des Scorewertes
@@ -19,7 +22,7 @@ function storeScore() {
     //Bubblesort Algorithmus ausfuehren
     bubbleSort(highscores);
     //Dann sollen die neuen Scorewerte auch angezeigt werden
-    showScores();
+    //Dies geschieht bereits in setup()
   }
 }
 //Funktion zum Eintraege einlesen
@@ -82,6 +85,8 @@ function bubbleSort(array) {
       }
     }
   } while (swapped);
+  //Gib das sortierte Array zurueck
+  return array;
 }
 //Funktion zum Loeschen von dem gesamten lokalen Speicher
 //Wird fuer das Spiel nicht benoetigt, ist aber implementiert, falls man als User den lokalen Speicher leeren moechte

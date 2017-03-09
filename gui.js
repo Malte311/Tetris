@@ -126,6 +126,18 @@ function GUI() {
   }
   //Funktion fuer den Game Over Screen (wenn der Spieler verloren hat)
   this.gameOver = function() {
+    //erreichten Score im lokalen Speicher ablegen
+    //Pruefen, ob der Browser local storage unterstuetzt
+    if (typeof(Storage) !== "undefined") {
+      //Wenn ja, dann speichere Scores und zeige sie an
+      storeScore();
+    }
+    //Wenn nicht, dann alert
+    else {
+      // Sorry! No Web Storage support..
+      var p = createP("Your browser doesn't support the local storage of your score.");
+      p.parent('localscores');
+    }
     //Spiel ist vorbei
     gameOver = true;
     //Das Level wird wieder auf 1 gesetzt

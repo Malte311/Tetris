@@ -53,8 +53,8 @@ function setup() {
   graphics.drawAnzeigeNurBeiSetup();
   //Pruefen, ob der Browser local storage unterstuetzt
   if (typeof(Storage) !== "undefined") {
-    //Wenn ja, dann speichere Scores und zeige sie an
-    storeScore();
+    //Wenn ja, dann zeige die Scores an
+    showScores(bubbleSort(HolEintraege()));
   }
   //Wenn nicht, dann alert
   else {
