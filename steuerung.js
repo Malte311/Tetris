@@ -23,7 +23,7 @@ function Steuerung(object) {
         object.bewegungRechts();
       }
       //Drehen eines Objektes mittels Pfeiltaste hoch oder w
-      else if (keyCode == UP_ARROW || keyCode == 87) {
+      else if ((keyCode == UP_ARROW || keyCode == 87) && (!(keyIsDown(LEFT_ARROW) || keyIsDown(65)) && !(keyIsDown(RIGHT_ARROW) || keyIsDown(68)))) {
         object.drehen();
       }
       //Leertaste fuer den freien Fall
