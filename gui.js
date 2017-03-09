@@ -131,6 +131,7 @@ function GUI() {
     if (typeof(Storage) !== "undefined") {
       //Wenn ja, dann speichere Scores und zeige sie an
       storeScore();
+      showScores(bubbleSort(HolEintraege()));
     }
     //Wenn nicht, dann alert
     else {

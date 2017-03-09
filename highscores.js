@@ -3,11 +3,17 @@ var highscores;
 //Funktion, damit Scores auf der Seite angezeigt werden
 //Bekommt als Parameter das Array, das die Scores enthaelt
 function showScores(array) {
+  //Alte Eintraege entfernen
+  document.getElementById('localscores').innerHTML = '<b>Local:</b>';
+  //Platzierung startet bei 1
   var platz = 1;
   //Da Array aufsteigend sortiert ist, durchlaufen wir rueckwaerts
   for (var i = array.length - 1; i > 0; i--) {
+    //Platzierung in String umwandeln
     var platzierung = platz.toString();
+    //Neuen Paragraphen erstellen
     createP(platzierung + '.' + ' ' + array[i]).parent('localscores');
+    //Platzierung hochzaehlen
     platz++;
   }
   //Konsolenausgabe
@@ -32,6 +38,7 @@ function HolEintraege() {
   //Wenn es kein Array gibt, dann erstelle eines (wenn es keine Eintraege gibt)
 	if (!eintraegeArray) {
 		eintraegeArray = [];
+    eintraegeArray.push(graphics.score.toString());
 		localStorage.setItem('eintraegeArray', JSON.stringify(eintraegeArray));
 	}
   //Gibt es Eintraege, dann speichere sie im Array
