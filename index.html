@@ -73,8 +73,9 @@
           $('#downarrow').click( function(event) {
             //Nur wenn das Spiel laeuft, funktioniert die Steuerung
             if (running) {
-              //Event ausloesen
-
+              //Event ausloesen (2 fuer Key Event, 40 ist Pfeiltaste unten)
+              trigger_touchbedienung(2, document, 40);
+              console.log("Touchbedienung triggered");
             }
           });
           //Button, der Bewegung rechts ausloesen soll
@@ -140,7 +141,7 @@
           var touche = $.Event('keyPressed');
           touche.keyCode = code;
           //	elem z.B.: 'input#new_name'
-          $( elem ).trigger('keyPressed');
+          $( elem ).trigger(touche);
         }
         else {
           return false;
