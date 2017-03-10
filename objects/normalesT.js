@@ -30,7 +30,7 @@ function NormalesT() {
   this.moveLeftPossible = false;
   //Funktion zum Anzeigen
   this.display = function() {
-    this.x = round(this.x);
+
     //Wenn das Objekt senkrecht ist
     if (this.senkrecht) {
       //bewegt sich der Block noch, wird dies ausgefuehrt
@@ -158,7 +158,7 @@ function NormalesT() {
   }
   //Funktion zum Drehen
   this.drehen = function() {
-    this.x = round(this.x);
+
     //Variable als Hilfe, damit Hoehe und Breite getauscht werden koennen
     var tauschen = this.hoehe;
     //Wenn es senkrecht ist, wird es quer
@@ -236,7 +236,7 @@ function NormalesT() {
   }
   //Funktion zum schnellen Fallenlassen eines Objektes
   this.freierFall = function() {
-    this.x = round(this.x);
+
     //Ausgehend vom aktuellen y Wert (abgerundet mit floor) unter dem Stein werden alle Felder dieser Spalte durchlaufen
     for (var i = floor(this.y); i < graphics.bloeckeProSpalte; i++) {
       //wenn der Stein senkrecht steht
@@ -358,7 +358,7 @@ function NormalesT() {
     }
   //Funktion fuer das automatische runterfallen
   this.gravity = function() {
-    this.x = round(this.x);
+
     this.yCounter += speed;
     //Wenn der Stein senkrecht ist
     if (this.senkrecht) {
@@ -444,7 +444,7 @@ function NormalesT() {
   }
   //Funktion zum Pruefen, ob ausreichend Platz ist, um das Objekt zu erzeugen
   this.createNewObjectIsPossible = function() {
-    this.x = round(this.x);
+
     //Es werden die Felder ueberprueft, wo das Objekt erzeugt werden wuerde, wenn diese Felder frei sind
     if (!(graphics.gridArray[round(this.y)][this.x] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x] < 0) &&
     !(graphics.gridArray[round(this.y + 2)][this.x] < 0) && !(graphics.gridArray[round(this.y + 1)][this.x - 1] < 0)) {
@@ -459,7 +459,7 @@ function NormalesT() {
   }
   //Funktion, die prueft, ob man sich bewegen darf
   this.movementPossible = function() {
-    this.x = round(this.x);
+
     //links
     //Wenn der Stein senkrecht ist
     if (this.senkrecht) {

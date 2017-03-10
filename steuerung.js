@@ -1,8 +1,11 @@
+//Variable, die zu schnelles Bewegen verhindert
+var bewegenOK = true;
+var einfachBewegt;
 //Konstruktor Funktion (bekommt das zu steuernde Objekt uebergeben)
 function Steuerung(object) {
   //Fuer erweiterte Steuerung (Bewegungen nach links und rechts)
-  this.xLeft = object.x;
-  this.xRight = object.x ;
+  this.xLeft = object.x - 1;
+  this.xRight = object.x + 1;
   //Funktion zum Steuern nach links und rechts (einfacher Tastendruck)
   this.steuerungLR = function() {
     //Spiel kann mit der Taste p oder Enter pausiert bzw. fortgesetzt werden
@@ -15,15 +18,19 @@ function Steuerung(object) {
     //Oder wenn das Objekt kurz vor der Platzierung ist, kann noch kurz eine letzte Bewegung durchgefuehrt werden
     if ((running && object.isMoving) || (running && object.lastMove)) {
       //Bewegung nach links mit Pfeiltaste links oder a
-      if (keyCode == LEFT_ARROW || keyCode == 65) {
+      if ((keyCode == LEFT_ARROW || keyCode == 65) && bewegenOK) {
         object.bewegungLinks();
+        einfachBewegt = true;
+        setTimeout(function() {einfachBewegt = false}, 200);
       }
       //Bewegung nach rechts mit Pfeiltaste rechts oder d
-      else if (keyCode == RIGHT_ARROW || keyCode == 68) {
+      else if ((keyCode == RIGHT_ARROW || keyCode == 68) && bewegenOK) {
         object.bewegungRechts();
+        einfachBewegt = true;
+        setTimeout(function() {einfachBewegt = false}, 200);
       }
       //Drehen eines Objektes mittels Pfeiltaste hoch oder w
-      else if ((keyCode == UP_ARROW || keyCode == 87) && (!(keyIsDown(LEFT_ARROW) || keyIsDown(65)) && !(keyIsDown(RIGHT_ARROW) || keyIsDown(68)))) {
+      else if ((keyCode == UP_ARROW || keyCode == 87)) {
         object.drehen();
       }
       //Leertaste fuer den freien Fall
@@ -89,32 +96,26 @@ function Steuerung(object) {
       //Fuer links
       if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) {
         //Erst pruefen, ob eine Bewegung moeglich ist
-        if (object.moveLeftPossible) {
+        if (object.moveLeftPossible && bewegenOK && !einfachBewegt) {
+          //Nachdem bewegt wurde, darf fuer ein paar Millisekunden nicht wieder bewegt werden
+          bewegenOK = false;
           //Dann bewegen
-          this.xLeft -= 0.08;
-          object.x = round(this.xLeft);
+          object.x -= 1;
+          //Die Bewegung soll aber nicht zu schnell sein
+          setTimeout(function() {bewegenOK = true}, 200);
         }
-      }
-      //Sobald die Bewegung nicht weiter moeglich ist
-      else {
-        //Setze die Variable xLeft zurueck auf den Ausgangswert
-        this.xLeft = object.x;
       }
       //Fuer rechts
       if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) {
         //Erst pruefen, ob eine Bewegung moeglich ist
-        if (object.moveRightPossible) {
+        if (object.moveRightPossible && bewegenOK && !einfachBewegt) {
+          //Nachdem bewegt wurde, darf fuer ein paar Millisekunden nicht wieder bewegt werden
+          bewegenOK = false;
           //Dann bewegen
-          this.xRight += 0.08;
-          object.x = round(this.xRight);
-          // object.x += 1;
-          // setTimeout()
+          object.x += 1;
+          //Die Bewegung soll aber nicht zu schnell sein
+          setTimeout(function() {bewegenOK = true}, 200);
         }
-      }
-      //Sobald die Bewegung nicht weiter moeglich ist
-      else {
-        //Setze die Variable xLeft zurueck auf den Ausgangswert
-        this.xRight = object.x;
       }
     }
   }
