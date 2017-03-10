@@ -62,6 +62,10 @@ function GUI() {
     this.updateRows(index);
     //Der Score wird erhoeht, da eine volle Reihe zustande gekommen ist
     this.updateScore();
+    //Score Anzeige updaten
+    realTimeScore();
+    //Anzeigen
+    showScores(bubbleSort(HolEintraege()));
   }
   //Funktion zum Zeichnen der Objekte
   this.drawObjects = function() {
@@ -130,7 +134,8 @@ function GUI() {
     //Pruefen, ob der Browser local storage unterstuetzt
     if (typeof(Storage) !== "undefined") {
       //Wenn ja, dann speichere Scores und zeige sie an
-      storeScore();
+      //Score Anzeige updaten
+      realTimeScore();
       showScores(bubbleSort(HolEintraege()));
     }
     //Wenn nicht, dann alert

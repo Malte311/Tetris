@@ -102,3 +102,26 @@ function bubbleSort(array) {
 function clearStorage() {
   localStorage.clear();
 }
+//Funktion, fuer Echtzeit Anzeige
+function realTimeScore() {
+  //Der erreichte Score Wert als String
+  var value = graphics.score.toString();
+  //Erst pruefen, ob bereits 10 Scorewerte gespeichert wurden
+  //Wenn nicht, kann der Score immer gespeichert werden
+  if (highscores.length <= anzahlScores) {
+    //Neuen Wert ins Array packen
+    highscores[highscores.length - 1] = value;
+    //Im lokalen Speicher ablegen
+    localStorage.setItem('eintraegeArray', JSON.stringify(highscores));
+  }
+  //Wenn es bereits 10 Eintraege gibt
+  else {
+    //Nur wenn Score besser ist, als der schlechteste, soll gespeichert werden
+    if (graphics.score > highscores[highscores.length - 1]) {
+      //Den schlechtesten Score entfernen
+      highscores[highscores.length - 1] = value;
+      //Im lokalen Speicher ablegen
+      localStorage.setItem('eintraegeArray', JSON.stringify(highscores));
+    }
+  }
+}

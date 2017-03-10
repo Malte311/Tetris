@@ -56,6 +56,7 @@ function setup() {
   //Pruefen, ob der Browser local storage unterstuetzt
   if (typeof(Storage) !== "undefined") {
     //Wenn ja, dann zeige die Scores an
+    addScore();
     showScores(bubbleSort(HolEintraege()));
   }
   //Wenn nicht, dann alert
