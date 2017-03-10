@@ -74,9 +74,12 @@
           $('#downarrow').click( function(event) {
             //Nur wenn das Spiel laeuft, funktioniert die Steuerung
             if (running) {
-              //Event ausloesen (2 fuer Key Event, 40 ist Pfeiltaste unten)
-              trigger_touchbedienung(2, document, 40);
-              console.log("Touchbedienung triggered");
+              //Provisorische Loesung, funktioniert auch
+              //Fallgeschwindigkeit erhoehen
+              speed = 0.35;
+              defaultSpeed = 0.35;
+              //Nach paar Millisekunden wieder resetten
+              setTimeout(function() { speed = resetSpeed; defaultSpeed = resetSpeed; }, 150);
             }
           });
           //Button, der Bewegung rechts ausloesen soll

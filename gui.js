@@ -293,26 +293,31 @@ function GUI() {
     switch (level) {
       //Level 1
       case 1:
+        resetSpeed = 0.03;
         defaultSpeed = 0.03;
         speed = 0.03;
         break;
       //Level 2
       case 2:
+        resetSpeed = 0.04;
         defaultSpeed = 0.04;
         speed = 0.04;
         break;
       //Level 3
       case 3:
-        defaultSpeed = 0.055;
-        speed = 0.055;
+        resetSpeed = 0.06;
+        defaultSpeed = 0.06;
+        speed = 0.06;
         break;
       //Level 4
       case 4:
+        resetSpeed = 0.08;
         defaultSpeed = 0.08;
         speed = 0.08;
         break;
       //Level 5
       case 5:
+        resetSpeed = 0.15;
         defaultSpeed = 0.15;
         speed = 0.15;
         break;

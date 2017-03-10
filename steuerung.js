@@ -1,6 +1,9 @@
 //Variable, die zu schnelles Bewegen verhindert
 var bewegenOK = true;
+//Wenn die Taste nur kurz gedrueckt wird, soll bewegt werden, aber nur um ein Feld
 var einfachBewegt;
+//Fuer den Button zum Runterfallen
+var resetSpeed = 0.03;
 //Konstruktor Funktion (bekommt das zu steuernde Objekt uebergeben)
 function Steuerung(object) {
   //Fuer erweiterte Steuerung (Bewegungen nach links und rechts)
@@ -20,14 +23,18 @@ function Steuerung(object) {
       //Bewegung nach links mit Pfeiltaste links oder a
       if ((keyCode == LEFT_ARROW || keyCode == 65) && bewegenOK) {
         object.bewegungLinks();
+        //Da jetzt bereits einfach bewegt wurde, soll die Funktion fuer das gedrueckt halten noch kurz warten
         einfachBewegt = true;
-        setTimeout(function() {einfachBewegt = false}, 200);
+        //Dafuer ein Timeout
+        setTimeout(function() {einfachBewegt = false}, 150);
       }
       //Bewegung nach rechts mit Pfeiltaste rechts oder d
       else if ((keyCode == RIGHT_ARROW || keyCode == 68) && bewegenOK) {
         object.bewegungRechts();
+        //Da jetzt bereits einfach bewegt wurde, soll die Funktion fuer das gedrueckt halten noch kurz warten
         einfachBewegt = true;
-        setTimeout(function() {einfachBewegt = false}, 200);
+        //Dafuer ein Timeout
+        setTimeout(function() {einfachBewegt = false}, 150);
       }
       //Drehen eines Objektes mittels Pfeiltaste hoch oder w
       else if ((keyCode == UP_ARROW || keyCode == 87)) {
@@ -102,7 +109,7 @@ function Steuerung(object) {
           //Dann bewegen
           object.x -= 1;
           //Die Bewegung soll aber nicht zu schnell sein
-          setTimeout(function() {bewegenOK = true}, 200);
+          setTimeout(function() {bewegenOK = true}, 150);
         }
       }
       //Fuer rechts
@@ -114,7 +121,7 @@ function Steuerung(object) {
           //Dann bewegen
           object.x += 1;
           //Die Bewegung soll aber nicht zu schnell sein
-          setTimeout(function() {bewegenOK = true}, 200);
+          setTimeout(function() {bewegenOK = true}, 150);
         }
       }
     }
