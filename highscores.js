@@ -10,7 +10,7 @@ function showScores(array) {
   //Platzierung startet bei 1
   var platz = 1;
   //Da Array aufsteigend sortiert ist, durchlaufen wir rueckwaerts
-  for (var i = array.length - 1; i > 0; i--) {
+  for (var i = array.length - 1; i >= 0; i--) {
     //Platzierung in String umwandeln
     var platzierung = platz.toString();
     //Neuen Paragraphen erstellen
@@ -58,7 +58,7 @@ function addScore() {
 	var value = graphics.score.toString();
   //Erst pruefen, ob bereits 10 Scorewerte gespeichert wurden
   //Wenn nicht, kann der Score immer gespeichert werden
-  if (eintraegeArray.length <= anzahlScores) {
+  if (eintraegeArray.length < anzahlScores) {
     //Neuen Wert ins Array packen
     eintraegeArray.push(value);
     //Im lokalen Speicher ablegen
@@ -108,7 +108,7 @@ function realTimeScore() {
   var value = graphics.score.toString();
   //Erst pruefen, ob bereits 10 Scorewerte gespeichert wurden
   //Wenn nicht, kann der Score immer gespeichert werden
-  if (highscores.length <= anzahlScores) {
+  if (highscores.length < anzahlScores) {
     //Neuen Wert ins Array packen
     highscores[highscores.length - 1] = value;
     //Im lokalen Speicher ablegen
