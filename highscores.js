@@ -39,7 +39,7 @@ function HolEintraege() {
   var eintraegeArray = localStorage.getItem('eintraegeArray');
   //Wenn es kein Array gibt, dann erstelle eines (wenn es keine Eintraege gibt)
 	if (!eintraegeArray) {
-		eintraegeArray = [];
+		eintraegeArray = ['0', '0', '0', '0', '0', '0', '0', '0', '0'];
     eintraegeArray.push(graphics.score.toString());
 		localStorage.setItem('eintraegeArray', JSON.stringify(eintraegeArray));
 	}
@@ -47,8 +47,8 @@ function HolEintraege() {
   else {
 		eintraegeArray = JSON.parse(eintraegeArray);
 	}
-  //Gib die Eintraege zurueck
-	return eintraegeArray;
+  //Gib die Eintraege zurueck (sortiert)
+	return bubbleSort(eintraegeArray);
 }
 //Funktion zum Score hinzufuegen
 function addScore() {
@@ -77,11 +77,14 @@ function addScore() {
     }
   }
   //Das Array mit den Eintraegen in highscores speichern
-  highscores = eintraegeArray;
+  highscores = bubbleSort(eintraegeArray);
 }
 //Funktion zum Sortieren (source: http://www.stoimen.com/blog/2010/07/09/friday-algorithms-javascript-bubble-sort/)
 //bekommt das zur sortierende Array als Parameter uebergeben
 function bubbleSort(array) {
+  for (var k = 0; k < array.length; k++) {
+    array[k] = parseInt(array[k]);
+  }
   var swapped;
   do {
     swapped = false;
@@ -94,6 +97,9 @@ function bubbleSort(array) {
       }
     }
   } while (swapped);
+  for (var j = 0; j < array.length; j++) {
+    array[j] = array[j].toString();
+  }
   //Gib das sortierte Array zurueck
   return array;
 }
@@ -110,16 +116,16 @@ function realTimeScore() {
   //Wenn nicht, kann der Score immer gespeichert werden
   if (highscores.length < anzahlScores) {
     //Neuen Wert ins Array packen
-    highscores[highscores.length - 1] = value;
+    highscores[0] = value;
     //Im lokalen Speicher ablegen
     localStorage.setItem('eintraegeArray', JSON.stringify(highscores));
   }
   //Wenn es bereits 10 Eintraege gibt
   else {
     //Nur wenn Score besser ist, als der schlechteste, soll gespeichert werden
-    if (graphics.score > highscores[highscores.length - 1]) {
+    if (graphics.score > highscores[0]) {
       //Den schlechtesten Score entfernen
-      highscores[highscores.length - 1] = value;
+      highscores[0] = value;
       //Im lokalen Speicher ablegen
       localStorage.setItem('eintraegeArray', JSON.stringify(highscores));
     }
