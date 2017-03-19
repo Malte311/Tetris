@@ -165,7 +165,6 @@ function GUI() {
   }
   //Funktion zum Updaten der Scoreanzeige
   this.updateScore = function() {
-    console.log(highscores);
     //Fuer jeden Stein, der entfernt wird, gibt es einen Punkt
     this.score += this.bloeckeProZeile;
     //Anpassen des x-Wertes, falls der Scorewert mehrstellig wird
